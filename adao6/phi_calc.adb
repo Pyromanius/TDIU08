@@ -1,7 +1,7 @@
 with Ada.Text_IO;         use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
-procedure adao6 is
+procedure phi_calc is
     N, H : Integer;
 
     function Fib (N : in Integer) return Integer is
@@ -47,5 +47,5 @@ begin
     Put(Pyramid(H-1), Width=>1);
     Put(" stenar för att bygga trappan.");
     New_Line;
-    adao6;
-end adao6;
+    phi_calc;
+end phi_calc;
