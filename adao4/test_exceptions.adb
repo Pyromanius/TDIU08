@@ -9,7 +9,7 @@
 --  Viktigt för uppgiften:
 --**    Ordning av kodens olika delar
 --**    Parametrar i underprogram har felaktig mod
---    Felaktig hantering av upprepning
+--**    Felaktig hantering av upprepning
 --    Duplicering av kod
 --    Onaturligt eller felaktigt formulerade if-satser
 --    Mellanlagring av data i variabler är INTE BRA i vissa fall. Ger minskad läsbarhet 
@@ -67,41 +67,50 @@ procedure Test_Exceptions is
 
       Value, Min, Max : Integer;
 
-      procedure Get_Safe (Value    : in out Integer;
-                          Min, Max : in     Integer) is
+      function Get_Safe (Value    :    out Integer;
+                         Min, Max : in     Integer) return boolean is
                                              
       begin
-         Put("Mata in värde (");
-         Put(Min, Width=>1);
-         Put(" - ");
-         Put(Max, Width=>1);
-         Put("): ");
 
-         Get(Value);
+         loop
+            Put("Mata in värde (");
+            Put(Min, Width=>1);
+            Put(" - ");
+            Put(Max, Width=>1);
+            Put("): ");
 
-         if Value < Min then
-            Put("För litet värde. ");
-            Get_Safe(Value, Min, Max);
-         elsif Value > Max then
-            Put("För stort värde. ");
-            Get_Safe(Value, Min, Max);
-         end if;
+            Get(Value);
+
+            if Value not in Min..Max then
+               Put("För ");
+               
+               if Value > Max then
+                  Put("stort ");
+               elsif Value < Min then
+                  Put("litet ");
+               end if;
+
+               Put("värde. ");
+
+            else  
+               return true;
+            end if;
+         end loop;
 
       exception 
          when Data_Error => 
             Put("Fel datatyp. ");
-            Skip_Line;
-            Get_Safe(Value, Min, Max);
-
+            return false;
       end Get_Safe; 
 
    begin      
       Put("Mata in Min och Max: ");
       Get(Min);
       Get(Max);
-      
-      Get_Safe(Value, Min, Max);
-      Skip_Line;
+
+      while Get_Safe(Value, Min, Max) = false loop
+         Skip_Line;
+      end loop;
       
       Put("Du matade in heltalet ");
       Put(Value, Width => 0);
@@ -191,7 +200,7 @@ procedure Test_Exceptions is
       Format_Error, Day_Error, Month_Error, Year_Error : exception;
       S : String(1..10);
 
-      procedure Put(Item : in Date_Type) is
+      procedure Put(Item : in     Date_Type) is
 
       begin
          Put(Item.Year, Width=>0);
@@ -211,9 +220,9 @@ procedure Test_Exceptions is
          Put(Item.Day, Width=>0);
       end Put;
 
-      procedure Get(Item : in out Date_Type) is
+      procedure Get(Item :    out Date_Type) is
 
-         function LeapYear_Check (Item : in Date_Type) return Boolean is
+         function LeapYear_Check (Item : in     Date_Type) return Boolean is
 
          begin
             if Item.Day = 29 and Item.Month = 2 then
@@ -227,7 +236,7 @@ procedure Test_Exceptions is
             end if;         
          end LeapYear_Check;
 
-         procedure Date_Check (Item : in Date_Type) is
+         procedure Date_Check (Item : in     Date_Type) is
 
          begin
             if Item.Year not in 1532..9000 then
@@ -355,7 +364,5 @@ begin
 
 exception
    when Length_Error =>
-      Put("För få inmatade tecken!");
-      New_Line;       
-         
+      Put("För få inmatade tecken!");     
 end Test_Exceptions;
