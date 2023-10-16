@@ -9,10 +9,11 @@
 --  Viktigt för uppgiften:
 --**    Ordning av kodens olika delar
 --**    Parametrar i underprogram har felaktig mod
---**    Felaktig hantering av upprepning
---    Duplicering av kod
---    Onaturligt eller felaktigt formulerade if-satser
---    Mellanlagring av data i variabler är INTE BRA i vissa fall. Ger minskad läsbarhet 
+--**    Felaktig hantering av upprepning (vid undantag?)
+--**    Duplicering av kod
+--**    Onaturligt eller felaktigt formulerade if-satser
+--**    Mellanlagring av data i variabler är INTE BRA i vissa fall. Ger minskad läsbarhet 
+--       (Var det 'Item' i LeapYear?)
 
 --  Tips:
 --**    End_Of_Line är en funktion och bör därmed inte användas som ett variabelnamn.
@@ -128,7 +129,7 @@ procedure Test_Exceptions is
    -- Get_Correct_String kasta/resa undantag vilket inte ska           --
    -- fångas här utan i huvudprogrammet.                               --
    ----------------------------------------------------------------------
-   procedure Get_Correct_String(S :    out String) is
+   function Get_Correct_String(S :    out String) return Boolean is
 
       C : Character;
       EOL : Boolean := false;
@@ -160,6 +161,8 @@ procedure Test_Exceptions is
       if I < S'Length then
          raise Length_Error;
       end if;
+
+      return true;
       
    end Get_Correct_String;
 
@@ -172,8 +175,10 @@ procedure Test_Exceptions is
       Put(Length, Width => 0);
       Put(" tecken: ");
       
-      Get_Correct_String(S);
-      
+      while Get_Correct_String(S) = false loop
+         Skip_Line;
+      end loop;
+
       Skip_Line;
       Put_Line("Du matade in strängen " & S & ".");
 
@@ -222,17 +227,17 @@ procedure Test_Exceptions is
 
       procedure Get(Item :    out Date_Type) is
 
-         function LeapYear_Check (Item : in     Date_Type) return Boolean is
+         function LeapYear_Check return Boolean is
 
          begin
             if Item.Day = 29 and Item.Month = 2 then
-               if ((Item.Year rem 4 = 0) and (Item.Year rem 100 /= 0)) or Item.Year rem 400 = 0 then
-                  return True;
+               if ((Item.Year rem 4 = 0) and (Item.Year rem 100 /= 0)) or (Item.Year rem 400 = 0) then
+                  return true;
                else
-                  return False;
+                  return false;
                end if;
             else
-               return True;
+               return true;
             end if;         
          end LeapYear_Check;
 
@@ -259,7 +264,7 @@ procedure Test_Exceptions is
                raise Day_Error;
             end if;
 
-            if LeapYear_Check(Item) = false then
+            if LeapYear_Check = false then
                raise Day_Error;
             end if;            
          end Date_Check;
@@ -267,7 +272,9 @@ procedure Test_Exceptions is
       begin
          Length := 10;
 
-         Get_Correct_String(S);
+         while Get_Correct_String(S) = false loop
+            Skip_Line;
+         end loop;
 
          if (S(5) /= '-') or (S(8) /= '-') then
             raise Format_Error;
