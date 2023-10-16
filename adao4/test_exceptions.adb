@@ -1,23 +1,4 @@
 --Antgu873: Arbetat enskilt
-
-------------------KOMPLETTERINGAR
---  Krav för uppgiften:
---**    Använd ej sådant som ej ingår i kursen
---**    Användning av globala variabler
---    Prata med assistent
-
---  Viktigt för uppgiften:
---**    Ordning av kodens olika delar
---**    Parametrar i underprogram har felaktig mod
---**    Felaktig hantering av upprepning (vid undantag?)
---**    Duplicering av kod
---**    Onaturligt eller felaktigt formulerade if-satser
---**    Mellanlagring av data i variabler är INTE BRA i vissa fall. Ger minskad läsbarhet 
---       (Var det 'Item' i LeapYear?)
-
---  Tips:
---**    End_Of_Line är en funktion och bör därmed inte användas som ett variabelnamn.
-
 with Ada.Text_IO;          use Ada.Text_IO;
 with Ada.Integer_Text_IO;  use Ada.Integer_Text_IO;
 
@@ -45,10 +26,10 @@ procedure Test_Exceptions is
       Put_Line("4. Avsluta programmet");
       
       loop
-	 Put("Mata in N: ");
-	 Get(N);
-	 exit when N in 1 .. 4;	 
-	 Put_Line("Felaktigt N, mata in igen!");
+         Put("Mata in N: ");
+         Get(N);
+         exit when N in 1 .. 4;	 
+         Put_Line("Felaktigt N, mata in igen!");
       end loop;
       
       return N;
@@ -72,7 +53,6 @@ procedure Test_Exceptions is
                          Min, Max : in     Integer) return boolean is
                                              
       begin
-
          loop
             Put("Mata in värde (");
             Put(Min, Width=>1);
@@ -84,7 +64,7 @@ procedure Test_Exceptions is
 
             if Value not in Min..Max then
                Put("För ");
-               
+
                if Value > Max then
                   Put("stort ");
                elsif Value < Min then
@@ -92,7 +72,6 @@ procedure Test_Exceptions is
                end if;
 
                Put("värde. ");
-
             else  
                return true;
             end if;
@@ -241,7 +220,7 @@ procedure Test_Exceptions is
             end if;         
          end LeapYear_Check;
 
-         procedure Date_Check (Item : in     Date_Type) is
+         procedure Date_Check is
 
          begin
             if Item.Year not in 1532..9000 then
@@ -291,20 +270,15 @@ procedure Test_Exceptions is
          for I in 1..2 loop
             if S(I+5) not in '0'..'9' then
                raise Format_Error;
-            end if;
-         end loop;
-
-         Item.Month := Integer'Value(S(6..7));
-
-         for I in 1..2 loop
-            if S(I+8) not in '0'..'9' then
+            elsif S(I+8) not in '0'..'9' then
                raise Format_Error;
             end if;
          end loop;
 
+         Item.Month := Integer'Value(S(6..7));
          Item.Day := Integer'Value(S(9..10));
 
-         Date_Check(Item);
+         Date_Check;
 
       end Get;
 
