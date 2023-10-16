@@ -1,44 +1,30 @@
 --Antgu873: Arbetat enskilt
+
+------------------KOMPLETTERINGAR
+--  Krav för uppgiften:
+--**    Använd ej sådant som ej ingår i kursen
+--**    Användning av globala variabler
+--    Prata med assistent
+
+--  Viktigt för uppgiften:
+--**    Ordning av kodens olika delar
+--**    Parametrar i underprogram har felaktig mod
+--    Felaktig hantering av upprepning
+--    Duplicering av kod
+--    Onaturligt eller felaktigt formulerade if-satser
+--    Mellanlagring av data i variabler är INTE BRA i vissa fall. Ger minskad läsbarhet 
+
+--  Tips:
+--**    End_Of_Line är en funktion och bör därmed inte användas som ett variabelnamn.
+
 with Ada.Text_IO;          use Ada.Text_IO;
 with Ada.Integer_Text_IO;  use Ada.Integer_Text_IO;
-with Ada.Strings.Fixed;    use Ada.Strings.Fixed;
 
 procedure Test_Exceptions is
 
-      Length : Integer;
-      Length_Error : exception;
+   Length : Integer;
+   Length_Error : exception;
 
-   procedure Get_Correct_String(S : in out String) is
-
-      C : Character;
-      End_Of_Line : Boolean := false;
-      I : Integer;
-
-   begin
-      I := 1;
-      Get(C);
-
-      while C = ' ' or End_Of_Line = true loop
-         Look_Ahead(C, End_Of_Line);
-         Get(C);
-      end loop;
-
-      S(1) := C;
-
-      for X in 2..Length loop
-         Look_Ahead(C, End_Of_Line);
-            if End_Of_Line = false then
-               Get(C);
-               S(X) := C;
-               I := I + 1;
-            end if;
-      end loop;
-
-      if I < Length then
-         raise Length_Error;
-      end if;
-      
-   end Get_Correct_String;
    
    ----------------------------------------------------------------------
    -- Underprogram för att skriva ut meny och hantera menyval          --
@@ -81,31 +67,33 @@ procedure Test_Exceptions is
 
       Value, Min, Max : Integer;
 
-   procedure Get_Safe (Value    : in out Integer;
-                       Min, Max : in     Integer) is                   
-   begin
-      Put("Mata in värde (");
-      Put(Min, Width=>1);
-      Put(" - ");
-      Put(Max, Width=>1);
-      Put("): ");
-      Get(Value);
+      procedure Get_Safe (Value    : in out Integer;
+                          Min, Max : in     Integer) is
+                                             
+      begin
+         Put("Mata in värde (");
+         Put(Min, Width=>1);
+         Put(" - ");
+         Put(Max, Width=>1);
+         Put("): ");
 
-      if Value < Min then
-         Put("För litet värde. ");
-         Get_Safe(Value, Min, Max);
-      elsif Value > Max then
-         Put("För stort värde. ");
-         Get_Safe(Value, Min, Max);
-      end if;
+         Get(Value);
 
-   exception 
-      when Data_Error => 
-         Put("Fel datatyp. ");
-         Skip_Line;
-         Get_Safe(Value, Min, Max);
+         if Value < Min then
+            Put("För litet värde. ");
+            Get_Safe(Value, Min, Max);
+         elsif Value > Max then
+            Put("För stort värde. ");
+            Get_Safe(Value, Min, Max);
+         end if;
 
-   end Get_Safe; 
+      exception 
+         when Data_Error => 
+            Put("Fel datatyp. ");
+            Skip_Line;
+            Get_Safe(Value, Min, Max);
+
+      end Get_Safe; 
 
    begin      
       Put("Mata in Min och Max: ");
@@ -118,7 +106,7 @@ procedure Test_Exceptions is
       Put("Du matade in heltalet ");
       Put(Value, Width => 0);
       Put_Line(".");
-end Upg1;
+   end Upg1;
 
 
    ----------------------------------------------------------------------
@@ -131,6 +119,41 @@ end Upg1;
    -- Get_Correct_String kasta/resa undantag vilket inte ska           --
    -- fångas här utan i huvudprogrammet.                               --
    ----------------------------------------------------------------------
+   procedure Get_Correct_String(S :    out String) is
+
+      C : Character;
+      EOL : Boolean := false;
+      I : Integer;
+
+   begin
+      I := 1;
+
+      Get(C);
+
+      while (C = ' ') or (EOL = true) loop
+
+         Look_Ahead(C, EOL);
+         Get(C);
+      end loop;
+
+      S(1) := C;
+
+      for X in 2..S'Length loop
+         Look_Ahead(C, EOL);
+
+         if EOL = false then
+            Get(C);
+            S(X) := C;
+            I := I + 1;
+         end if;
+      end loop;
+
+      if I < S'Length then
+         raise Length_Error;
+      end if;
+      
+   end Get_Correct_String;
+
    procedure Upg2(Length : in Integer) is
       
       S : String(1 .. Length);
@@ -169,6 +192,7 @@ end Upg1;
       S : String(1..10);
 
       procedure Put(Item : in Date_Type) is
+
       begin
          Put(Item.Year, Width=>0);
          Put("-");
@@ -189,7 +213,8 @@ end Upg1;
 
       procedure Get(Item : in out Date_Type) is
 
-         function LeapYear_Check (Item : in Date_Type) return Boolean is         
+         function LeapYear_Check (Item : in Date_Type) return Boolean is
+
          begin
             if Item.Day = 29 and Item.Month = 2 then
                if ((Item.Year rem 4 = 0) and (Item.Year rem 100 /= 0)) or Item.Year rem 400 = 0 then
@@ -203,18 +228,31 @@ end Upg1;
          end LeapYear_Check;
 
          procedure Date_Check (Item : in Date_Type) is
+
          begin
-            if Item.Year < 1532 or Item.Year > 9000 then
+            if Item.Year not in 1532..9000 then
                raise Year_Error; 
             end if;
 
-            if Item.Month < 1 or Item.Month > 12 then
+            if Item.Month not in 1..12 then
                raise Month_Error;
             end if; 
 
-            if (Item.Day < 1 or Item.Day > 31) or ((Item.Day = 31) and (Item.Month = 4 or Item.Month = 6 or Item.Month = 9 or Item.Month = 11)) or ((LeapYear_Check(Item) = false) or (Item.Month = 2 and Item.Day > 29)) then
+            if Item.Day not in 1..31 then
                raise Day_Error;
-            end if;   
+            end if;
+         
+            if (Item.Day = 31) and (Item.Month = 4 or Item.Month = 6 or Item.Month = 9 or Item.Month = 11) then
+               raise Day_Error;
+            end if;
+
+            if (Item.Month = 2 and Item.Day > 29) then 
+               raise Day_Error;
+            end if;
+
+            if LeapYear_Check(Item) = false then
+               raise Day_Error;
+            end if;            
          end Date_Check;
 
       begin
@@ -222,12 +260,12 @@ end Upg1;
 
          Get_Correct_String(S);
 
-         if S(5) /= '-' or S(8) /= '-' then
+         if (S(5) /= '-') or (S(8) /= '-') then
             raise Format_Error;
          end if;
 
          for I in 1..4 loop
-            if S(I) < '0' or S(I) > '9' then
+            if S(I) not in '0'..'9' then
                raise Format_Error;
             end if;
          end loop;
@@ -235,17 +273,19 @@ end Upg1;
          Item.Year := Integer'Value(S(1..4));
 
          for I in 1..2 loop
-            if S(I+5) < '0' or S(I+5) > '9' then
+            if S(I+5) not in '0'..'9' then
                raise Format_Error;
             end if;
          end loop;
+
          Item.Month := Integer'Value(S(6..7));
 
          for I in 1..2 loop
-            if S(I+8) < '0' or S(I+8) > '9' then
+            if S(I+8) not in '0'..'9' then
                raise Format_Error;
             end if;
          end loop;
+
          Item.Day := Integer'Value(S(9..10));
 
          Date_Check(Item);
