@@ -1,5 +1,6 @@
 with Ada.Text_IO;         use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with sorted_list;         use sorted_list;
 
 procedure Test_List is
    Value: Integer;
