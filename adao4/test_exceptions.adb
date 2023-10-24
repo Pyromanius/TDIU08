@@ -7,7 +7,7 @@ with Ada.Integer_Text_IO;  use Ada.Integer_Text_IO;
 
 --    Använd generella attribut 
 
---    Ordning av kodens olika delar 
+--**  Ordning av kodens olika delar 
 
 --    Kodduplicering vid utskrift av dag/månad 
 --    Duplicering av kod 
@@ -194,6 +194,7 @@ procedure Test_Exceptions is
       procedure Put(Item : in     Date_Type) is
 
       begin
+
          Put(Item.Year, Width=>0);
          Put("-");
 
