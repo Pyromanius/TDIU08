@@ -284,10 +284,10 @@ procedure Test_Exceptions is
 
          if LeapYear_Check(Item) = false then
                raise Day_Error;
-         end if; 
+         end if;
       end Get;
 
-   begin 
+   begin       
       Put("Mata in ett datum: ");
       Get(Date);
       
@@ -299,18 +299,18 @@ procedure Test_Exceptions is
       when Day_Error => 
          Put("Felaktig dag! ");
          Skip_Line; 
-         Upg3;
+         --  Upg3;
       when Month_Error => 
          Put("Felaktig månad! ");
          Skip_Line;
-         Upg3;
+         --  Upg3;
       when Year_Error => 
          Put("Felaktigt år! ");
          Skip_Line;
-         Upg3;
+         --  Upg3;
       when Format_Error | Length_Error =>
          Put("Felaktigt format! ");
-         Upg3;           
+         --  Upg3;           
    end Upg3;
    
    ----------------------------------------------------------------------
