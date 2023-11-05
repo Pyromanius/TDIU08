@@ -5,14 +5,14 @@ with Ada.Integer_Text_IO;  use Ada.Integer_Text_IO;
 ------------KOMMENTARER
 --**  Parametrar för funktioner 
 
---    Använd generella attribut 
+--**  Använd generella attribut 
 
 --**  Ordning av kodens olika delar 
 
---    Kodduplicering vid utskrift av dag/månad 
---    Duplicering av kod 
+--**  Kodduplicering vid utskrift av dag/månad 
+--**  Duplicering av kod 
 
---    Onaturligt eller felaktigt formulerade if-satser 
+--**  Onaturligt eller felaktigt formulerade if-satser 
 
 --    Felaktig hantering av upprepning 
 
@@ -120,38 +120,36 @@ procedure Test_Exceptions is
    -- Get_Correct_String kasta/resa undantag vilket inte ska           --
    -- fångas här utan i huvudprogrammet.                               --
    ----------------------------------------------------------------------
+ 
    procedure Get_Correct_String(S :    out String) is
-
+   
       C : Character;
-      EOL : Boolean := false;
-      I : Integer;
+      EOL : Boolean;
+      I : Integer := 1;
 
    begin
-      I := S'First;
-
       Get(C);
 
-      while (C = ' ') or (EOL = true) loop
-         Look_Ahead(C, EOL);
+      while C =' ' loop
          Get(C);
       end loop;
 
-      S(I) := C;
+      S(S'First) := C;
+      Look_Ahead(C, EOL);
 
-      for X in 2..S'Length loop
-         Look_Ahead(C, EOL);
-
-         if EOL = false then
-            Get(C);
-            S(X) := C;
-            I := I + 1;
+      for X in 2..Length loop
+         if not EOL then
+               I := I + 1;
+               Get(C);
+               S(I) := C;
+               Look_Ahead(C, EOL);
          end if;
       end loop;
 
-      if I < S'Length then
+      if I /= Length then
          raise Length_Error;
       end if;
-   end Get_Correct_String;
+    end Get_Correct_string;
 
    procedure Upg2(Length : in     Integer) is
       
@@ -191,6 +189,14 @@ procedure Test_Exceptions is
       Format_Error, Day_Error, Month_Error, Year_Error : exception;
       S : String(1..10);
 
+      procedure addZero(I : in    Integer) is
+      begin
+         if I < 10 then
+            Put("0");
+         end if;
+            Put(I, Width => 1);
+      end addZero;
+
       procedure Put(Item : in     Date_Type) is
 
       begin
@@ -198,18 +204,11 @@ procedure Test_Exceptions is
          Put(Item.Year, Width=>0);
          Put("-");
 
-         if Item.Month < 10 then
-            Put("0");
-         end if;
+         addZero(Item.Month);
 
-         Put(Item.Month, Width=>0);
          Put("-");
 
-         if Item.Day < 10 then
-            Put("0");
-         end if;
-
-         Put(Item.Day, Width=>0);
+         addZero(Item.Day);
       end Put;
 
       function LeapYear_Check(Item : in     Date_Type) return Boolean is
@@ -282,34 +281,37 @@ procedure Test_Exceptions is
 
          Date_Check(Item);
 
-         if LeapYear_Check(Item) = false then
+         if not LeapYear_Check(Item) then
                raise Day_Error;
          end if;
       end Get;
 
-   begin       
+   begin      
+
+--CREATE LOOP HERE
       Put("Mata in ett datum: ");
       Get(Date);
-      
+--END LOOP HERE      
       Put("Du matade in ");
       Put(Date);
       New_Line;
 
    exception
       when Day_Error => 
-         Put("Felaktig dag! ");
+         Put("Felaktig dag!");
          Skip_Line; 
          --  Upg3;
       when Month_Error => 
-         Put("Felaktig månad! ");
+         Put("Felaktig månad!");
          Skip_Line;
          --  Upg3;
       when Year_Error => 
-         Put("Felaktigt år! ");
+         Put("Felaktigt år!");
          Skip_Line;
          --  Upg3;
       when Format_Error | Length_Error =>
-         Put("Felaktigt format! ");
+         Put("Felaktigt format!");
+         New_Line;
          --  Upg3;           
    end Upg3;
    
