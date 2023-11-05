@@ -177,6 +177,7 @@ procedure Test_Exceptions is
       S : String(1..10);
 
       procedure addZero(I : in    Integer) is
+
       begin
          if I < 10 then
             Put("0");
@@ -301,6 +302,7 @@ procedure Test_Exceptions is
          end;  
       end loop;      
    end Upg3;
+
    
    ----------------------------------------------------------------------
    -- Huvudprogram                                                     --
