@@ -14,7 +14,7 @@ with Ada.Integer_Text_IO;  use Ada.Integer_Text_IO;
 
 --**  Onaturligt eller felaktigt formulerade if-satser 
 
---    Felaktig hantering av upprepning 
+--**  Felaktig hantering av upprepning 
 
 --**  Undvik att lägga underprogram i annat underprogram (Get/Put)
 
@@ -183,8 +183,6 @@ procedure Test_Exceptions is
          record
             Year, Month, Day  : Integer;
          end record;
-
-
       Date : Date_Type;
       Format_Error, Day_Error, Month_Error, Year_Error : exception;
       S : String(1..10);
@@ -249,6 +247,18 @@ procedure Test_Exceptions is
          end if;                       
       end Date_Check;
 
+      procedure Format_Check (S    : in     String; 
+                              X, Y : in     Integer) is
+      begin
+
+         for I in X..Y loop
+            if S(I) < '0' or S(I) > '9' then
+               raise Format_Error;
+            end if;
+         end loop;
+
+      end Format_Check;
+
       procedure Get(Item :    out Date_Type) is
 
       begin
@@ -260,22 +270,11 @@ procedure Test_Exceptions is
             raise Format_Error;
          end if;
 
-         for I in 1..4 loop
-            if S(I) not in '0'..'9' then
-               raise Format_Error;
-            end if;
-         end loop;
+         Format_Check(S, 1, 4);
+         Format_Check(S, 6, 7);
+         Format_Check(S, 9, 10);
          
          Item.Year := Integer'Value(S(1..4));
-
-         for I in 1..2 loop
-            if S(I+5) not in '0'..'9' then
-               raise Format_Error;
-            elsif S(I+8) not in '0'..'9' then
-               raise Format_Error;
-            end if;
-         end loop;
-
          Item.Month := Integer'Value(S(6..7));
          Item.Day := Integer'Value(S(9..10));
 
@@ -288,31 +287,30 @@ procedure Test_Exceptions is
 
    begin      
 
---CREATE LOOP HERE
-      Put("Mata in ett datum: ");
-      Get(Date);
---END LOOP HERE      
-      Put("Du matade in ");
-      Put(Date);
-      New_Line;
+      loop
+         begin
+            Put("Mata in ett datum: ");
+            Get(Date);
 
-   exception
-      when Day_Error => 
-         Put("Felaktig dag!");
-         Skip_Line; 
-         --  Upg3;
-      when Month_Error => 
-         Put("Felaktig månad!");
-         Skip_Line;
-         --  Upg3;
-      when Year_Error => 
-         Put("Felaktigt år!");
-         Skip_Line;
-         --  Upg3;
-      when Format_Error | Length_Error =>
-         Put("Felaktigt format!");
-         New_Line;
-         --  Upg3;           
+            Put("Du matade in ");
+            Put(Date);
+            New_Line;
+            exit;
+
+         exception
+            when Day_Error => 
+               Put("Felaktig dag! ");
+               Skip_Line;
+            when Month_Error => 
+               Put("Felaktig månad! ");
+               Skip_Line;
+            when Year_Error => 
+               Put("Felaktigt år! ");
+               Skip_Line;
+            when Format_Error | Length_Error =>
+               Put("Felaktigt format! "); 
+         end;  
+      end loop;      
    end Upg3;
    
    ----------------------------------------------------------------------
