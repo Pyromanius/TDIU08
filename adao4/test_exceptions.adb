@@ -2,23 +2,6 @@
 with Ada.Text_IO;          use Ada.Text_IO;
 with Ada.Integer_Text_IO;  use Ada.Integer_Text_IO;
 
-------------KOMMENTARER
---**  Parametrar för funktioner 
-
---**  Använd generella attribut 
-
---**  Ordning av kodens olika delar 
-
---**  Kodduplicering vid utskrift av dag/månad 
---**  Duplicering av kod 
-
---**  Onaturligt eller felaktigt formulerade if-satser 
-
---**  Felaktig hantering av upprepning 
-
---**  Undvik att lägga underprogram i annat underprogram (Get/Put)
-
-
 procedure Test_Exceptions is
 
    Length : Integer;
