@@ -66,31 +66,37 @@ procedure Test_Exceptions is
                        Min, Max : in     Integer) is
                                              
    begin
-      Put("Mata in värde (");
-      Put(Min, Width=>1);
-      Put(" - ");
-      Put(Max, Width=>1);
-      Put("): ");
+      loop
+         begin
+            Put("Mata in värde (");
+            Put(Min, Width=>1);
+            Put(" - ");
+            Put(Max, Width=>1);
+            Put("): ");
 
-      Get(Value);
+            Get(Value);
 
-      if Value not in Min..Max then
-         Put("För ");
+            if Value not in Min..Max then
+               Put("För ");
 
-         if Value > Max then
-            Put("stort ");
-         elsif Value < Min then
-            Put("litet ");
-         end if;
+               if Value > Max then
+                  Put("stort ");
+               elsif Value < Min then
+                  Put("litet ");
+               end if;
 
-         Put("värde. ");
+               Put("värde. ");
 
-         Get_Safe(Value, Min, Max);
-      end if;
+            else
+               exit;
+            end if;
 
-   exception 
-      when Data_Error => 
-         Put("Fel datatyp. ");
+         exception 
+            when Data_Error => 
+               Put("Fel datatyp. ");
+               Skip_Line;
+         end;
+      end loop;
    end Get_Safe; 
 
    procedure Upg1 is
