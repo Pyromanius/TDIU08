@@ -120,22 +120,24 @@ procedure Test_Exceptions is
       Get(C);
 
       while C =' ' loop
+         Look_Ahead(C, EOL);
          Get(C);
       end loop;
 
       S(S'First) := C;
-      Look_Ahead(C, EOL);
 
-      for X in 2..Length loop
+      for X in 2..S'Length loop
+         
+         Look_Ahead(C, EOL);
+         
          if not EOL then
-               I := I + 1;
-               Get(C);
-               S(I) := C;
-               Look_Ahead(C, EOL);
+            Get(C);
+            S(X) := C;
+            I := I + 1;
          end if;
       end loop;
 
-      if I /= Length then
+      if I < S'Length then
          raise Length_Error;
       end if;
     end Get_Correct_string;
@@ -243,6 +245,7 @@ procedure Test_Exceptions is
 
          for I in X..Y loop
             if S(I) < '0' or S(I) > '9' then
+               Put("A.C.E.D.");
                raise Format_Error;
             end if;
          end loop;
@@ -252,11 +255,10 @@ procedure Test_Exceptions is
       procedure Get(Item :    out Date_Type) is
 
       begin
-         Length := 10;
-
          Get_Correct_String(S);
 
          if (S(5) /= '-') or (S(8) /= '-') then
+            Put("- - -");
             raise Format_Error;
          end if;
 
@@ -267,12 +269,12 @@ procedure Test_Exceptions is
          Item.Year := Integer'Value(S(1..4));
          Item.Month := Integer'Value(S(6..7));
          Item.Day := Integer'Value(S(9..10));
-
+         
          Date_Check(Item);
 
          if not LeapYear_Check(Item) then
                raise Day_Error;
-         end if;
+         end if;  
       end Get;
 
    begin      
@@ -280,30 +282,34 @@ procedure Test_Exceptions is
       loop
          begin
             Put("Mata in ett datum: ");
+
+            New_Line;
+            Put(S);
+            New_Line;
+
             Get(Date);
 
             Put("Du matade in ");
             Put(Date);
             New_Line;
             exit;
-
+   
          exception
             when Day_Error => 
                Put("Felaktig dag! ");
-               Skip_Line;
             when Month_Error => 
                Put("Felaktig månad! ");
-               Skip_Line;
             when Year_Error => 
                Put("Felaktigt år! ");
-               Skip_Line;
-            when Format_Error | Length_Error =>
-               Put("Felaktigt format! "); 
+            when Format_Error=> 
+               Put("Felaktigt format! ");
+            when Length_Error =>
+               Put("Felaktig längd! ");
          end;  
       end loop;      
    end Upg3;
 
-   
+
    ----------------------------------------------------------------------
    -- Huvudprogram                                                     --
    --                                                                  --
