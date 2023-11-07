@@ -245,7 +245,6 @@ procedure Test_Exceptions is
 
          for I in X..Y loop
             if S(I) < '0' or S(I) > '9' then
-               Put("A.C.E.D.");
                raise Format_Error;
             end if;
          end loop;
@@ -255,10 +254,10 @@ procedure Test_Exceptions is
       procedure Get(Item :    out Date_Type) is
 
       begin
-         Get_Correct_String(S);
 
+            Get_Correct_String(S);
+         
          if (S(5) /= '-') or (S(8) /= '-') then
-            Put("- - -");
             raise Format_Error;
          end if;
 
@@ -274,7 +273,11 @@ procedure Test_Exceptions is
 
          if not LeapYear_Check(Item) then
                raise Day_Error;
-         end if;  
+         end if;
+
+      exception
+            when Length_Error =>
+               Put("Felaktig längd! ");
       end Get;
 
    begin      
@@ -303,8 +306,6 @@ procedure Test_Exceptions is
                Put("Felaktigt år! ");
             when Format_Error=> 
                Put("Felaktigt format! ");
-            when Length_Error =>
-               Put("Felaktig längd! ");
          end;  
       end loop;      
    end Upg3;
