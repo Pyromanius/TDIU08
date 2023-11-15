@@ -124,7 +124,7 @@ procedure Test_Exceptions is
          Get(C);
       end loop;
 
-      S(S'First) := C;
+      S(I) := C;
 
       for X in 2..S'Length loop
          
@@ -254,9 +254,8 @@ procedure Test_Exceptions is
       procedure Get(Item :    out Date_Type) is
 
       begin
+         Get_Correct_String(S);
 
-            Get_Correct_String(S);
-         
          if (S(5) /= '-') or (S(8) /= '-') then
             raise Format_Error;
          end if;
@@ -264,11 +263,11 @@ procedure Test_Exceptions is
          Format_Check(S, 1, 4);
          Format_Check(S, 6, 7);
          Format_Check(S, 9, 10);
-         
+
          Item.Year := Integer'Value(S(1..4));
          Item.Month := Integer'Value(S(6..7));
          Item.Day := Integer'Value(S(9..10));
-         
+
          Date_Check(Item);
 
          if not LeapYear_Check(Item) then
@@ -276,8 +275,8 @@ procedure Test_Exceptions is
          end if;
 
       exception
-            when Length_Error =>
-               Put("Felaktig längd! ");
+         when Length_Error =>
+            Put("Felaktig längd! ");
       end Get;
 
    begin      
