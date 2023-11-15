@@ -38,7 +38,7 @@ void menu(int &sel)
 
         if ((sel <1) or (sel > 5))
         {
-            cout << "Felaktigt val!" << endl;
+            cout << "Fel val!" << endl;
         }
         else
         {
