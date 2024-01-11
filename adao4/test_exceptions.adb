@@ -285,9 +285,9 @@ procedure Test_Exceptions is
          begin
             Put("Mata in ett datum: ");
 
-            New_Line;
-            Put(S);
-            New_Line;
+--            New_Line;
+--            Put(S);
+--            New_Line;
 
             Get(Date);
 
