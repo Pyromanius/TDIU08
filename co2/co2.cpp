@@ -25,6 +25,47 @@ void prog1()
     cout << "Fakulteten av " << n << " är " << fakul(n) << endl;
 }
 
+void prog2()
+{
+    string text;
+    int multiplier;
+
+    cout << "Mata in en text och ett heltal: ";
+    cin >> text;
+    cin >> multiplier;
+
+    cout << "Den multiplicerade texten är ";
+    for (int i{}; i < multiplier; i++)
+    {
+        cout << text;
+    }
+    cout << endl; 
+}
+
+int Convert_Tal(double &tmp)
+{
+    double conv;
+
+    conv = tmp;
+    return conv;
+}
+
+void prog3()
+{
+    int a;
+    double b;
+
+    cout << "Mata in ett heltal och ett flyttal: ";
+    cin >> a;
+    cin >> b;
+
+    // b = a;
+    a = Convert_Tal(b);
+
+    cout << a << b << endl;
+
+}
+
 void menu(int &sel)
 {
     while (true)
@@ -60,6 +101,14 @@ while (true)
     if (sel == 1)
     {
         prog1();
+    }
+    else if (sel == 2)
+    {
+        prog2();
+    }
+    else if (sel == 3)
+    {
+        prog3();
     }
 }
 }
