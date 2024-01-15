@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int fakul(int &n) 
+int calc_Facul(int &n) 
 {
   int sum {1};
   for (int i = 1; i < (n+1); i++)
@@ -22,7 +22,7 @@ void prog1()
     int n;
     cout << "Skriv in N: ";
     cin >> n;
-    cout << "Fakulteten av " << n << " är " << fakul(n) << endl;
+    cout << "Fakulteten av " << n << " är " << calc_Facul(n) << endl;
 }
 
 void prog2()
@@ -42,7 +42,7 @@ void prog2()
     cout << endl; 
 }
 
-double conv_int(int &tmp)
+double conv_Int(int &tmp)
 {
     double conv;
 
@@ -50,7 +50,7 @@ double conv_int(int &tmp)
     return conv;
 }
 
-int conv_double(double &tmp)
+int conv_Double(double &tmp)
 {
     int conv;
 
@@ -67,8 +67,8 @@ void prog3()
     cin >> a;
     cin >> b;
 
-    cout << "Heltalets värde är nu " << conv_double(b) << endl;
-    cout << "Flyttalets värde är nu " << fixed << setprecision(1) << conv_int(a) << endl;
+    cout << "Heltalets värde är nu " << conv_Double(b) << endl;
+    cout << "Flyttalets värde är nu " << fixed << setprecision(1) << conv_Int(a) << endl;
 }
 
 void menu(int &sel)
