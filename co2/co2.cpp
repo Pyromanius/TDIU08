@@ -42,11 +42,19 @@ void prog2()
     cout << endl; 
 }
 
-int Convert_Tal(double &tmp)
+double conv_int(int &tmp)
 {
     double conv;
 
     conv = tmp;
+    return conv;
+}
+
+int conv_double(double &tmp)
+{
+    int conv;
+
+    conv = ceil(tmp);
     return conv;
 }
 
@@ -59,11 +67,8 @@ void prog3()
     cin >> a;
     cin >> b;
 
-    // b = a;
-    a = Convert_Tal(b);
-
-    cout << a << b << endl;
-
+    cout << "Heltalets värde är nu " << conv_double(b) << endl;
+    cout << "Flyttalets värde är nu " << fixed << setprecision(1) << conv_int(a) << endl;
 }
 
 void menu(int &sel)
