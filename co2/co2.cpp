@@ -115,5 +115,9 @@ while (true)
     {
         prog3();
     }
+    else if (sel == 4)
+    {
+        prog4();
+    }
 }
 }
