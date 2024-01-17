@@ -6,7 +6,6 @@ adao4/adao4.pdf
 adao4/test
 
 adao6/phi_calc.ali
-adao6/phi_calc.adb
 adao6/phi_calc.exe
 adao6/phi_calc.o
 adao6/adao6.pdf
@@ -20,6 +19,7 @@ adao7/adao7.pdf
 adao7/test/test.exe
 adao7/test/test.ali
 adao7/test/test.o
+adao7/test/test
 
 
 co1-1/a.out
