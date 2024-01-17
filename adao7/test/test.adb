@@ -19,7 +19,9 @@ procedure test is
 procedure Insert(I     :        Integer;
                  V     :        Integer;
                  L_New : in out List_Type) is
+
 begin
+
     if L_New = null then
         L_New := new Element_Type'(I, V, null);
     else
@@ -29,6 +31,7 @@ begin
             L_New.NextPtr := new Element_Type'(I, V, null);
         end if;
     end if;
+
 end Insert;
 
 procedure Put(Element_Type : in      List_Type) is
