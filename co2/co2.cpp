@@ -21,11 +21,6 @@ string prog2_multi_text(string &text, int &multiplier)
 {
     string multi_text;
 
-//    cout << "Mata in en text och ett heltal: ";
-//    cin >> text;
-//    cin >> multiplier;
-
-//    cout << "Den multiplicerade texten är ";
     for (int i{}; i < multiplier; i++)
     {
         multi_text += text;
@@ -55,20 +50,11 @@ void prog3_switch_int_double(int &a, double &b)
     int tmp_1; 
     double tmp_2;
 
-//    int a;
-//    double b;
-
-//    cout << "Mata in ett heltal och ett flyttal: ";
-//    cin >> a;
-//    cin >> b;
-
     tmp_1 = conv_double(b);
     tmp_2 = conv_int(a);
     a = tmp_1;
     b = tmp_2;
 
-//    cout << "Heltalets värde är nu " << conv_Double(b) << endl;
-//    cout << "Flyttalets värde är nu " << fixed << setprecision(1) << conv_Int(a) << endl;
 }
 
 void prog4_calc_lengths(int &total_length, double &mean_length)
