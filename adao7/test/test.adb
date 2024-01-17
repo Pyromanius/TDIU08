@@ -48,7 +48,7 @@ begin
     else
         Put("----------");
     end if;
-    
+
 end Put;
 
     L : List_Type := null;
@@ -57,10 +57,12 @@ end Put;
 begin
 
     Put("Mata in L: ");
+
     for I in 1..3 loop
         Get(N);
         Insert(I, N, L);
     end loop;
+    
     New_Line;
 
     Put(L);
