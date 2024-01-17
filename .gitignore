@@ -11,7 +11,9 @@ adao6/phi_calc.o
 adao6/adao6.pdf
 adao7/sorted_list.ali
 adao7/sorted_list.o
-adao7/test/
+adao7/test/test.exe
+adao7/test/test.ali
+adao7/test/test.o
 adao7/test_list.ali
 adao7/test_list.o
 co1-1/a.out
