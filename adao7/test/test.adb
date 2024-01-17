@@ -35,7 +35,9 @@ begin
 end Insert;
 
 procedure Put(Element_Type : in      List_Type) is
+
 begin
+
     if Element_Type /= null then
         Put("L nr ");
         Put(Element_Type.I, Width=>0);
@@ -46,6 +48,7 @@ begin
     else
         Put("----------");
     end if;
+    
 end Put;
 
     L : List_Type := null;
