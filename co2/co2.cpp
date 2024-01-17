@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int calc_Facul(int &n) 
+int prog1_calc_Facul(int &n) 
 {
   int sum {1};
   for (int i = 1; i < (n+1); i++)
@@ -17,32 +17,24 @@ int calc_Facul(int &n)
   return sum;
 }	
 
-void prog1()
+string prog2_multi_text(string &text, int &multiplier)
 {
-    int n;
-    cout << "Skriv in N: ";
-    cin >> n;
-    cout << "Fakulteten av " << n << " är " << calc_Facul(n) << endl;
-}
+    string multi_text;
 
-void prog2()
-{
-    string text;
-    int multiplier;
+//    cout << "Mata in en text och ett heltal: ";
+//    cin >> text;
+//    cin >> multiplier;
 
-    cout << "Mata in en text och ett heltal: ";
-    cin >> text;
-    cin >> multiplier;
-
-    cout << "Den multiplicerade texten är ";
+//    cout << "Den multiplicerade texten är ";
     for (int i{}; i < multiplier; i++)
     {
-        cout << text;
+        multi_text += text;
     }
-    cout << endl; 
+    
+    return multi_text; 
 }
 
-double conv_Int(int &tmp)
+double conv_int(int &tmp)
 {
     double conv;
 
@@ -50,7 +42,7 @@ double conv_Int(int &tmp)
     return conv;
 }
 
-int conv_Double(double &tmp)
+int conv_double(double &tmp)
 {
     int conv;
 
@@ -58,17 +50,37 @@ int conv_Double(double &tmp)
     return conv;
 }
 
-void prog3()
+void prog3_switch_int_double(int &a, double &b)
 {
-    int a;
-    double b;
+    int tmp_1; 
+    double tmp_2;
 
-    cout << "Mata in ett heltal och ett flyttal: ";
-    cin >> a;
-    cin >> b;
+//    int a;
+//    double b;
 
-    cout << "Heltalets värde är nu " << conv_Double(b) << endl;
-    cout << "Flyttalets värde är nu " << fixed << setprecision(1) << conv_Int(a) << endl;
+//    cout << "Mata in ett heltal och ett flyttal: ";
+//    cin >> a;
+//    cin >> b;
+
+    tmp_1 = conv_double(b);
+    tmp_2 = conv_int(a);
+    a = tmp_1;
+    b = tmp_2;
+
+//    cout << "Heltalets värde är nu " << conv_Double(b) << endl;
+//    cout << "Flyttalets värde är nu " << fixed << setprecision(1) << conv_Int(a) << endl;
+}
+
+void prog4_calc_lengths(int &total_length, double &mean_length)
+{
+    string text_1;
+    string text_2;
+
+    cout << "Mata in två ord: ";
+    cin >> text_1 >> text_2;
+
+    total_length = text_1.length() + text_2.length();
+    mean_length = static_cast<double>(total_length)/2;
 }
 
 void menu(int &sel)
@@ -96,7 +108,9 @@ void menu(int &sel)
 int main()
 {
 
-    int sel;
+    int sel, total_length, n, multiplier, a;
+    double mean_length, b;
+    string text;
 
 cout << "Huvudmeny" << endl;
 while (true)
@@ -105,19 +119,29 @@ while (true)
 
     if (sel == 1)
     {
-        prog1();
+        cout << "Skriv in N: ";
+        cin >> n;
+        cout << "Fakulteten av " << n << " är " << prog1_calc_Facul(n) << endl;
     }
     else if (sel == 2)
     {
-        prog2();
+        cout << "Mata in en text och ett heltal: ";
+        cin >> text >> multiplier;
+        cout << "Den multiplicerade texten är " << prog2_multi_text(text, multiplier) << endl;
     }
     else if (sel == 3)
     {
-        prog3();
+        cout << "Mata in ett heltal och ett flyttal: ";
+        cin >> a >> b;
+        prog3_switch_int_double(a, b);
+        cout << "Heltalets värde är nu " << a << endl
+            << "Flyttalets värde är nu " << fixed << setprecision(1) << b << endl;
     }
     else if (sel == 4)
     {
-        prog4();
+        prog4_calc_lengths(total_length, mean_length);
+        cout << "Totallängd: " << total_length << endl
+            << "Medellängd: " << fixed << setprecision(1) << mean_length << endl;
     }
 }
 }
