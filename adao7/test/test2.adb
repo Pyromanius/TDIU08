@@ -2,23 +2,23 @@ with Ada.Text_IO;           use Ada.Text_IO;
 with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
 with Ada.Unchecked_Deallocation;
 
-procedure test is
+procedure test2 is
 
-    type List_Type;
-
-    type List_Ptr is 
-        access List_Type;
+    type Element_Type;
 
     type List_Type is 
+        access Element_Type;
+
+    type Element_Type is 
         record
             I : Integer;
             V : Integer;
-            NextPtr : List_Ptr;
+            NextPtr : List_Type;
         end record;
 
 procedure Insert(I     :        Integer;
                  V     :        Integer;
-                 L_New : in out List_Ptr) is
+                 L_New : in out List_Type) is
 
 begin
 
@@ -34,24 +34,24 @@ begin
 
 end Insert;
 
-procedure Put(List_Type : in      List_Ptr) is
+procedure Put(Element_Type : in      List_Type) is
 
 begin
 
-    if List_Ptr /= null then
+    if Element_Type /= null then
         Put("L nr ");
-        Put(List_Type.I, Width=>0);
+        Put(Element_Type.I, Width=>0);
         Put(": ");
-        Put(List_Type.V, Width=>0);
+        Put(Element_Type.V, Width=>0);
         New_Line;
-        Put(List_Type.NextPtr);
+        Put(Element_Type.NextPtr);
     else
         Put("----------");
     end if;
 
 end Put;
 
-    L : List_Ptr := null;
+    L : List_Type := null;
     N : Integer;
 
 begin
@@ -67,4 +67,4 @@ begin
 
     Put(L);
 
-end test;
+end test2;
