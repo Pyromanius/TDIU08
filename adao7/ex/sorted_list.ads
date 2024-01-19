@@ -23,7 +23,7 @@ private
 
     type E_Type is 
         record
-            I : Integer;
+            Data : Integer;
             Next : List_Type;
         end record;
 

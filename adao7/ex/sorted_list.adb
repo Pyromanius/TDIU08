@@ -78,7 +78,7 @@ package body sorted_list is
                 Free(List);
                 List := Tmp;
             else
-               Remove(Item.Next, Input);
+               Remove(List.Next, SearchString);
             end if;
 	    end if;
     end Remove;
