@@ -12,55 +12,62 @@ procedure test is
     type List_Type is 
         record
             I : Integer;
-            V : Integer;
             NextPtr : List_Ptr;
         end record;
 
-procedure Insert(I     :        Integer;
-                 V     :        Integer;
-                 L_New : in out List_Ptr) is
+    procedure Insert(I     :        Integer;
+                     L_New : in out List_Ptr) is
 
-begin
+    begin
 
-    if L_New = null then
-        L_New := new Element_Type'(I, V, null);
-    else
-        if L_New.NextPtr /= null then
-            Insert(I, V, L_New.NextPtr);
+        if L_New = null then
+                -- HÄR SKAPAS FÖRSTA PEKAREN --
+            L_New := new List_Type'(I, null);
+                Put("-------- Creating first pointer: ");
+                Put(L_New.I, Width=>0);
+                Put(" --------");
+                New_Line(2);
+
         else
-            L_New.NextPtr := new Element_Type'(I, V, null);
+                -- HÄR SKAPAS FÖlJANDE PEKARE --
+            Insert(I, L_New.NextPtr);
+                Put("-------- Creating new pointer:   ");
+                Put(L_New.I, Width=>0);
+                Put(" --------");
+                New_Line(2);
         end if;
-    end if;
+    end Insert;
 
-end Insert;
+    procedure Put(List_Type : in      List_Ptr) is
 
-procedure Put(List_Type : in      List_Ptr) is
+    begin
 
-begin
+        if List_Type /= null then
+            Put("  L: ");
+            Put(List_Type.I, Width=>0);
+            New_Line;
+            Put(List_Type.NextPtr);
+        else
+            Put("---------");
+        end if;
 
-    if List_Ptr /= null then
-        Put("L nr ");
-        Put(List_Type.I, Width=>0);
-        Put(": ");
-        Put(List_Type.V, Width=>0);
-        New_Line;
-        Put(List_Type.NextPtr);
-    else
-        Put("----------");
-    end if;
+    end Put;
 
-end Put;
-
-    L : List_Ptr := null;
-    N : Integer;
+        L : List_Ptr;
+        N : Integer;
 
 begin
 
     Put("Mata in L: ");
 
-    for I in 1..3 loop
-        Get(N);
-        Insert(I, N, L);
+    loop
+        begin
+            Get(N);
+            if N = -1 then
+                exit;
+            end if;
+            Insert(N, L);
+        end;
     end loop;
     
     New_Line;
