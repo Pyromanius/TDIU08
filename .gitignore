@@ -14,16 +14,18 @@ adao7/adao7.ali
 adao7/adao7.o
 adao7/adao7.exe
 adao7/adao7.pdf
+adao7/sorted_list.ali
+adao7/sorted_list.o
+adao7/test_list.ali
+adao7/test_list.o
+adao7/test_list.exe
+adao7/test_list
 
 adao7/test/test.exe
 adao7/test/test.ali
 adao7/test/test.o
 adao7/test/test
-adao7/ex/sorted_list.ali
-adao7/ex/sorted_list.o
-adao7/ex/test_list.ali
-adao7/ex/test_list.o
-adao7/ex/test_list.exe
+adao7/ex
 
 co1-1/a.out
 co1-1/a.exe

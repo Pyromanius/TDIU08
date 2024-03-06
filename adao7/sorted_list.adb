@@ -1,9 +1,12 @@
+with Ada.Text_IO;           use Ada.Text_IO;
+with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
+with Ada.Unchecked_Deallocation;
 
 package body sorted_list is
 
-    function Empty(L : in List_Ptr) return Boolean is
+    function Empty(L : in List_Type) return Boolean is
     begin
-        if List = null then
+        if L = null then
             return true;
         else 
             return false;
@@ -11,17 +14,17 @@ package body sorted_list is
 
     end Empty;
 
-    procedure Put(L : in List_Ptr) is
+    procedure Put(L : in List_Type) is
     begin
         
         if not Empty(L) then
-            Put(L.I, Width=>0);
             Put(" ");
+            Put(L.I, Width=>0);
             Put(L.NextPtr);
         end if;
     end Put;
 
-    function Length(L : in List_Ptr) return Integer is
+    function Length(L : in List_Type) return Integer is
 
     begin
         if Empty(L) then
@@ -31,7 +34,7 @@ package body sorted_list is
         return 1 + Length(L.NextPtr);
     end Length;
 
-    function Member(L : in List_Ptr;
+    function Member(L : in List_Type;
                     N : in Integer) return Boolean is
 
     begin
@@ -41,15 +44,15 @@ package body sorted_list is
             return true;
         end if;
 
-        return Member(N, L.NextPtr);
+        return Member(L.NextPtr, N);
     end Member;
 
-    procedure Free is new Ada.Unchecked_Deallocation(List_Type, List_Ptr);
+    procedure Free is new Ada.Unchecked_Deallocation(Elemental_Type, List_Type);
 
-    procedure Remove(L : in out List_Ptr;
+    procedure Remove(L : in out List_Type;
                      N : in     Integer) is
 
-        Temp_List : List_Ptr;
+        Temp_List : List_Type;
 
     begin
         if not Empty(L) then
@@ -58,12 +61,12 @@ package body sorted_list is
                 Free(L);
                 L := Temp_List;
             else
-                Remove(N, L.NextPtr);
+                Remove(L.NextPtr, N);
             end if;
         end if;        
     end Remove;
 
-    procedure Delete(L : in out List_Ptr) is
+    procedure Delete(L : in out List_Type) is
 
     begin
 	    if not Empty(L) then
@@ -72,21 +75,21 @@ package body sorted_list is
         end if; 
     end Delete;
 
-    procedure Insert(L : in out List_Ptr;
+    procedure Insert(L : in out List_Type;
                      N :        Integer) is
 
-        Temp_List : List_Ptr;
+        Temp_List : List_Type;
     
     begin
 
         if L = null then
-            L := new List_Type'(N, null);
+            L := new Elemental_Type'(N, null);
         else
             if N > L.I then
-                Insert(N, L.NextPtr);
+                Insert(L.NextPtr, N);
             elsif N < L.I then
                 if Temp_List = null then
-                    Temp_List := new List_Type'(N, null);
+                    Temp_List := new Elemental_Type'(N, null);
                 end if;
                 Temp_List.I := N;
                 Temp_List.NextPtr := L;
