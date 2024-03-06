@@ -29,9 +29,9 @@ procedure test is
                 New_Line(2);
 
         else
-                -- HÄR SKAPAS FÖlJANDE PEKARE --
+                -- HÄR SKAPAS PÅFÖlJANDE PEKARE --
             Insert(I, L_New.NextPtr);
-                Put("-------- Creating new pointer:   ");
+                Put("-------- Creating new   pointer: ");
                 Put(L_New.I, Width=>0);
                 Put(" --------");
                 New_Line(2);
@@ -53,8 +53,13 @@ procedure test is
 
     end Put;
 
+--###################--
+--    HUVUDPROGRAM   --
+--###################--
+
         L : List_Ptr;
         N : Integer;
+
 
 begin
 

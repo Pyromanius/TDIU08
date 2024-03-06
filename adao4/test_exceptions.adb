@@ -276,7 +276,8 @@ procedure Test_Exceptions is
 
       exception
          when Length_Error =>
-            Put("Felaktig längd! ");
+--             Put("Felaktig längd! ");
+            raise Format_Error;
       end Get;
 
    begin      
