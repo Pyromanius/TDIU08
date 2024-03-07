@@ -1,9 +1,4 @@
 //Antgu873: Arbetat enskilt
-
-//Flyttal avrundas till heltal i Del 3
-
-//static_cast<double>(VARIABEL)/static_cast<double>(VARIABEL)
-
 #include <iostream>
 #include <iomanip>
 #include <cmath>
@@ -13,127 +8,145 @@ using namespace std;
 
 int main()
 {
-  // DEL 1 ---------------------------------------------------------------
 
-  int startvarde;
-  int slutvarde;
+// O
+  // -------------
+  // **         /---------
+  // **   DEL  /        **
+  // **       /   1     **
+  // --------/          **
+  //        --------------
+  //
+  //
 
-  cout << "Del 1: Temperaturtabell" << endl;
-  cout << "Ange startvärde: ";
-  cin >> startvarde;
+    int initValue;
+    int finValue;
 
-  while (startvarde < -60)
-    {
-      cout << "Felaktigt startvärde!" << '\n';
-      cout << "Ange startvärde: ";
-      cin >> startvarde;
-    }
+  cout << "Del 1: Temperaturtabell" << '\n'
+      << "Ange startvärde: ";
+  cin >> initValue;
+
+  while (initValue < -60)
+  {
+    cout << "Felaktigt startvärde!" << '\n'
+        << "Ange startvärde: ";
+    cin >> initValue;
+  }
 
   cout << "Ange slutvärde: ";
-  cin >> slutvarde;
+  cin >> finValue;
 
-  while (slutvarde <= startvarde)
-    {
-      cout << "Felaktigt slutvärde!" << '\n';
-      cout << "Ange slutvärde: ";
-      cin >> slutvarde;
-    }
+  while (finValue <= initValue)
+  {
+    cout << "Felaktigt slutvärde!" << '\n'
+        << "Ange slutvärde: ";
+    cin >> finValue;
+  }
 
-  cout << "Celsius   Kelvin   Fahrenheit   Reaumur" << endl;
-  cout << "---------------------------------------" << endl;
+  cout << "Celsius   Kelvin   Fahrenheit   Reaumur" << '\n'
+      << "---------------------------------------" << '\n';
 
-  for (int i {startvarde}; i <= slutvarde; ++i)
-    {
-      cout << setw(7)  << i ;
-      cout << setw(11) << fixed << setprecision(2) << i+273.15 ;
-      cout << setw(11) << fixed << setprecision(2) << (i*1.8)+32 ;
-      cout << setw(10) << fixed << setprecision(2) << i*0.8  << endl;
-    }
-  cout << endl;
+  for (int i {initValue}; i <= finValue; ++i)
+  {
+    cout << setw(7)  << i 
+        << setw(11) << fixed << setprecision(2) << i+273.15 
+        << setw(11) << fixed << setprecision(2) << (i*1.8)+32 
+        << setw(10) << fixed << setprecision(2) << i*0.8  << '\n';
+  }
+  cout << '\n';
 
   cin.ignore(1000, '\n');
+
+// O
+  // -------------
+  // **         /---------
+  // **   DEL  /        **
+  // **       /   2     **
+  // --------/          **
+  //        --------------
+  //
+  //
   
+    string str1;
+    char tecken;
+    int noLett = 0, noSpace = 0, noNumb = 0;
 
-  // DEL 2 ---------------------------------------------------------------
-
-  string teckenstrang;
-  char tecken;
-  int antalbokstavar = 0, antalmellanslag = 0, antalsiffror = 0, check;
-
-  cout << "Del 2: Teckenhantering" << endl;
-  getline(cin, teckenstrang);
+  cout << "Del 2: Teckenhantering" << '\n';
 
   for (int i{0}; i < 10; ++i)
-    {
-      tecken = teckenstrang[i];
-      check = isalpha(tecken);
-      if (check)
-  	{
-  	  ++antalbokstavar;
-  	}
-      check = isspace(tecken);
-      if (check)
-  	{
-  	  ++antalmellanslag;
-  	}
-      check = isdigit(tecken);
-      if (check)
-  	{
-  	  ++antalsiffror;
-  	}
-    }
+  {
+      cin >> noskipws >> tecken;
+      str1 += tecken;
+
+      if (isalpha(tecken))
+      {
+          ++noLett;
+      }
+      else if (isdigit(tecken))
+      {
+          ++noNumb;
+      }
+      else if (isspace(tecken))
+      {
+          ++noSpace;
+      }
+  }
   
-  cout << "Texten innehöll:" << endl;
-  cout << "Alfabetiska tecken:" << antalbokstavar << endl;
-  cout << "Siffertecken......:" << antalsiffror << endl;
-  cout << "Vita tecken.......:" << antalmellanslag << endl;
-  cout << "Texten var: " << teckenstrang << endl;
-  cout << endl;
+  cout << "Texten innehöll:" << '\n'
+       << "Alfabetiska tecken:" << noLett << '\n'
+       << "Siffertecken......:" << noNumb << '\n'
+       << "Vita tecken.......:" << noSpace << "\n\n";
 
+   cin.ignore(1000, '\n');
 
-  //DEL 3 ---------------------------------------------------------------
+// O
+  // -------------
+  // **         /---------
+  // **   DEL  /        **
+  // **       /   3     **
+  // --------/          **
+  //        --------------
+  //
+  //
 
-  string Textstrang, Langst_Ord, Kortast_Ord;
-  int Mest_Bokstavar = 0, Minst_Bokstavar = 28, Antal_Ord = 0, Antal_Bokstavar = 0;
+    string str2, str3, shortWord, longWord;
+    int lettCount = 0, wordCount = 0;
 
-  cout << "Del 3: Ordhantering" << endl;
-  cout << "Mata in text:" << endl;
+  cout << "Del 3: Ordhantering" << '\n';
+  cout << "Mata in text:" << '\n';
 
-  while (cin >> Textstrang)
+  while (cin >> skipws >> str3)
+  {
+    str2.append(str3+" ");
+
+    if (str3.length() < shortWord.length() || shortWord.length() == 0)
     {
-      
-      if (Textstrang.length() < Minst_Bokstavar)
-	{
-	  Kortast_Ord = Textstrang;
-	  Minst_Bokstavar = Textstrang.length();
-	}
-      if (Textstrang.length() > Mest_Bokstavar)
-	{
-	  Langst_Ord = Textstrang;
-	  Mest_Bokstavar = Textstrang.length();
-	}
-
-      Antal_Bokstavar += Textstrang.length();
-      ++Antal_Ord;
-      
+        shortWord = str3;
     }
 
-  if (Textstrang.length() == 0)
+    if (str3.length() > longWord.length())
     {
-      cout << "Inget ord inmatat";
+        longWord = str3;
     }
-  
+
+    lettCount += str3.length();
+    ++wordCount;
+  }
+
+  if (str2.length() == 0)
+  {
+    cout << "Inget ord inmatat";
+  } 
   else
-    {
-      cout << endl;
-      cout << "Texten innehöll " << Antal_Ord << " ord." << endl;
-      cout << "Det kortaste ordet var " << '"' << Kortast_Ord << '"' << " med " << Minst_Bokstavar << " tecken." << endl;
-      cout << "Det längsta ordet var " << '"' << Langst_Ord << '"' << " med " << Mest_Bokstavar << " tecken." << endl;
-      cout << "Medelordlängden var ";
-      cout << fixed << setprecision(1) << static_cast<double>(Antal_Bokstavar)/static_cast<double>(Antal_Ord);
-      cout << " bokstäver." << endl;
-    }
+  {
+    cout << '\n'
+        << "Texten innehöll " << wordCount << " ord." << '\n'
+        << "Det kortaste ordet var " << '"' << shortWord << '"' << " med " << shortWord.length() << " tecken." << '\n'
+        << "Det längsta ordet var " << '"' << longWord << '"' << " med " << longWord.length() << " tecken." << '\n'
+        << "Medelordlängden var "
+        << fixed << setprecision(1) << static_cast<double>(lettCount)/static_cast<double>(wordCount)
+        << " bokstäver." << '\n';
+  }
 
-  
   return 0;
 }
