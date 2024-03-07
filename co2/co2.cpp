@@ -94,40 +94,45 @@ void menu(int &sel)
 int main()
 {
 
-    int sel, total_length, n, multiplier, a;
-    double mean_length, b;
-    string text;
+        int sel, total_length, n, multiplier, a;
+        double mean_length, b;
+        string text;
 
-cout << "Huvudmeny" << endl;
-while (true)
-{   
-    menu(sel);
+    cout << "Huvudmeny" << endl;
+    while (true)
+    {   
+        menu(sel);
 
-    if (sel == 1)
-    {
-        cout << "Skriv in N: ";
-        cin >> n;
-        cout << "Fakulteten av " << n << " är " << prog1_calc_Facul(n) << endl;
+        if (sel == 1)
+        {
+            cout << "Skriv in N: ";
+            cin >> n;
+            cout << "Fakulteten av " << n << " är " << prog1_calc_Facul(n) << endl;
+        }
+        else if (sel == 2)
+        {
+            cout << "Mata in en text och ett heltal: ";
+            cin >> text >> multiplier;
+            cout << "Den multiplicerade texten är " << prog2_multi_text(text, multiplier) << endl;
+        }
+        else if (sel == 3)
+        {
+            cout << "Mata in ett heltal och ett flyttal: ";
+            cin >> a >> b;
+            prog3_switch_int_double(a, b);
+            cout << "Heltalets värde är nu " << a << endl
+                << "Flyttalets värde är nu " << fixed << setprecision(1) << b << endl;
+        }
+        else if (sel == 4)
+        {
+            prog4_calc_lengths(total_length, mean_length);
+            cout << "Totallängd: " << total_length << endl
+                << "Medellängd: " << fixed << setprecision(1) << mean_length << endl;
+        }
+        else if (sel == 5)
+        {
+            cout << "Ha en bra dag!";
+            return 0;
+        }
     }
-    else if (sel == 2)
-    {
-        cout << "Mata in en text och ett heltal: ";
-        cin >> text >> multiplier;
-        cout << "Den multiplicerade texten är " << prog2_multi_text(text, multiplier) << endl;
-    }
-    else if (sel == 3)
-    {
-        cout << "Mata in ett heltal och ett flyttal: ";
-        cin >> a >> b;
-        prog3_switch_int_double(a, b);
-        cout << "Heltalets värde är nu " << a << endl
-            << "Flyttalets värde är nu " << fixed << setprecision(1) << b << endl;
-    }
-    else if (sel == 4)
-    {
-        prog4_calc_lengths(total_length, mean_length);
-        cout << "Totallängd: " << total_length << endl
-            << "Medellängd: " << fixed << setprecision(1) << mean_length << endl;
-    }
-}
 }
