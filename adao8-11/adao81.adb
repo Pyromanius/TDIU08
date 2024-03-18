@@ -8,8 +8,6 @@ procedure adao81 is
         procName : String := "adao81";
         File_Name : String := Argument(1);
 
-
-
     subtype RGB_Value is Integer range 0..255;
 
     type Pixel_Type is
@@ -99,7 +97,6 @@ procedure adao81 is
             end loop;
         end Put;
 
-
         procedure Read_File (Item :    out Image_Type) is
             S : String(1..Item.X_Dim);
         begin
@@ -123,14 +120,12 @@ procedure adao81 is
                 return;
         end Read_File;
 
-    begin
-        
+    begin       
         while not End_OF_File (File_Item) loop
             Read_File(Item);
         end loop;
 
         Put(Item);
-
 
     end Print_Image_Information;
 
