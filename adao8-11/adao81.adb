@@ -108,7 +108,6 @@ begin
 end run;
 
 ----------------- FROM TEST CODE ---------------------------
-
 --  with Ada.Text_IO;           use Ada.Text_IO;
 --  with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
 --  with Ada.Command_Line;      use Ada.Command_Line;
@@ -134,6 +133,7 @@ end run;
 
 --      Input_File : File_Type;
 --      S : String(1..30);
+--      File_Name : constant String := "object.pbm";
 --      Image : Image_Type;
 
 --      procedure Set_Black (Item :    out Pixel_Type) is
@@ -142,6 +142,7 @@ end run;
 --              Item.G := 0;
 --              Item.B := 0;
 --              Item.Alpha := false;
+--              --  Put("1");
 --      end Set_Black;
 
 --      procedure Set_White (Item :    out Pixel_Type) is
@@ -150,29 +151,8 @@ end run;
 --              Item.G := 255;
 --              Item.B := 255;
 --              Item.Alpha := true;
+--              --  Put("0");
 --      end Set_White;
-
---      procedure Set (Item     :    out Image_Area_Type;
---                     Is_White : in     Boolean) is
---      begin
---          for I in 1..30 loop
---              for Z in 1..30 loop
---                  if Is_White then
---                      Set_White(Item(I, Z));
---                  else
---                      Set_Black(Item(I, Z));
---                  end if;
---              end loop;
---          end loop;
---      end Set;
-
---      procedure Set (Item     :    out Image_Type;
---                     Is_White : in     Boolean) is
---      begin
---          for I in 1..30 loop
---              Set(Item.Image_Area, Is_White);
---          end loop;
---      end Set;
 
 --      procedure Put (Item : in     Pixel_Type) is
 --      begin
@@ -186,56 +166,49 @@ end run;
 --          Put("; ");
 --      end Put;
 
---      procedure Put (Item : in     Image_Area_Type) is
+--      procedure Put (Item : in     Image_Type) is
 --      begin
+--          for Z in 1..30 loop
 --          for I in 1..30 loop
---              for Z in 1..30 loop
---                  Put(Item(I, Z));
---              end loop;
+--              Put(Item.Image_Area(I, Z));
+--              Put("; ");
+--          end loop;
 --              New_Line;
 --          end loop;
 --      end Put;
 
---      procedure Put (Item : in     Image_Type) is
---      begin
---          Put(Item.Image_Area);
---      end Put;
-
---      procedure Read_File (File : in     File_Type;
---                           Item :    out Image_Type) is
-
---          C : Character;
---          Is_White : Boolean;
+--      procedure Read_File (Item :    out Image_Type) is
 
 --      begin
+
+--          for Z in 1..30 loop      
 --              S := Get_Line(Input_File);
 
---              for I in 1..30 loop
---                  C := S(I);
---                  if C = '0' then
---                      Is_White := true;
---                      Set(Item, Is_White);
---                  elsif C = '1' then
---                      Is_White := false;
---                      Set(Item, Is_White);
---                  end if;
---              end loop;
+--                  for I in 1..30 loop
+--                      if S(I) = '0' then
+--                          Set_White(Item.Image_Area(Z, I));
+--                      elsif S(I) = '1' then
+--                          Set_Black(Item.Image_Area(Z, I));
+--                      else
+--                          raise Constraint_Error;
+--                      end if;
+--                  end loop;
+--          end loop;
 
 --      exception 
 --          when Constraint_Error =>
---              S := "---------- --------- ---------";
+--              return;
 --      end Read_File;
 
 --  begin
 
---      Ada.Text_IO.Open (File => Input_File, Mode => Ada.Text_IO.In_File, Name => "object.pbm");
+--      Ada.Text_IO.Open (File => Input_File, Mode => Ada.Text_IO.In_File, Name => File_Name);
 --      while not End_OF_File (Input_File) loop
---          Read_File(Input_File, Image);
+--          Read_File(Image);
 --      end loop;
 
 --      Put(Image);
-    
---      Ada.Text_IO.Close (File => Input_File);
 
+--      Ada.Text_IO.Close (File => Input_File);
 
 --  end test;
