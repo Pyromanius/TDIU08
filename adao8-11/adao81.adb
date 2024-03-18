@@ -3,11 +3,14 @@ with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
 with Ada.Float_Text_IO;     use Ada.Float_Text_IO;
 with Ada.Command_Line;      use Ada.Command_Line;
 
-procedure run is
+procedure adao81 is
 
         procName : String := "adao81";
+        File_Name : String := Argument(1);
 
-    subtype RGB_Value is Integer range 0..256;
+
+
+    subtype RGB_Value is Integer range 0..255;
 
     type Pixel_Type is
         record
@@ -58,41 +61,113 @@ procedure run is
 
     end check_Arg;
 
-    procedure Get (Item :    out Image_Type) is
-        
-        Input_File : File_Type;
-        C : Character;
+    procedure Print_Image_Information (Item       :    out Image_Type;
+                                       File_Item : in  out File_Type) is
+        procedure Set_Black (Item :    out Pixel_Type) is
+        begin
+            Item.R := 0;
+            Item.G := 0;
+            Item.B := 0;
+            Item.Alpha := false;
+        end Set_Black;
+
+        procedure Set_White (Item :    out Pixel_Type) is
+        begin
+            Item.R := 255;
+            Item.G := 255;
+            Item.B := 255;
+            Item.Alpha := true;
+        end Set_White;
+
+        procedure Put (Item : in     Image_Type) is
+        begin
+            for Z in 1..Item.Y_Dim loop
+                for I in 1..Item.X_Dim loop
+                    Put(Item.Image_Area(I, Z).R, Width=>3);
+                    Put(" ");
+                    Put(Item.Image_Area(I, Z).G, Width=>3);
+                    Put(" ");
+                    Put(Item.Image_Area(I, Z).B, Width=>3);
+                    Put(" ");
+                    Put(Item.Image_Area(I, Z).Alpha'Image);
+                    Put(" ");
+                    if Item.Image_Area(I, Z).Alpha then
+                        Put(" ");
+                    end if;
+                end loop;
+                New_Line;
+            end loop;
+        end Put;
+
+
+        procedure Read_File (Item :    out Image_Type) is
+            S : String(1..Item.X_Dim);
+        begin
+            for Z in 1..Item.Y_Dim loop 
+
+                S := Get_Line(File_Item);
+
+                for I in 1..Item.X_Dim loop
+                    if S(I) = '0' then
+                        Set_White(Item.Image_Area(Z, I));
+                    elsif S(I) = '1' then
+                        Set_Black(Item.Image_Area(Z, I));
+                    else
+                        raise Constraint_Error;
+                    end if;
+                end loop;
+            end loop;
+
+        exception 
+            when Constraint_Error =>
+                return;
+        end Read_File;
 
     begin
-    
-    Ada.Text_IO.Open (File => Input_File, Mode => Ada.Text_IO.In_File, Name => Argument(1));
-
-        for I in 1..4 loop
-            while not End_OF_Line (Input_File) loop
-                    Ada.Text_IO.Get (File => Input_File, Item => C);
-            end loop;
+        
+        while not End_OF_File (File_Item) loop
+            Read_File(Item);
         end loop;
 
-        for I in 1..30 loop
-            for X in 1..30 loop
-                Ada.Text_IO.Get (File => Input_File, Item => C);
-                Ada.Text_IO.Put (Item => C);
-                if End_OF_Line (Input_File) then
-                    New_Line;
+        Put(Item);
+
+
+    end Print_Image_Information;
+
+
+---------- Put_Image is only here for testing ---------------------------
+    procedure Put_Image (Item : in     Image_Type) is
+    begin
+        for Z in 1..Item.Y_Dim loop
+            for I in 1..Item.X_Dim loop
+                if Item.Image_Area(I, Z).Alpha then
+                    Put(" ");
+                else
+                    Put("-");
                 end if;
-            end loop;    
+            end loop;
+            New_Line;
         end loop;
+    end Put_Image;
+---------- Put_Image is only here for testing ---------------------------
 
-    end Get;
-
-    Image : Image_Type;
+        Input_File : File_Type;
+        Image : Image_Type;
 
 begin
+    
+    Ada.Text_IO.Open (File => Input_File, Mode => Ada.Text_IO.In_File, Name => File_Name);
 
-    Put("Code here");
+    if check_Arg then
+        Print_Image_Information(Image, Input_File);
+    end if;
+        
+    Ada.Text_IO.Close (File => Input_File);
+
     New_Line;
-    Get(Image);
+    New_Line;
 
+    Put_Image(Image);
 
     exception
         when Name_Error =>
@@ -105,108 +180,4 @@ begin
         Put(Argument(2));
         Put(""" already exist!");
 
-end run;
-
------------------ FROM TEST CODE ---------------------------
---  with Ada.Text_IO;           use Ada.Text_IO;
---  with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
---  with Ada.Command_Line;      use Ada.Command_Line;
-
---  procedure test is 
-
---      File_Name : constant String := "object.pbm";
-    
---      subtype RGB_Value is Integer range 0..255;
-
---      type Pixel_Type is
---          record
---              R, G, B : RGB_Value;
---              Alpha : Boolean;
---          end record;
-
---      type Image_Area_Type is
---          array (1..30, 1..30) of Pixel_Type;
-
---      type Image_Type is
---          record
---              X_Dim : Integer := 30;
---              Y_Dim : Integer := 30;
---              Image_Area : Image_Area_Type;
---          end record;
-
---      Input_File : File_Type;
---      Image : Image_Type;
---      S : String(1..Image.X_Dim);
-
---      procedure Set_Black (Item :    out Pixel_Type) is
---      begin
---          Item.R := 0;
---          Item.G := 0;
---          Item.B := 0;
---          Item.Alpha := false;
---      end Set_Black;
-
---      procedure Set_White (Item :    out Pixel_Type) is
---      begin
---          Item.R := 255;
---          Item.G := 255;
---          Item.B := 255;
---          Item.Alpha := true;
---      end Set_White;
-
-
---      procedure Put (Item : in     Image_Type) is
---      begin
---          for Z in 1..Image.Y_Dim loop
---              for I in 1..Image.X_Dim loop
---                  Put(Item.Image_Area(I, Z).R, Width=>3);
---                  Put(" ");
---                  Put(Item.Image_Area(I, Z).G, Width=>3);
---                  Put(" ");
---                  Put(Item.Image_Area(I, Z).B, Width=>3);
---                  Put(" ");
---                  Put(Item.Image_Area(I, Z).Alpha'Image);
---                  Put(" ");
---                  if Item.Image_Area(I, Z).Alpha then
---                      Put(" ");
---                  end if;
---              end loop;
---              New_Line;
---          end loop;
---      end Put;
-
---      procedure Read_File (Item :    out Image_Type) is
-
---      begin
-
---          for Z in 1..Image.Y_Dim loop      
---              S := Get_Line(Input_File);
-
---                  for I in 1..Image.X_Dim loop
---                      if S(I) = '0' then
---                          Set_White(Item.Image_Area(Z, I));
---                      elsif S(I) = '1' then
---                          Set_Black(Item.Image_Area(Z, I));
---                      else
---                          raise Constraint_Error;
---                      end if;
---                  end loop;
---          end loop;
-
---      exception 
---          when Constraint_Error =>
---              return;
---      end Read_File;
-
---  begin
-
---      Ada.Text_IO.Open (File => Input_File, Mode => Ada.Text_IO.In_File, Name => File_Name);
---      while not End_OF_File (Input_File) loop
---          Read_File(Image);
---      end loop;
-
---      Put(Image);
-
---      Ada.Text_IO.Close (File => Input_File);
-
---  end test;
+end adao81;
