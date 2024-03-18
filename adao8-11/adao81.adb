@@ -114,6 +114,8 @@ end run;
 
 --  procedure test is 
 
+--      File_Name : constant String := "object.pbm";
+    
 --      subtype RGB_Value is Integer range 0..255;
 
 --      type Pixel_Type is
@@ -127,52 +129,48 @@ end run;
 
 --      type Image_Type is
 --          record
---              X_Dim, Y_Dim : Integer := 30;
+--              X_Dim : Integer := 30;
+--              Y_Dim : Integer := 30;
 --              Image_Area : Image_Area_Type;
 --          end record;
 
 --      Input_File : File_Type;
---      S : String(1..30);
---      File_Name : constant String := "object.pbm";
 --      Image : Image_Type;
+--      S : String(1..Image.X_Dim);
 
 --      procedure Set_Black (Item :    out Pixel_Type) is
 --      begin
---              Item.R := 0;
---              Item.G := 0;
---              Item.B := 0;
---              Item.Alpha := false;
---              --  Put("1");
+--          Item.R := 0;
+--          Item.G := 0;
+--          Item.B := 0;
+--          Item.Alpha := false;
 --      end Set_Black;
 
 --      procedure Set_White (Item :    out Pixel_Type) is
 --      begin
---              Item.R := 255;
---              Item.G := 255;
---              Item.B := 255;
---              Item.Alpha := true;
---              --  Put("0");
+--          Item.R := 255;
+--          Item.G := 255;
+--          Item.B := 255;
+--          Item.Alpha := true;
 --      end Set_White;
 
---      procedure Put (Item : in     Pixel_Type) is
---      begin
---          Put(Item.R, Width=>0);
---          Put(",");
---          Put(Item.G, Width=>0);
---          Put(",");
---          Put(Item.B, Width=>0);
---          Put(",");
---          Put(Item.Alpha'Image);
---          Put("; ");
---      end Put;
 
 --      procedure Put (Item : in     Image_Type) is
 --      begin
---          for Z in 1..30 loop
---          for I in 1..30 loop
---              Put(Item.Image_Area(I, Z));
---              Put("; ");
---          end loop;
+--          for Z in 1..Image.Y_Dim loop
+--              for I in 1..Image.X_Dim loop
+--                  Put(Item.Image_Area(I, Z).R, Width=>3);
+--                  Put(" ");
+--                  Put(Item.Image_Area(I, Z).G, Width=>3);
+--                  Put(" ");
+--                  Put(Item.Image_Area(I, Z).B, Width=>3);
+--                  Put(" ");
+--                  Put(Item.Image_Area(I, Z).Alpha'Image);
+--                  Put(" ");
+--                  if Item.Image_Area(I, Z).Alpha then
+--                      Put(" ");
+--                  end if;
+--              end loop;
 --              New_Line;
 --          end loop;
 --      end Put;
@@ -181,10 +179,10 @@ end run;
 
 --      begin
 
---          for Z in 1..30 loop      
+--          for Z in 1..Image.Y_Dim loop      
 --              S := Get_Line(Input_File);
 
---                  for I in 1..30 loop
+--                  for I in 1..Image.X_Dim loop
 --                      if S(I) = '0' then
 --                          Set_White(Item.Image_Area(Z, I));
 --                      elsif S(I) = '1' then
