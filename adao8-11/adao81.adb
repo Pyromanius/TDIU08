@@ -1,9 +1,8 @@
 with Ada.Text_IO;           use Ada.Text_IO;
 with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
-with Ada.Float_Text_IO;     use Ada.Float_Text_IO;
 with Ada.Command_Line;      use Ada.Command_Line;
 
-procedure adao81 is
+procedure adao81 is 
 
         procName : String := "adao81";
         I_File_Name : String := Argument(1);
@@ -31,6 +30,8 @@ procedure adao81 is
 
         if Argument_Count /= 2 then
             Put("Error! Incorrect number of arguments!");
+            New_Line;
+            Put("Usage: ./image_program IMAGE_FILENAME [OUTPUT_FILENAME]");
             return false;
         end if;
 
@@ -61,6 +62,22 @@ procedure adao81 is
 
     end check_Arg;
 
+    function Check_Format_PBM (File_Item : in     File_Type) return Boolean is
+        
+        S : String(1..2) := Get_Line(File_Item);
+
+    begin
+            if S(1..2) = "P1" then
+                return true;
+            else
+                return false;
+            end if;
+    exception
+        when Constraint_Error=>
+            return false;
+
+    end Check_Format_PBM;
+    
     procedure Put (Item : in     Image_Type) is
     begin
         for Z in 1..Item.Y_Dim loop
@@ -94,57 +111,77 @@ procedure adao81 is
         Item.R := 255;
         Item.G := 255;
         Item.B := 255;
-        Item.Alpha := true;
+        Item.Alpha := false;
     end Set_White;
 
-    procedure Print_Image_Information (Item       :    out Image_Type) is
+    procedure Open_File (File_Item :    out File_Type) is
+    begin
+        Open(File_Item, In_File, I_File_Name);
+    end Open_File;
+
+    procedure Close_File (File_Item :    out File_Type) is
+    begin
+        Close(File_Item);
+    end Close_File;
+
+    procedure Read (Item      :    out Image_Type;
+                    File_Item : in     File_Type) is
+
+        S : String(1..Item.X_Dim);
+
+    begin
+        for Z in 1..Item.Y_Dim loop 
+        S := Get_Line(File_Item);
+            for I in 1..Item.X_Dim loop
+                if S(I) = '0' then
+                    Set_White(Item.Image_Area(Z, I));
+                elsif S(I) = '1' then
+                    Set_Black(Item.Image_Area(Z, I));
+                else
+                    raise Constraint_Error;
+                end if;
+            end loop;
+        end loop;
+
+    exception 
+        when Constraint_Error =>
+            return;       
+    end Read;
+
+    procedure Print_Image_Information (Item :    out Image_Type) is
 
         File_Item : File_Type;
 
-        procedure Read_File (Item      :    out Image_Type) is
-
-            S : String(1..Item.X_Dim);
-
-        begin
-            for Z in 1..Item.Y_Dim loop 
-
-                S := Get_Line(File_Item);
-
-                for I in 1..Item.X_Dim loop
-                    if S(I) = '0' then
-                        Set_White(Item.Image_Area(Z, I));
-                    elsif S(I) = '1' then
-                        Set_Black(Item.Image_Area(Z, I));
-                    else
-                        raise Constraint_Error;
-                    end if;
-                end loop;
-            end loop;
-
-        exception 
-            when Constraint_Error =>
-                return;
-        end Read_File;
-
     begin
-        Ada.Text_IO.Open (File => File_Item, Mode => Ada.Text_IO.In_File, Name => I_File_Name);
-        while not End_OF_File (File_Item) loop
-            Read_File(Item);
-        end loop;
+        
+        Open_File(File_Item);
+
+        if Check_Format_PBM(File_Item) then
+            while not End_OF_File (File_Item) loop
+                Read(Item, File_Item);
+            end loop;
+        end if;
 
         Put(Item);
-        Ada.Text_IO.Close (File => File_Item);
+        Close(File_Item);
 
     end Print_Image_Information;
 
-    procedure Print_Image_Information (O_Item    : in     Image_Type;
-                                       File_Item :    out File_Type) is
-    begin
+    procedure Print_Image_Information (Img_Item    : in out Image_Type;
+                                       I_File_Item : in     File_Type) is
 
-        Create(File_Item, Out_File, O_File_Name);
-        Set_Output(File_Item);
-        Put(O_Item);
-        Close(File_Item);
+        O_File_Item : File_Type;
+
+    begin
+        if Check_Format_PBM(I_File_Item) then
+            while not End_OF_File (I_File_Item) loop
+                Read(Img_Item, I_File_Item);
+            end loop;
+        end if;
+        Create(O_File_Item, Out_File, O_File_Name);
+        Set_Output(O_File_Item);
+        Put(Img_Item);
+        Close(O_File_Item);
         Set_Output(Standard_Output);
 
     exception 
@@ -152,12 +189,13 @@ procedure adao81 is
             return;
     end Print_Image_Information;
 
+
 ---------- Put_Image is only here for testing ---------------------------
     procedure Put_Image (Item : in     Image_Type) is
     begin
         for Z in 1..Item.Y_Dim loop
             for I in 1..Item.X_Dim loop
-                if Item.Image_Area(I, Z).Alpha then
+                if Item.Image_Area(I, Z).R /= 0 then
                     Put(" ");
                 else
                     Put("-");
@@ -173,7 +211,6 @@ procedure adao81 is
         Image : Image_Type;
 
 begin
-    
 
     if check_Arg then
         Print_Image_Information(Image);
@@ -181,9 +218,11 @@ begin
         return;
     end if;
 
-    Print_Image_Information(Image, Output_File);
-
-    Put_Image(Image);
+    Open_File(Input_File);
+    Print_Image_Information(Image, Input_File);
+    
+    -- SHOW IMAGE IN TERMINAL FOR TESTING
+    -- Put_Image(Image);
 
 exception
     when Name_Error =>
@@ -195,5 +234,4 @@ exception
         Put("Error! Output file """); 
         Put(Argument(2));
         Put(""" already exist!");
-
 end adao81;
