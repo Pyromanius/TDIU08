@@ -3,5 +3,6 @@
 **/*.exe
 **/*.pdf
 **/*.out
+**/output.txt
 
 **/test
