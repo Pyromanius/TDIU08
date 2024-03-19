@@ -6,7 +6,8 @@ with Ada.Command_Line;      use Ada.Command_Line;
 procedure adao81 is
 
         procName : String := "adao81";
-        File_Name : String := Argument(1);
+        I_File_Name : String := Argument(1);
+        O_File_Name : String := Argument(2);
 
     subtype RGB_Value is Integer range 0..255;
 
@@ -27,6 +28,11 @@ procedure adao81 is
 
     function check_Arg return Boolean is
     begin
+
+        if Argument_Count /= 2 then
+            Put("Error! Incorrect number of arguments!");
+            return false;
+        end if;
 
         if Argument(2) = Argument(1) then
             Put("Error! Output file """);
@@ -50,55 +56,55 @@ procedure adao81 is
             end if;
         end loop;
 
-        if Argument_Count = 0 or Argument_Count > 2 then
-            Put("Error! Incorrect number of arguments!");
-            return false;
-        end if;
 
         return true;
 
     end check_Arg;
 
-    procedure Print_Image_Information (Item       :    out Image_Type;
-                                       File_Item : in  out File_Type) is
-        procedure Set_Black (Item :    out Pixel_Type) is
-        begin
-            Item.R := 0;
-            Item.G := 0;
-            Item.B := 0;
-            Item.Alpha := false;
-        end Set_Black;
-
-        procedure Set_White (Item :    out Pixel_Type) is
-        begin
-            Item.R := 255;
-            Item.G := 255;
-            Item.B := 255;
-            Item.Alpha := true;
-        end Set_White;
-
-        procedure Put (Item : in     Image_Type) is
-        begin
-            for Z in 1..Item.Y_Dim loop
-                for I in 1..Item.X_Dim loop
-                    Put(Item.Image_Area(I, Z).R, Width=>3);
+    procedure Put (Item : in     Image_Type) is
+    begin
+        for Z in 1..Item.Y_Dim loop
+            for I in 1..Item.X_Dim loop
+                Put(Item.Image_Area(I, Z).R, Width=>3);
+                Put(" ");
+                Put(Item.Image_Area(I, Z).G, Width=>3);
+                Put(" ");
+                Put(Item.Image_Area(I, Z).B, Width=>3);
+                Put(" ");
+                Put(Item.Image_Area(I, Z).Alpha'Image);
+                Put(" ");
+                if Item.Image_Area(I, Z).Alpha then
                     Put(" ");
-                    Put(Item.Image_Area(I, Z).G, Width=>3);
-                    Put(" ");
-                    Put(Item.Image_Area(I, Z).B, Width=>3);
-                    Put(" ");
-                    Put(Item.Image_Area(I, Z).Alpha'Image);
-                    Put(" ");
-                    if Item.Image_Area(I, Z).Alpha then
-                        Put(" ");
-                    end if;
-                end loop;
-                New_Line;
+                end if;
             end loop;
-        end Put;
+            New_Line;
+        end loop;
+    end Put;
 
-        procedure Read_File (Item :    out Image_Type) is
+    procedure Set_Black (Item :    out Pixel_Type) is
+    begin
+        Item.R := 0;
+        Item.G := 0;
+        Item.B := 0;
+        Item.Alpha := false;
+    end Set_Black;
+
+    procedure Set_White (Item :    out Pixel_Type) is
+    begin
+        Item.R := 255;
+        Item.G := 255;
+        Item.B := 255;
+        Item.Alpha := true;
+    end Set_White;
+
+    procedure Print_Image_Information (Item       :    out Image_Type) is
+
+        File_Item : File_Type;
+
+        procedure Read_File (Item      :    out Image_Type) is
+
             S : String(1..Item.X_Dim);
+
         begin
             for Z in 1..Item.Y_Dim loop 
 
@@ -120,15 +126,31 @@ procedure adao81 is
                 return;
         end Read_File;
 
-    begin       
+    begin
+        Ada.Text_IO.Open (File => File_Item, Mode => Ada.Text_IO.In_File, Name => I_File_Name);
         while not End_OF_File (File_Item) loop
             Read_File(Item);
         end loop;
 
         Put(Item);
+        Ada.Text_IO.Close (File => File_Item);
 
     end Print_Image_Information;
 
+    procedure Print_Image_Information (O_Item    : in     Image_Type;
+                                       File_Item :    out File_Type) is
+    begin
+
+        Create(File_Item, Out_File, O_File_Name);
+        Set_Output(File_Item);
+        Put(O_Item);
+        Close(File_Item);
+        Set_Output(Standard_Output);
+
+    exception 
+        when Constraint_Error =>
+            return;
+    end Print_Image_Information;
 
 ---------- Put_Image is only here for testing ---------------------------
     procedure Put_Image (Item : in     Image_Type) is
@@ -147,30 +169,29 @@ procedure adao81 is
 ---------- Put_Image is only here for testing ---------------------------
 
         Input_File : File_Type;
+        Output_File : File_Type;
         Image : Image_Type;
 
 begin
     
-    Ada.Text_IO.Open (File => Input_File, Mode => Ada.Text_IO.In_File, Name => File_Name);
 
     if check_Arg then
-        Print_Image_Information(Image, Input_File);
+        Print_Image_Information(Image);
+    else
+        return;
     end if;
-        
-    Ada.Text_IO.Close (File => Input_File);
 
-    New_Line;
-    New_Line;
+    Print_Image_Information(Image, Output_File);
 
     Put_Image(Image);
 
-    exception
-        when Name_Error =>
+exception
+    when Name_Error =>
         Put("Error! Input file """); 
         Put(Argument(1));
         Put(""" does not exist!");
 
-        when Status_Error =>
+    when Status_Error =>
         Put("Error! Output file """); 
         Put(Argument(2));
         Put(""" already exist!");
