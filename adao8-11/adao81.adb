@@ -25,7 +25,7 @@ procedure adao81 is
             Image_Area : Image_Area_Type;
         end record;
 
-    function check_Arg return Boolean is
+    function Check_Arg return Boolean is
     begin
 
         if Argument_Count /= 2 then
@@ -60,7 +60,7 @@ procedure adao81 is
 
         return true;
 
-    end check_Arg;
+    end Check_Arg;
 
     function Check_Format_PBM (File_Item : in     File_Type) return Boolean is
         
@@ -125,17 +125,21 @@ procedure adao81 is
     end Close_File;
 
     procedure Read (Item      :    out Image_Type;
-                    File_Item : in     File_Type) is
+                     File_Item : in     File_Type) is
 
-        S : String(1..Item.X_Dim);
+        C : Character;
+        File_Comment, File_Dimension : String := Get_Line(File_Item);
 
     begin
-        for Z in 1..Item.Y_Dim loop 
-        S := Get_Line(File_Item);
+
+        for Z in 1..Item.Y_Dim loop
             for I in 1..Item.X_Dim loop
-                if S(I) = '0' then
+
+                Get(File_Item, C);
+        
+                if C = '0' then
                     Set_White(Item.Image_Area(Z, I));
-                elsif S(I) = '1' then
+                elsif C = '1' then
                     Set_Black(Item.Image_Area(Z, I));
                 else
                     raise Constraint_Error;
@@ -145,7 +149,7 @@ procedure adao81 is
 
     exception 
         when Constraint_Error =>
-            return;       
+            return;  
     end Read;
 
     procedure Print_Image_Information (Item :    out Image_Type) is
@@ -212,17 +216,18 @@ procedure adao81 is
 
 begin
 
-    if check_Arg then
+    if Check_Arg then
         Print_Image_Information(Image);
+        Open_File(Input_File);
+        Print_Image_Information(Image, Input_File);
+        Close_File(Input_File);    
     else
         return;
     end if;
 
-    Open_File(Input_File);
-    Print_Image_Information(Image, Input_File);
-    
-    -- SHOW IMAGE IN TERMINAL FOR TESTING
-    -- Put_Image(Image);
+        
+        -- SHOW IMAGE IN TERMINAL FOR TESTING
+        -- Put_Image(Image);
 
 exception
     when Name_Error =>
