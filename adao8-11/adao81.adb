@@ -61,23 +61,21 @@ procedure adao81 is
         return true;
 
     end Check_Arg;
-
-    function Check_Format_PBM (File_Item : in     File_Type) return Boolean is
-        
-        S : String(1..2) := Get_Line(File_Item);
+    
+    function Check_Format_PBM (S : in     String) return Boolean is
 
     begin
-            if S(1..2) = "P1" then
-                return true;
-            else
+            if S(S'First..S'First + 2) = "P1a" then
                 return false;
+            else
+                return true;
             end if;
     exception
         when Constraint_Error=>
-            return false;
+            return true;
 
     end Check_Format_PBM;
-    
+
     procedure Put (Item : in     Image_Type) is
     begin
         for Z in 1..Item.Y_Dim loop
@@ -124,32 +122,50 @@ procedure adao81 is
         Close(File_Item);
     end Close_File;
 
-    procedure Read (Item      :    out Image_Type;
-                     File_Item : in     File_Type) is
-
+    procedure Parse_Image (Item      :    out Image_Type;
+                           File_Item : in     File_Type;
+                           Incr : in     Integer) is
+    
         C : Character;
-        File_Comment, File_Dimension : String := Get_Line(File_Item);
 
     begin
-
         for Z in 1..Item.Y_Dim loop
-            for I in 1..Item.X_Dim loop
+            for I in 1..(Item.X_Dim) loop
 
                 Get(File_Item, C);
-        
+
                 if C = '0' then
                     Set_White(Item.Image_Area(Z, I));
                 elsif C = '1' then
                     Set_Black(Item.Image_Area(Z, I));
-                else
-                    raise Constraint_Error;
                 end if;
+
+                if (Incr = 2) then
+
+                    Get(File_Item, C);
+
+                    if C = '1' then
+                        Item.Image_Area(Z, I).Alpha := true;
+                    end if;
+                end if;
+
             end loop;
         end loop;
+    end Parse_Image;
 
-    exception 
-        when Constraint_Error =>
-            return;  
+    procedure Read (Item      :    out Image_Type;
+                     File_Item : in     File_Type) is
+
+        File_Format, File_Comment, File_Dimension : String := Get_Line(File_Item);
+
+    begin
+            while not End_OF_File (File_Item) loop
+                if Check_Format_PBM(File_Format) then 
+                    Parse_Image(Item, File_Item, 1);
+                else
+                    Parse_Image(Item, File_Item, 2);
+                end if;
+            end loop;
     end Read;
 
     procedure Print_Image_Information (Item :    out Image_Type) is
@@ -159,14 +175,10 @@ procedure adao81 is
     begin
         
         Open_File(File_Item);
-
-        if Check_Format_PBM(File_Item) then
-            while not End_OF_File (File_Item) loop
-                Read(Item, File_Item);
-            end loop;
-        end if;
+        Read(Item, File_Item);
 
         Put(Item);
+
         Close(File_Item);
 
     end Print_Image_Information;
@@ -177,14 +189,12 @@ procedure adao81 is
         O_File_Item : File_Type;
 
     begin
-        if Check_Format_PBM(I_File_Item) then
-            while not End_OF_File (I_File_Item) loop
-                Read(Img_Item, I_File_Item);
-            end loop;
-        end if;
+        Read(Img_Item, I_File_Item);
         Create(O_File_Item, Out_File, O_File_Name);
         Set_Output(O_File_Item);
+
         Put(Img_Item);
+
         Close(O_File_Item);
         Set_Output(Standard_Output);
 
