@@ -26,14 +26,29 @@ void Add_Runner()
     }
 }
 
-// void Insert_Time(run_Time time, int rem_Length)
-// {
-//     for (int i; i < rem_Length; ++i)
-//     {
-//         runner_List[i].runner_Times.push_back(runner_List[i].runner_Times[z-1]);
-//         runner_List[i].runner_Times.at(z-1) = time;
-//     }
-// }
+void Insert_Time(runner_ID &runner, run_Time time, int pos)
+{
+    for (auto v = runner.runner_Times.begin(); v != runner.runner_Times.end(); ++v)
+    {
+        if (v + 1 == runner.runner_Times.end())
+        {
+            runner.runner_Times.push_back(runner.runner_Times[pos]);
+            runner.runner_Times.at(pos) = time;
+            return;
+        }
+        else
+        {
+            runner.runner_Times.at(pos+1) = runner.runner_Times.at(pos);
+            runner.runner_Times.at(pos) = time;
+        }
+
+        for (int z{}; z < runner.runner_Times.size(); ++z)
+        {
+            cout << runner.runner_Times[pos].run_Time_M << "." << runner.runner_Times[pos].run_Time_S << " ";
+        }
+        cout << endl;
+    }
+}
 
 void Set_Runner_Time()
 {
@@ -47,7 +62,6 @@ void Set_Runner_Time()
     {
         cout << "Tider " << runner_List[i].runner_F_Name << ": ";
         runner.runner_Times = {};
-        // z = 0;
         do 
         {
             cin >> min; 
@@ -73,31 +87,33 @@ void Set_Runner_Time()
             
                 for (int z{}; z < length; ++z)
                 {
+
+
                     if (min < runner_List[i].runner_Times[z].run_Time_M)
                     {
-
-                        for (int x{}; x < length - z; ++x)
-                        {
-
-                            cout << setw(8) << "z: " << runner_List[i].runner_Times[z].run_Time_M << endl
-                                << setw(8) << "z + x: " << runner_List[i].runner_Times[z+x].run_Time_M << endl
-                                << "length: " << length << endl;
-                                //if runner_List[i].runner_Times.end() = 
-                       
-                            runner_List[i].runner_Times.at(length - z + x) = runner_List[i].runner_Times.at(z);
-                            runner_List[i].runner_Times.at(z) = time;
-
-                        }
-
-                        
-                        // runner_List[i].runner_Times.push_back(runner_List[i].runner_Times[z-1];
-                        // runner_List[i].runner_Times.at(z) = time;
-
+                        Insert_Time(runner_List[i], time, z);
                     }
                     else if (min == runner_List[i].runner_Times[z].run_Time_M)
                     {
+                        if (sek == runner_List[i].runner_Times[z].run_Time_S)
+                        {
+                            break;
+                        }
+                        else if (sek < runner_List[i].runner_Times[z].run_Time_S)
+                        {
+                            Insert_Time(runner_List[i], time, z);
+                        }
+                        else
+                        {
+                            runner_List[i].runner_Times.push_back(time);
+                        }
+                    }
+                    else
+                    {
+                        runner_List[i].runner_Times.push_back(time);
 
                     }
+
                 }
             }
 
