@@ -4,5 +4,7 @@
 **/*.pdf
 **/*.out
 **/output.txt
+**/a.exe
+**/a.exe.stackdump
 
 **/test
