@@ -55,7 +55,7 @@ void Add_Runner()
     }
 }
 
-void Rank_Time(int const runner_No, run_Time const& time)
+void Rank_Time(int runner_No, run_Time const& time)
 {
 
         vector<run_Time>::iterator position;
@@ -91,6 +91,7 @@ void Set_Runner_Time()
 
     for (int i{}; i < runner_List.size(); ++i)
     {
+        runner_No = i;
         cout << "Tider " << runner_List[i].runner_F_Name << ": ";
         do 
         {
@@ -111,15 +112,8 @@ void Set_Runner_Time()
     }
 }
 
-int main()
-
+void Print_Highscore()
 {
-
-    cout << "Mata in deltagare:" << endl;
-    Add_Runner();
-    // Auto_Add_Runners();
-    Set_Runner_Time();
-
     cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider" << endl
         << "==========================================" << endl;
 
@@ -132,8 +126,16 @@ int main()
             cout << runner_List[i].runner_Times[z].run_Time_M << "." << runner_List[i].runner_Times[z].run_Time_S << " ";
         }
         cout << endl;
-    }
+    }  
+}
 
+int main()
+{
 
-
+    cout << "Mata in deltagare:" << endl;
+    Add_Runner();
+    // Auto_Add_Runners();
+    Set_Runner_Time();
+    Print_Highscore();
+    
 }
