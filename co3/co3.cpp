@@ -92,7 +92,6 @@ void Set_Runner_Time()
     for (int i{}; i < runner_List.size(); ++i)
     {
         cout << "Tider " << runner_List[i].runner_F_Name << ": ";
-        runner_No = i;
         do 
         {
             cin >> min; 

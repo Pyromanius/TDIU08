@@ -6,5 +6,7 @@
 **/output.txt
 **/a.exe
 **/a.exe.stackdump
+/.vscode
 
 **/test
+**/test.*
