@@ -6,6 +6,35 @@
 
 using namespace std;
 
+void Auto_Add_Runners()
+{
+        runner_ID activeRunner, runner1, runner2, runner3, runner4;
+        runner1.runner_F_Name = "John";
+        runner1.runner_S_Name = "Doe";
+        runner1.club_Name = "Running Club";
+        runner2.runner_F_Name = "Jake";
+        runner2.runner_S_Name = "Dogface";
+        runner2.club_Name = "Proper LC";
+        runner3.runner_F_Name = "RunFast";
+        runner3.runner_S_Name = "OnWinds";
+        runner3.club_Name = "RunnyFast";
+        runner4.runner_F_Name = "Martin";
+        runner4.runner_S_Name = "Seafarer";
+        runner4.club_Name = "Hoppetihopp";
+        std::vector<runner_ID> tempList = {runner1, runner2, runner3, runner4};
+
+        int noRunners;
+
+        cout << "How many runners would you like? (Max 4): ";
+        cin >> noRunners;    
+
+        for (int i{}; i < noRunners; ++i)
+        {    
+            activeRunner = tempList.at(i);
+            runner_List.push_back(activeRunner);
+        }
+}
+
 void Add_Runner()
 {
         runner_ID runner;
@@ -26,28 +55,44 @@ void Add_Runner()
     }
 }
 
-// void Insert_Time(run_Time time, int rem_Length)
-// {
-//     for (int i; i < rem_Length; ++i)
-//     {
-//         runner_List[i].runner_Times.push_back(runner_List[i].runner_Times[z-1]);
-//         runner_List[i].runner_Times.at(z-1) = time;
-//     }
-// }
+void Rank_Time(int const runner_No, run_Time const& time)
+{
+
+        vector<run_Time>::iterator position;
+        int length = runner_List[runner_No].runner_Times.size();
+
+    for (int i{}; i < length + 1; ++i)
+    {
+        if (i == runner_List[runner_No].runner_Times.size())
+        {
+            runner_List[runner_No].runner_Times.push_back(time);
+        }
+        else
+        {
+            if (time.run_Time_M > runner_List[runner_No].runner_Times.at(i).run_Time_M)
+            {
+                continue;
+            }
+            else if (time.run_Time_M < runner_List[runner_No].runner_Times.at(i).run_Time_M)
+            {
+                position = runner_List[runner_No].runner_Times.begin() + i;
+                runner_List[runner_No].runner_Times.insert(position, time);
+                break;
+            }
+        }
+    }
+}
 
 void Set_Runner_Time()
 {
-
-        runner_ID runner;
         run_Time time;
-        int min, sek, length;
+        int min, sek, runner_No;
         char C;
 
     for (int i{}; i < runner_List.size(); ++i)
     {
         cout << "Tider " << runner_List[i].runner_F_Name << ": ";
-        runner.runner_Times = {};
-        // z = 0;
+        runner_No = i;
         do 
         {
             cin >> min; 
@@ -58,112 +103,13 @@ void Set_Runner_Time()
             cin >> C;
             cin >> sek;
 
-            if (runner_List[i].runner_Times.empty())
-            {
-                time.run_Time_M = min;
-                time.run_Time_S = sek;
-                runner_List[i].runner_Times.push_back(time);
-            }
+            time.run_Time_M = min;
+            time.run_Time_S = sek;
 
-            else
-            {
-                length = runner_List[i].runner_Times.size();
-                time.run_Time_M = min;
-                time.run_Time_S = sek;
-            
-                for (int z{}; z < length; ++z)
-                {
-                    if (min < runner_List[i].runner_Times[z].run_Time_M)
-                    {
-
-                        for (int x{}; x < length - z; ++x)
-                        {
-
-                            cout << setw(8) << "z: " << runner_List[i].runner_Times[z].run_Time_M << endl
-                                << setw(8) << "z + x: " << runner_List[i].runner_Times[z+x].run_Time_M << endl
-                                << "length: " << length << endl;
-                                //if runner_List[i].runner_Times.end() = 
-                       
-                            runner_List[i].runner_Times.at(length - z + x) = runner_List[i].runner_Times.at(z);
-                            runner_List[i].runner_Times.at(z) = time;
-
-                        }
-
-                        
-                        // runner_List[i].runner_Times.push_back(runner_List[i].runner_Times[z-1];
-                        // runner_List[i].runner_Times.at(z) = time;
-
-                    }
-                    else if (min == runner_List[i].runner_Times[z].run_Time_M)
-                    {
-
-                    }
-                }
-            }
-
-            // else
-            // {
-            //     if (min > runner_List[i].runner_Times[z-1].run_Time_M)
-            //     {
-            //         time.run_Time_M = min;
-            //         time.run_Time_S = sek;
-            //         runner_List[i].runner_Times.push_back(time);
-            //     }
-            //     else if (min == runner_List[i].runner_Times[z-1].run_Time_M)
-            //     {
-            //         if (sek < runner_List[i].runner_Times[z-1].run_Time_S)
-            //         {
-            //             time.run_Time_M = min;
-            //             time.run_Time_S = sek;
-            //             runner_List[i].runner_Times.push_back(runner_List[i].runner_Times[z-1]);
-            //             runner_List[i].runner_Times.at(z-1) = time;
-            //         }
-            //         else
-            //         {
-            //             time.run_Time_M = min;
-            //             time.run_Time_S = sek;
-            //             runner_List[i].runner_Times.push_back(time);
-            //         }
-            //     }
-            //     else
-            //     {
-            //         time.run_Time_M = min;
-            //         time.run_Time_S = sek;
-            //         runner_List[i].runner_Times.push_back(runner_List[i].runner_Times[z-1]);
-            //         runner_List[i].runner_Times.at(z-1) = time;
-            //     }
-            // }
-            //    ++z;
-                
+            Rank_Time(runner_No, time);     
         }
         while (min != -1);
     }
-}
-
-void Rank_Runners(runner_ID runner, int &i)
-{
-
-        // runner_ID runner;
-
-        for (int z{}; z < runner.runner_Times.size(); ++z)
-        {
-            if (runner_List[i+1].runner_Times.size() < z)
-            {
-                return;
-            }
-
-            if (runner.runner_Times[z].run_Time_M < runner_List[i+1].runner_Times[z].run_Time_M)
-            {
-                runner_List.at(i) = runner_List.at(i+1);
-                runner_List.at(i+1) = runner;
-
-                cout << "Passed here" << endl;
-                return;
-            }
-
-        }
-
-    
 }
 
 int main()
@@ -172,13 +118,8 @@ int main()
 
     cout << "Mata in deltagare:" << endl;
     Add_Runner();
+    // Auto_Add_Runners();
     Set_Runner_Time();
-    // for (int i{}; i < runner_List.size(); ++i)
-    // {
-    //     // runner = runner_List[i];
-    //     Rank_Runners(runner_List[i], i);
-
-    // }
 
     cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider" << endl
         << "==========================================" << endl;

@@ -7,11 +7,13 @@
     };
 
     struct runner_ID {
-        std::string runner_F_Name, runner_S_Name, club_Name;
+        std::string runner_F_Name{}, runner_S_Name{}, club_Name{};
         std::vector <run_Time> runner_Times{};
     };
 
     std::vector <runner_ID> runner_List{};
+
+    
 
     void Add_Runner();
 
