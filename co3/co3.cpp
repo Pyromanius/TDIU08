@@ -6,6 +6,27 @@
 
 using namespace std;
 
+void Auto_Add_Times()
+{
+
+            run_Time tmpTime = {};
+            int noTimes;
+
+    cout << "How many runtimes would you like?: ";
+    cin >> noTimes;
+
+    for (auto i = 0u; i < runner_List.size(); ++i)
+    {
+        for (int z{}; z < noTimes; ++z)
+        {
+            tmpTime.run_Time_M = 10 - i + z;
+            tmpTime.run_Time_S = 25 - i + z;
+            runner_List[i].runner_Times.push_back(tmpTime);
+            // Rank_Time(i, tmpTime);
+        }
+    }
+}
+
 void Auto_Add_Runners()
 {
         runner_ID activeRunner, runner1, runner2, runner3, runner4;
@@ -59,9 +80,9 @@ void Rank_Time(int const runner_No, run_Time const time)
 {
 
         vector<run_Time>::iterator position;
-        int length = runner_List[runner_No].runner_Times.size();
+        unsigned int length = runner_List[runner_No].runner_Times.size();
 
-    for (int i{}; i < length + 1; ++i)
+    for (auto i = 0u; i < length + 1; ++i)
     {
         if (i == runner_List[runner_No].runner_Times.size())
         {
@@ -89,7 +110,7 @@ void Set_Runner_Time()
         int min, sek, runner_No;
         char C;
 
-    for (int i{}; i < runner_List.size(); ++i)
+    for (auto i = 0u; i < runner_List.size(); ++i)
     {
         runner_No = i;
         cout << "Tider " << runner_List[i].runner_F_Name << ": ";
@@ -117,11 +138,11 @@ void Print_Highscore()
     cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider" << endl
         << "==========================================" << endl;
 
-    for (int i{}; i < runner_List.size(); ++i)
+    for (auto i = 0u; i < runner_List.size(); ++i)
     {
         cout << right << setw(9) << runner_List[i].runner_F_Name << " " << setw(9) << runner_List[i].runner_S_Name << " " << setw(15) << runner_List[i].club_Name << ": ";
         
-        for (int z{}; z < runner_List[i].runner_Times.size(); ++z)
+        for (auto z = 0u; z < runner_List[i].runner_Times.size(); ++z)
         {
             cout << runner_List[i].runner_Times[z].run_Time_M << "." << runner_List[i].runner_Times[z].run_Time_S << " ";
         }
@@ -129,13 +150,35 @@ void Print_Highscore()
     }  
 }
 
+void Rank_Runners()
+{
+        runner_ID tmpRunner;
+        int length = runner_List.size();
+
+    for (int z = 0; z < length - 1; ++z)
+    {
+        for (int i = z + 1; i < length; ++i)
+        {
+            if (runner_List[z].runner_Times[0].run_Time_M > runner_List[i].runner_Times[0].run_Time_M)
+            {
+                tmpRunner = runner_List[z];
+                runner_List[z] = runner_List[i];
+                runner_List[i] = tmpRunner;
+            }
+        }
+    }
+}
+
 int main()
 {
 
     cout << "Mata in deltagare:" << endl;
-    Add_Runner();
-    // Auto_Add_Runners();
-    Set_Runner_Time();
+    Auto_Add_Runners();
+    Auto_Add_Times();
+    // Add_Runner();
+    // Set_Runner_Time();
+    Rank_Runners();
     Print_Highscore();
+
     
 }
