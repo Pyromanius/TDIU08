@@ -133,23 +133,6 @@ void Set_Runner_Time()
     }
 }
 
-void Print_Highscore()
-{
-    cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider" << endl
-        << "==========================================" << endl;
-
-    for (auto i = 0u; i < runner_List.size(); ++i)
-    {
-        cout << right << setw(9) << runner_List[i].runner_F_Name << " " << setw(9) << runner_List[i].runner_S_Name << " " << setw(15) << runner_List[i].club_Name << ": ";
-        
-        for (auto z = 0u; z < runner_List[i].runner_Times.size(); ++z)
-        {
-            cout << runner_List[i].runner_Times[z].run_Time_M << "." << runner_List[i].runner_Times[z].run_Time_S << " ";
-        }
-        cout << endl;
-    }  
-}
-
 void Rank_Runners()
 {
         runner_ID tmpRunner;
@@ -168,6 +151,24 @@ void Rank_Runners()
         }
     }
 }
+
+void Print_Highscore()
+{
+    cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider" << endl
+        << "==========================================" << endl;
+
+    for (auto i = 0u; i < runner_List.size(); ++i)
+    {
+        cout << right << setw(9) << runner_List[i].runner_F_Name << " " << setw(9) << runner_List[i].runner_S_Name << " " << setw(15) << runner_List[i].club_Name << ": ";
+        
+        for (auto z = 0u; z < runner_List[i].runner_Times.size(); ++z)
+        {
+            cout << runner_List[i].runner_Times[z].run_Time_M << "." << runner_List[i].runner_Times[z].run_Time_S << " ";
+        }
+        cout << endl;
+    }  
+}
+
 
 int main()
 {
