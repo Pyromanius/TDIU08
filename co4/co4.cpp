@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 #include "co4.h"
 
@@ -100,29 +101,13 @@ void addHero(string const reg_name)
     registerHero(new_hero, reg_name);
 }
 
-vector<Hero_Type> searchMatches(int const interest)
-{
-
-        vector<Hero_Type> matches_list;
-
-    for (int i; i < static_cast<int>(Register_Type.size()); ++i){
-        for (int z; z < static_cast<int>(Register_Type[i].interests.size()); ++z){
-            if (interest == Register_Type[i].interests.at(z)){
-                matches_list.push_back(Register_Type[i]);
-            }
-        }
-    }
-    return matches_list;
-    
-}
-
 void printMatches(vector<Hero_Type> const matches_list){
     cout << left << setw(11) << "Hero name" 
         << left << setw(12) << "Birth year" 
         << left << setw(8) <<  "Weight" 
         << left << setw(12) << "Hair color"  
         << left << "Interests" << endl
-        << setfill('=') << setw(52) << "=" << endl;
+        << setfill('=') << setw(52) << "=" << endl << setfill(' ');
     for (int i{}; i < static_cast<int>(matches_list.size()); ++i){
         cout << setw(11) << matches_list[i].name
             << setw(12) << matches_list[i].year 
@@ -134,26 +119,71 @@ void printMatches(vector<Hero_Type> const matches_list){
         cout << endl;
     }
     if (matches_list.empty()){
-        cout << "-------------This list is empty--------------";
+        cout << "-------------This list is empty--------------" << endl;
     }
+}
+
+operator == (Hero_Type const& lhs, Hero_Type const& rhs)
+{
+    if (lhs.name == rhs.name && lhs.year == rhs.year && lhs.weight == rhs.weight && lhs.hair_clr == rhs.hair_clr){
+        cout << "TRUEing" << endl;
+        return true;
+    }
+    else
+    {
+        cout << "FALSEing" << endl;
+        return false;
+        
+    }
+}
+
+vector<Hero_Type> searchMatches(int const interest, vector<Hero_Type> const& matches)
+{
+
+        vector<Hero_Type> new_matches_list{};
+        Hero_Type new_match;
+
+    for (int i{}; i < static_cast<int>(Register_Type.size()); ++i){
+        
+        if (find(Register_Type[i].interests.begin(), Register_Type[i].interests.end(), interest) != Register_Type[i].interests.end()){
+    // printMatches(new_matches_list);
+            new_match = Register_Type[i];
+            if (find(matches.begin(), matches.end(), new_match) != matches.end()){
+                continue;
+            }
+            else{
+                cout << "pushing back" << new_match.name << endl;
+                new_matches_list.push_back(new_match); 
+            }
+        }
+    }
+    return new_matches_list;
+    
 }
 
 void findMatch()
 {
-        vector<Hero_Type> matches{};
         int interest;
+        vector<Hero_Type> matches{};
 
     cout << "Enter your interests (at least one between 1 and 15): ";
     cin >> interest;
 
-    matches = searchMatches(interest);
+        vector<Hero_Type> tmp_matches = searchMatches(interest, matches);
 
-    while (cin.get() != '\n'){
-        cout << endl << "kom hit" << endl;
-        cin >> interest;
-        matches = searchMatches(interest);
+    // tmp_matches = searchMatches(interest, matches);
+    matches.insert(matches.end(), tmp_matches.begin(), tmp_matches.end());
+
+
+    while (cin.get() != '\n' && cin >> interest){
+        vector<Hero_Type> tmp_matches = searchMatches(interest, matches);
+        // tmp_matches = searchMatches(interest, matches);
+        matches.insert(matches.end(), tmp_matches.begin(), tmp_matches.end());
     } 
+
+    cout << endl << endl << right << setw(30) << setfill('*') << "ENDRESULT" << setw(22) << "*" << setfill(' ') << endl << endl;
     printMatches(matches);
+    cout << setfill('*') << setw(52) << "*" << endl << endl;
 }
 
 void checkList(string const reg_name)
@@ -185,16 +215,14 @@ void checkList(string const reg_name)
     // cout << Register_Type[0].interests.at(1);
 }
 
-int mainMenu()
+int mainMenu(int & sel)
 {
-
-        int sel;
-
+    sel = 0;
     cout << "Welcome to Hero Matchmaker 3000!" << endl 
         << "1) Add new hero to register file" << endl
         << "2) Find matching heroes" << endl
         << "3) Quit program" << endl;
-        while (sel < 1 || sel > 3){
+        while (sel < 1 || sel > 4){
             cout << "Select: ";
             cin >> sel;
         }
@@ -203,15 +231,21 @@ int mainMenu()
 
 int main(int argc, char* arg[])
 {
+        int sel;
 
     checkArg(argc, arg[0]);
-
-    if (mainMenu() == 1)
-        addHero(arg[1]);
-    else if (mainMenu() == 2){
-        checkList(arg[1]);
-        findMatch();
-    }
+    while (mainMenu(sel) != 3){
+        if (sel == 1)
+            addHero(arg[1]);
+        else if (sel == 2){
+            checkList(arg[1]);
+            findMatch();
+        }
+        else if (sel == 4){
+            checkList(arg[1]);
+            printMatches(Register_Type);
+        }
+}
 
 //     file_to_read.open(arg[1]);
 //     s_s << file_to_read.rdbuf();
