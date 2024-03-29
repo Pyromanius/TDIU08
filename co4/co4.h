@@ -18,6 +18,7 @@ void addHero(std::string const reg_name);
 int mainMenu();
 bool isValidInterest(std::vector<int> const& interests, int const new_interest);
 void checkList(std::string const reg_name);
+bool operator == (Hero_Type const& lhs, Hero_Type const& rhs);
 
 
 #endif

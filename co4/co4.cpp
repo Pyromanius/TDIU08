@@ -10,8 +10,7 @@
 
 using namespace std;
 
-void checkArg(int const num_arguments, string const& prog_name)
-{
+void checkArg(int const num_arguments, string const& prog_name){
     if (num_arguments != 2)
     {
         cout << "Incorrect number of arguments!" << endl
@@ -20,8 +19,7 @@ void checkArg(int const num_arguments, string const& prog_name)
     }
 }
 
-void registerHero(Hero_Type const new_hero, string const reg_name)
-{
+void registerHero(Hero_Type const new_hero, string const reg_name){
         fstream reg_file;
 
     reg_file.open(reg_name, ios::app);
@@ -39,8 +37,7 @@ void registerHero(Hero_Type const new_hero, string const reg_name)
     reg_file.close(); 
 }
 
-bool isValidInterest(vector<int> const& interests, int const new_interest)
-{
+bool isValidInterest(vector<int> const& interests, int const new_interest){
         if (new_interest > 0 && new_interest < 16){
             for (int i{}; i < static_cast<int>(interests.size()); ++i){
                 if (new_interest == interests[i])
@@ -55,9 +52,7 @@ bool isValidInterest(vector<int> const& interests, int const new_interest)
     return true;
 }
 
-void sortInterests(vector<int> & interests)
-{
-
+void sortInterests(vector<int> & interests){
         int tmp_interest;
 
     for (int z = 0; z < static_cast<int>(interests.size()) - 1; ++z){
@@ -71,34 +66,40 @@ void sortInterests(vector<int> & interests)
     }
 }
 
-void addHero(string const reg_name)
-{
+bool heroExists(Hero_Type const& new_hero){
+    for (int i{}; i < static_cast<int>(Register_Type.size()); ++i){
+        if (new_hero == Register_Type.at(i))
+            return true;
+        else
+            continue;
+    }
+    return false;
+}
+
+void addHero(string const reg_name){
         Hero_Type new_hero;
         int interest;
         string interests_s;
         istringstream iss(interests_s);
 
     cout << "Enter hero information: " << endl;
-    // cin >> new_hero.name
-    //     >> new_hero.year
-    //     >> new_hero.weight
-    //     >> new_hero.hair_clr;
-        new_hero.name = "Hawk";
-        new_hero.year = 1984;
-        new_hero.weight = 85.3;
-        new_hero.hair_clr = "Blonde";
+    cin >> new_hero.name >> new_hero.year >> new_hero.weight >> new_hero.hair_clr;
 
-    for (int i; i < 15; ++i){
-        cin >> interest;
+    cin >> interest;
+    if (isValidInterest(new_hero.interests, interest))
+        new_hero.interests.push_back(interest);
 
+    while ((cin >> interest && cin.get() != '\n') || new_hero.interests.empty()){
+        if (isValidInterest(new_hero.interests, interest))
+            new_hero.interests.push_back(interest);
+    } 
         if (isValidInterest(new_hero.interests, interest))
             new_hero.interests.push_back(interest);
 
-        if (cin.get() == '\n')
-            break;
-    } 
     sortInterests(new_hero.interests);
-    registerHero(new_hero, reg_name);
+
+    if (!heroExists(new_hero))
+        registerHero(new_hero, reg_name);
 }
 
 void printMatches(vector<Hero_Type> const matches_list){
@@ -118,51 +119,34 @@ void printMatches(vector<Hero_Type> const matches_list){
         }
         cout << endl;
     }
-    if (matches_list.empty()){
-        cout << "-------------This list is empty--------------" << endl;
-    }
 }
 
-operator == (Hero_Type const& lhs, Hero_Type const& rhs)
-{
-    if (lhs.name == rhs.name && lhs.year == rhs.year && lhs.weight == rhs.weight && lhs.hair_clr == rhs.hair_clr){
-        cout << "TRUEing" << endl;
+bool operator == (Hero_Type const& lhs, Hero_Type const& rhs){
+    if (lhs.name == rhs.name && lhs.year == rhs.year && lhs.weight == rhs.weight && lhs.hair_clr == rhs.hair_clr)
         return true;
-    }
     else
-    {
-        cout << "FALSEing" << endl;
         return false;
-        
-    }
 }
 
-vector<Hero_Type> searchMatches(int const interest, vector<Hero_Type> const& matches)
-{
-
+vector<Hero_Type> searchMatches(int const interest, vector<Hero_Type> const& matches){
         vector<Hero_Type> new_matches_list{};
         Hero_Type new_match;
 
     for (int i{}; i < static_cast<int>(Register_Type.size()); ++i){
         
         if (find(Register_Type[i].interests.begin(), Register_Type[i].interests.end(), interest) != Register_Type[i].interests.end()){
-    // printMatches(new_matches_list);
             new_match = Register_Type[i];
-            if (find(matches.begin(), matches.end(), new_match) != matches.end()){
+            if (find(matches.begin(), matches.end(), new_match) != matches.end())
                 continue;
-            }
-            else{
-                cout << "pushing back" << new_match.name << endl;
+            else
                 new_matches_list.push_back(new_match); 
-            }
         }
     }
     return new_matches_list;
     
 }
 
-void findMatch()
-{
+void findMatch(){
         int interest;
         vector<Hero_Type> matches{};
 
@@ -171,91 +155,71 @@ void findMatch()
 
         vector<Hero_Type> tmp_matches = searchMatches(interest, matches);
 
-    // tmp_matches = searchMatches(interest, matches);
     matches.insert(matches.end(), tmp_matches.begin(), tmp_matches.end());
-
 
     while (cin.get() != '\n' && cin >> interest){
         vector<Hero_Type> tmp_matches = searchMatches(interest, matches);
-        // tmp_matches = searchMatches(interest, matches);
         matches.insert(matches.end(), tmp_matches.begin(), tmp_matches.end());
     } 
-
-    cout << endl << endl << right << setw(30) << setfill('*') << "ENDRESULT" << setw(22) << "*" << setfill(' ') << endl << endl;
     printMatches(matches);
-    cout << setfill('*') << setw(52) << "*" << endl << endl;
 }
 
-void checkList(string const reg_name)
-{
-
+void updateList(string const reg_name){
        ifstream file_to_read;
 
     file_to_read.open(reg_name);
 
     while (!file_to_read.eof()){
-        Hero_Type new_hero{};
-        string hero_interests{};
-        int interest{};       
+            Hero_Type new_hero{};
+            string hero_interests{};
+            int interest{}; 
+
         file_to_read >> new_hero.name;
         file_to_read >> new_hero.year;
         file_to_read >> new_hero.weight;
         file_to_read >> new_hero.hair_clr;
         getline(file_to_read, hero_interests);
         istringstream s_s(hero_interests);
+
         while (s_s >> interest) {
             new_hero.interests.push_back(interest);
         }
         
-        Register_Type.push_back(new_hero);
+        if (!heroExists(new_hero))
+            Register_Type.push_back(new_hero);
     }
 
     file_to_read.close();
-
-    // cout << Register_Type[0].interests.at(1);
 }
 
-int mainMenu(int & sel)
-{
+int mainMenu(int & sel){
     sel = 0;
     cout << "Welcome to Hero Matchmaker 3000!" << endl 
         << "1) Add new hero to register file" << endl
         << "2) Find matching heroes" << endl
         << "3) Quit program" << endl;
-        while (sel < 1 || sel > 4){
+        while (sel < 1 || sel > 3){
             cout << "Select: ";
             cin >> sel;
         }
         return sel;
 }
 
-int main(int argc, char* arg[])
-{
+int main(int argc, char* arg[]){
         int sel;
 
     checkArg(argc, arg[0]);
+    updateList(arg[1]);
+
     while (mainMenu(sel) != 3){
         if (sel == 1)
             addHero(arg[1]);
         else if (sel == 2){
-            checkList(arg[1]);
             findMatch();
         }
-        else if (sel == 4){
-            checkList(arg[1]);
-            printMatches(Register_Type);
+        else if (sel == 3){
+            cout << "Terminating Hero Matchmaker 3000!";
+            return 0;
         }
 }
-
-//     file_to_read.open(arg[1]);
-//     s_s << file_to_read.rdbuf();
-//     cout << "s_s.str(): " << endl << s_s.str();
-//     file_to_read.close();
-
-// cout << endl;
-
-//     file_to_read.open(arg[1]);
-//     getline(file_to_read, s);
-//     cout << "s:" << endl << s;
-//     file_to_read.close();
 };
