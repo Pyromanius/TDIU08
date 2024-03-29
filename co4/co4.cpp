@@ -164,6 +164,42 @@ void findMatch(){
     printMatches(matches);
 }
 
+void sortListByName(){
+        Hero_Type tmp_hero;
+
+    for (int z = 0; z < static_cast<int>(Register_Type.size()) - 1; ++z){
+        for (int i = z + 1; i < static_cast<int>(Register_Type.size()); ++i){
+            if (Register_Type[z].name > Register_Type[i].name){
+                tmp_hero = Register_Type[z];
+                Register_Type[z] = Register_Type[i];
+                Register_Type[i] = tmp_hero;
+            }
+        }
+    }
+}
+
+void updateFile(string const reg_name){
+        fstream reg_file;
+        string last_line;
+
+    reg_file.open(reg_name, ios::out);
+
+    for (int i{}; i < static_cast<int>(Register_Type.size()); ++i){
+        reg_file << left << setw(11) << Register_Type[i].name
+            << left << setw(12) << Register_Type[i].year
+            << left << setw(8) << Register_Type[i].weight
+            << left << setw(14) << Register_Type[i].hair_clr;
+            for (int z{}; z < static_cast<int>(Register_Type[i].interests.size()); ++z)
+            {
+                reg_file << left << setw(4) << Register_Type[i].interests.at(z);
+            }
+        reg_file << endl;
+    }
+
+    reg_file.close(); 
+
+}
+
 void updateList(string const reg_name){
        ifstream file_to_read;
 
@@ -185,11 +221,14 @@ void updateList(string const reg_name){
             new_hero.interests.push_back(interest);
         }
         
-        if (!heroExists(new_hero))
+        if (!heroExists(new_hero) && !new_hero.name.empty())
             Register_Type.push_back(new_hero);
     }
 
     file_to_read.close();
+    sortListByName();
+    updateFile(reg_name);
+    // printMatches(Register_Type);
 }
 
 int mainMenu(int & sel){
