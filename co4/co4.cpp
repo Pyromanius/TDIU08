@@ -98,8 +98,10 @@ void addHero(string const reg_name){
 
     sortInterests(new_hero.interests);
 
-    if (!heroExists(new_hero))
+    if (!heroExists(new_hero)){
         registerHero(new_hero, reg_name);
+        updateList(reg_name);
+    }
 }
 
 void printMatches(vector<Hero_Type> const matches_list){
