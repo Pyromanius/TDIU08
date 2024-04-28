@@ -104,7 +104,7 @@ void addHero(string const reg_name){
     }
 }
 
-void printMatches(vector<Hero_Type> const matches_list){
+void printList(vector<Hero_Type> const matches_list){
     cout << left << setw(11) << "Hero name" 
         << left << setw(12) << "Birth year" 
         << left << setw(8) <<  "Weight" 
@@ -163,7 +163,7 @@ void findMatch(){
         vector<Hero_Type> tmp_matches = searchMatches(interest, matches);
         matches.insert(matches.end(), tmp_matches.begin(), tmp_matches.end());
     } 
-    printMatches(matches);
+    printList(matches);
 }
 
 void sortListByName(){
@@ -230,7 +230,7 @@ void updateList(string const reg_name){
     file_to_read.close();
     sortListByName();
     updateFile(reg_name);
-    // printMatches(Register_Type);
+    // printList(Register_Type);
 }
 
 int mainMenu(int & sel){
@@ -252,7 +252,7 @@ int main(int argc, char* arg[]){
     checkArg(argc, arg[0]);
     updateList(arg[1]);
 
-    while (mainMenu(sel) != 3){
+    while (mainMenu(sel) < 4){
         if (sel == 1)
             addHero(arg[1]);
         else if (sel == 2){
