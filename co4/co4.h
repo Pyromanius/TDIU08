@@ -13,7 +13,7 @@ std::vector <Hero_Type> Register_Type{};
 
 void checkArg(int const num_arguments, std::string const& prog_name);
 void registerHero(Hero_Type const new_hero, std::string const reg_name);
-bool isValidInterest(std::vector<int> const& interests, int const new_interest)
+bool isValidInterest(std::vector<int> const& interests, int const new_interest);
 void sortInterests(std::vector<int> & interests);
 bool heroExists(Hero_Type const& new_hero);
 void addHero(std::string const reg_name);
