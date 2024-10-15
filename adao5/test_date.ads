@@ -1,6 +1,6 @@
 with Ada.Integer_Text_IO;		use Ada.Integer_Text_IO;	
 
-package test_date is
+package Test_Date is
    type Date_Type is private;
 
    procedure Get(Time: out Date_Type);
@@ -20,4 +20,4 @@ package test_date is
       Y, M, D: Integer;
    end record;
       
-end test_date;
+end Test_Date;
