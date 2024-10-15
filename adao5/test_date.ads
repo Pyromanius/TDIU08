@@ -11,7 +11,7 @@ package Test_Date is
    function ">"(Left, Right: in Date_Type) return Boolean;
    function "="(Left, Right: in Date_Type) return Boolean;
    
-   Format_Error, Format_Error_Day, Format_Error_Month, Format_Error_Year : exception;
+   Format_Error, Day_Error, Month_Error, Year_Error : exception;
 
    private
 
