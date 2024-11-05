@@ -3,27 +3,17 @@ with Ada.Text_IO;         use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 procedure phi_calc is
-    N, H : Integer;
+
+        N, H : Integer;
 
     function Fib (N : in     Integer) return Integer is
-        Fib1, Fib2 : Integer := 1;
-        Fib3 : Integer := 2;
+
     begin
-        if N = 3 then
-            return Fib3;
-        elsif N = 2 then
-            return Fib2;
-        elsif N = 1 then
-            return Fib1;
+        if N = 1 or N = 2 then
+            return 1;
+        else
+            return Fib(N - 1) + Fib(N - 2);
         end if;
-
-        for I in 3..N loop
-            Fib3 := Fib1 + Fib2;
-            Fib1 := Fib2;
-            Fib2 := Fib3;
-        end loop;
-
-        return Fib3;
     end Fib;
 
     function Pyramid (H : in     integer) return Integer is
