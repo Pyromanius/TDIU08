@@ -6,8 +6,11 @@
 **/output.txt
 **/a.exe
 **/a.exe.stackdump
-**/phi_calc
 /.vscode
 
+**/phi_calc
+**/phi_calc.*
+**/test_list
+**/test_list.*
 **/test
 **/test.*
