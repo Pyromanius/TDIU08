@@ -1,4 +1,5 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with test_date_impl; use test_date_impl;
 
 procedure Test_Date is
    
