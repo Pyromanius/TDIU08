@@ -3,7 +3,6 @@ with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
 with Ada.Unchecked_Deallocation;
 
 package body sorted_list is
-
     function Empty(L : in List_Type) return Boolean is
     begin
         if L = null then
@@ -11,12 +10,10 @@ package body sorted_list is
         else 
             return false;
         end if;
-
     end Empty;
 
     procedure Put(L : in List_Type) is
     begin
-        
         if not Empty(L) then
             Put(" ");
             Put(L.I, Width=>0);
@@ -25,7 +22,6 @@ package body sorted_list is
     end Put;
 
     function Length(L : in List_Type) return Integer is
-
     begin
         if Empty(L) then
             return 0;
@@ -36,7 +32,6 @@ package body sorted_list is
 
     function Member(L : in List_Type;
                     N : in Integer) return Boolean is
-
     begin
         if Empty(L) then
             return false;
@@ -51,23 +46,24 @@ package body sorted_list is
 
     procedure Remove(L : in out List_Type;
                      N : in     Integer) is
-
         Temp_List : List_Type;
-
     begin
         if not Empty(L) then
             if N = L.I then
                 Temp_List := L.NextPtr;
                 Free(L);
                 L := Temp_List;
-            else
+            elsif N /= L.I then
                 Remove(L.NextPtr, N);
+            end if;
+
+            if L.NextPtr = null then
+                raise No_Such_Element_Error;
             end if;
         end if;        
     end Remove;
 
     procedure Delete(L : in out List_Type) is
-
     begin
 	    if not Empty(L) then
 	        Delete(L.NextPtr);
@@ -77,11 +73,8 @@ package body sorted_list is
 
     procedure Insert(L : in out List_Type;
                      N :        Integer) is
-
-        Temp_List : List_Type;
-    
+        Temp_List : List_Type;   
     begin
-
         if L = null then
             L := new Elemental_Type'(N, null);
         else
@@ -97,5 +90,4 @@ package body sorted_list is
             end if;
         end if;
     end Insert;
-
 end sorted_list;

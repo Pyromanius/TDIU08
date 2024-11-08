@@ -1,7 +1,5 @@
 package sorted_list is
-
     type List_Type is private;
-
 
     function Empty(L : in     List_Type) return Boolean;
     procedure Put(L : in     List_Type);
@@ -15,10 +13,8 @@ package sorted_list is
     
 private
     type Elemental_Type;
-
     type List_Type is 
         access Elemental_Type;
-
     type Elemental_Type is 
         record
             I : Integer;
