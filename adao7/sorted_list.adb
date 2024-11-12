@@ -88,6 +88,7 @@ package body sorted_list is
                 if Temp_List = null then
                     Temp_List := new Elemental_Type'(N, null);
                 end if;
+                
                 Temp_List.I := N;
                 Temp_List.NextPtr := L;
                 L := Temp_List;
