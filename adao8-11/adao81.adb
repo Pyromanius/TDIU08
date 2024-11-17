@@ -6,8 +6,6 @@ with Ada.Command_Line;      use Ada.Command_Line;
 
 procedure adao81 is 
 
-        procName : String := "adao81";
-
         subtype RGB_Value is Integer range 0..255;
 
         type Pixel_Type is
@@ -26,12 +24,13 @@ procedure adao81 is
             end record;
 
     function Check_Arg return Boolean is
+        procName : String := "adao81";
     begin
 
         if Argument_Count /= 2 then
             Put("Error! Incorrect number of arguments!");
             New_Line;
-            Put("Usage: ./image_program IMAGE_FILENAME [OUTPUT_FILENAME]");
+            Put("Usage: ./executable_program˽IMAGE_FILENAME˽N˽[X˽Y]");
             return false;
         end if;
 
@@ -57,23 +56,19 @@ procedure adao81 is
             end if;
         end loop;
 
-
         return true;
-
     end Check_Arg;
     
     function Check_Format_PBM (S : in     String) return Boolean is
-
     begin
-            if S(S'First..S'First + 2) = "P1a" then
-                return false;
-            else
-                return true;
-            end if;
+        if S(S'First..S'First + 2) = "P1a" then
+            return false;
+        else
+            return true;
+        end if;
     exception
         when Constraint_Error=>
             return true;
-
     end Check_Format_PBM;
 
     procedure Put (Item : in     Image_Type) is
@@ -126,15 +121,11 @@ procedure adao81 is
     procedure Parse_Image (Item      :    out Image_Type;
                            File_Item : in     File_Type;
                            Incr : in     Integer) is
-    
         C : Character;
-
     begin
         for Z in 1..Item.Y_Dim loop
             for I in 1..(Item.X_Dim) loop
-
                 Get(File_Item, C);
-
                 if C = '0' then
                     Set_White(Item.Image_Area(Z, I));
                 elsif C = '1' then
@@ -156,9 +147,7 @@ procedure adao81 is
 
     procedure Read (Item      :    out Image_Type;
                      File_Item : in     File_Type) is
-
         File_Format, File_Comment, File_Dimension : String := Get_Line(File_Item);
-
     begin
             while not End_OF_File (File_Item) loop
                 if Check_Format_PBM(File_Format) then 
@@ -170,36 +159,25 @@ procedure adao81 is
     end Read;
 
     procedure Print_Image_Information (Item :    out Image_Type) is
-
         File_Item : File_Type;
-
     begin
-        
         Open_File(File_Item);
         Read(Item, File_Item);
-
         Put(Item);
-
         Close(File_Item);
-
     end Print_Image_Information;
 
     procedure Print_Image_Information (Img_Item    : in out Image_Type;
                                        I_File_Item : in     File_Type) is
-
         O_File_Item : File_Type;
         O_File_Name : String := Argument(2);
-
     begin
         Read(Img_Item, I_File_Item);
         Create(O_File_Item, Out_File, O_File_Name);
         Set_Output(O_File_Item);
-
         Put(Img_Item);
-
         Close(O_File_Item);
         Set_Output(Standard_Output);
-
     exception 
         when Constraint_Error =>
             return;
