@@ -7,25 +7,23 @@ with Ada.Command_Line;      use Ada.Command_Line;
 procedure adao81 is 
 
         procName : String := "adao81";
-        I_File_Name : String := Argument(1);
-        O_File_Name : String := Argument(2);
 
-    subtype RGB_Value is Integer range 0..255;
+        subtype RGB_Value is Integer range 0..255;
 
-    type Pixel_Type is
-        record
-            R, G, B : RGB_Value;
-            Alpha : Boolean;
-        end record;
+        type Pixel_Type is
+            record
+                R, G, B : RGB_Value;
+                Alpha : Boolean;
+            end record;
 
-    type Image_Area_Type is
-        array (1..30, 1..30) of Pixel_Type;
+        type Image_Area_Type is
+            array (1..30, 1..30) of Pixel_Type;
 
-    type Image_Type is
-        record
-            X_Dim, Y_Dim : Integer := 30;
-            Image_Area : Image_Area_Type;
-        end record;
+        type Image_Type is
+            record
+                X_Dim, Y_Dim : Integer := 30;
+                Image_Area : Image_Area_Type;
+            end record;
 
     function Check_Arg return Boolean is
     begin
@@ -115,6 +113,7 @@ procedure adao81 is
     end Set_White;
 
     procedure Open_File (File_Item :    out File_Type) is
+        I_File_Name : String := Argument(1);
     begin
         Open(File_Item, In_File, I_File_Name);
     end Open_File;
@@ -189,6 +188,7 @@ procedure adao81 is
                                        I_File_Item : in     File_Type) is
 
         O_File_Item : File_Type;
+        O_File_Name : String := Argument(2);
 
     begin
         Read(Img_Item, I_File_Item);
