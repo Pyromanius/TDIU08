@@ -43,8 +43,8 @@ int main()
 
   cout << "Skriv in ett heltal och ett flyttal: ";
   cin >> heltal >> flyttal;
-  cout << "Du skrev in heltalet: " << setw(9) <<  heltal << "\n";
-  cout << "Du skrev in flyttalet: " << fixed << setprecision(4) << setw(8) << flyttal << "\n" << endl;
+  cout << "Du skrev in heltalet:" << setw(10) <<  heltal << "\n";
+  cout << "Du skrev in flyttalet:" << fixed << setprecision(4) << setw(9) << flyttal << "\n" << endl;
 
   cin.ignore(1000,'\n');
 
