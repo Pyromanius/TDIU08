@@ -86,10 +86,10 @@ procedure adao81 is
                 Put(" ");
                 Put(Item.Image_Area(I, Z).B, Width=>3);
                 Put(" ");
-                Put(Item.Image_Area(I, Z).Alpha'Image);
-                Put(" ");
                 if Item.Image_Area(I, Z).Alpha then
-                    Put(" ");
+                    Put("TRUE ");
+                else
+                    Put("FALSE ");
                 end if;
             end loop;
             New_Line;
