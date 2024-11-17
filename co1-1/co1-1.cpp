@@ -71,7 +71,7 @@ int main()
 
   cout << "Skriv in ett heltal och ett ord: ";
   cin >> heltal >> ord;
-  cout << "Du skrev in talet |" << heltal << "| och ordet |" << ord << "|." << "\n" << endl;
+  cout << "Du skrev in heltalet |" << heltal << "| och ordet |" << ord << "|." << "\n" << endl;
 
   cin.ignore(1000,'\n');
 
