@@ -30,7 +30,7 @@ int main()
   cin >> heltal;
   cout << heltal << " ";
   cin >> heltal;
-  cout << heltal << " "<< "\n" << endl;
+  cout << heltal << "\n" << endl;
 
   cin.ignore(1000,'\n');
 
@@ -51,8 +51,8 @@ int main()
   cout << "Skriv in ett flyttal och ett heltal: ";
   cin >> flyttal >> heltal;
   cout << setfill('-');
-  cout << "Du skrev in heltalet:" << setw(10) << heltal << "\n";
-  cout << "Du skrev in flyttalet:" << setw(9) << fixed << setprecision(4) << flyttal << "\n" << endl;
+  cout << "Du skrev in heltalet:" << setw(9) << heltal << "\n";
+  cout << "Du skrev in flyttalet:" << setw(8) << fixed << setprecision(4) << flyttal << "\n" << endl;
 
   cin.ignore(1000,'\n');
 
