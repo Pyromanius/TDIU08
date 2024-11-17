@@ -28,6 +28,9 @@ procedure adao81 is
     begin
 
         if Argument_Count /= 2 then
+            Put("<Reset_To_Original_Window_Settings>");
+            Put("<Set_Foreground_Colour(Colour=[0,0,0])>");
+            Put("<Set_Background_Colour(Colour=[255,255,255])>");
             Put("Error! Incorrect number of arguments!");
             New_Line;
             Put("Usage: ./executable_program˽IMAGE_FILENAME˽N˽[X˽Y]");
@@ -133,20 +136,17 @@ procedure adao81 is
                 end if;
 
                 if (Incr = 2) then
-
                     Get(File_Item, C);
-
                     if C = '1' then
                         Item.Image_Area(Z, I).Alpha := true;
                     end if;
                 end if;
-
             end loop;
         end loop;
     end Parse_Image;
 
     procedure Read (Item      :    out Image_Type;
-                     File_Item : in     File_Type) is
+                    File_Item : in     File_Type) is
         File_Format, File_Comment, File_Dimension : String := Get_Line(File_Item);
     begin
             while not End_OF_File (File_Item) loop
@@ -183,7 +183,6 @@ procedure adao81 is
             return;
     end Print_Image_Information;
 
-
 ---------- Put_Image is only here for testing ---------------------------
     procedure Put_Image (Item : in     Image_Type) is
     begin
@@ -203,9 +202,7 @@ procedure adao81 is
         Input_File : File_Type;
         Output_File : File_Type;
         Image : Image_Type;
-
 begin
-
     if Check_Arg then
         Print_Image_Information(Image);
         Open_File(Input_File);
@@ -214,11 +211,8 @@ begin
     else
         return;
     end if;
-
-        
         -- SHOW IMAGE IN TERMINAL FOR TESTING
         -- Put_Image(Image);
-
 exception
     when Name_Error =>
         Put("Error! Input file """); 
