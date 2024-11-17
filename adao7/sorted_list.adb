@@ -51,19 +51,18 @@ package body sorted_list is
         Temp_List : List_Type;
     begin
         if not Empty(L) then
-            
+
             if N = L.I then
                 Temp_List := L.NextPtr;
                 Free(L);
                 L := Temp_List;
-            elsif N /= L.I then
-                if L.NextPtr = null then
-                    raise No_Such_Element_Error;
-                else
-                    Remove(L.NextPtr, N);
-                end if;
+            elsif L.NextPtr /= null then
+                Remove(L.NextPtr, N);
+            else
+                raise No_Such_Element_Error;
             end if;
-
+        else
+            raise No_Such_Element_Error;
         end if;        
     end Remove;
 
