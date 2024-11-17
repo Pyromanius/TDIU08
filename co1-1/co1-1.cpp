@@ -92,7 +92,7 @@ int main()
   cout << "Du skrev in "<< '"' << ord << '"' << ".\n" << endl;
 
   
-  cout << "Skriv in en till textrad: ";
+  cout << "Skriv in en till rad text: ";
   getline(cin, ord);
   cout << "Du skrev in "<< '"' << ord << '"' << "." << "\n" << endl;
 
