@@ -50,8 +50,8 @@ int main()
   for (int i {initValue}; i <= finValue; ++i)
   {
     cout << setw(7)  << i 
-        << setw(11) << fixed << setprecision(2) << i+273.15 
-        << setw(11) << fixed << setprecision(2) << (i*1.8)+32 
+        << setw(9) << fixed << setprecision(2) << i+273.15 
+        << setw(13) << fixed << setprecision(2) << (i*1.8)+32 
         << setw(10) << fixed << setprecision(2) << i*0.8  << '\n';
   }
   cout << '\n';
