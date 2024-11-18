@@ -131,6 +131,7 @@ package body test_date_impl is
          Next_Day.Day := Next_Day.Day+1;
       end if;
       
+      Date_Check(Next_Day);
       return Next_Day;
    end Next_Date;
 
@@ -161,6 +162,7 @@ package body test_date_impl is
          Previous_Day.Day := Item.Day-1;
       end if;
 
+      Date_Check(Previous_Day);
       return Previous_Day;
    end Previous_Date;
 
