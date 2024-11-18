@@ -91,13 +91,13 @@ int main()
         int sel, total_length, n, multiplier, a;
         double mean_length, b;
         string text;
-    cout << "Huvudmeny" << endl;
+    cout << "Välkommen till huvudmenyn!" << endl;
     while (true)
     {   
         menu(sel);
         if (sel == 1)
         {
-            cout << "Skriv in N: ";
+            cout << "Mata in ett heltal: ";
             cin >> n;
             cout << "Fakulteten av " << n << " är " << prog1_calc_Facul(n) << endl;
         }
