@@ -9,17 +9,6 @@ using namespace std;
 
 int main()
 {
-
-// O
-  // -------------
-  // **         /---------
-  // **   DEL  /        **
-  // **       /   1     **
-  // --------/          **
-  //        --------------
-  //
-  //
-
     int initValue;
     int finValue;
 
@@ -37,7 +26,7 @@ int main()
   cout << "Ange slutvärde: ";
   cin >> finValue;
 
-  while (finValue <= initValue)
+  while (finValue < initValue)
   {
     cout << "Felaktigt slutvärde!\n"
         << "Ange slutvärde: ";
@@ -57,16 +46,6 @@ int main()
   cout << "---------------------------------------\n\n";
 
   cin.ignore(1000, '\n');
-
-// O
-  // -------------
-  // **         /---------
-  // **   DEL  /        **
-  // **       /   2     **
-  // --------/          **
-  //        --------------
-  //
-  //
   
     string str1;
     char tecken;
@@ -98,17 +77,7 @@ int main()
        << "Siffertecken......:" << noNumb << '\n'
        << "Vita tecken.......:" << noSpace << "\n\n";
 
-   cin.ignore(1000, '\n');
-
-// O
-  // -------------
-  // **         /---------
-  // **   DEL  /        **
-  // **       /   3     **
-  // --------/          **
-  //        --------------
-  //
-  //
+  cin.ignore(1000, '\n');
 
     string str2, str3, shortWord, longWord;
     int lettCount = 0, wordCount = 0;
@@ -148,6 +117,5 @@ int main()
         << fixed << setprecision(1) << static_cast<double>(lettCount)/static_cast<double>(wordCount)
         << " tecken.\n";
   }
-
   return 0;
 }
