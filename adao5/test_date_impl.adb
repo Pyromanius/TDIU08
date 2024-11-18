@@ -129,8 +129,8 @@ package body test_date_impl is
          Next_Day.Month := 01;
          Next_Day.Year := Item.Year+1;
       elsif ((Item.Month = 2 and LeapYear_Check(Item) = false and Item.Day = 28) or (Item.Month = 2 and Item.Day = 29)) then
-            Next_Day.Day := 01;
-            Next_Day.Month := 03;
+         Next_Day.Day := 01;
+         Next_Day.Month := 03;
       else
          Next_Day.Day := Next_Day.Day+1;
       end if;
