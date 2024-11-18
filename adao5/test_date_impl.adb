@@ -187,7 +187,7 @@ package body test_date_impl is
          elsif lhs.Month < rhs.Month then
             return false;
          else
-            if lhs.Day < rhs.Day then
+            if lhs.Day > rhs.Day then
                return true;
             else 
                return false;
