@@ -14,24 +14,23 @@ procedure phi_calc is
     end Fib;
 
     function Pyramid (H : in     Integer) return Integer is
-        X, N : Integer;
+        X, I : Integer;
     begin
         if H = 0 then
             return 0;
         else
-            N := H - 1;
-            X := 3 + (N - 2) * 2;
-            return N * X + (Pyramid(H-1));
+            I := H - 1;
+            X := 3 + (I - 2) * 2;
+            return I * X + (Pyramid(H-1));
         end if;
     end Pyramid;
 
     N, H : Integer;
 begin
-    Put("Mata in H");
+    Put("Mata in N och H: ");
     Get(N);
     Get(H);
 
-    N := 1;
     Put("Fibonacci-tal nummer ");
     Put(N, Width=>1);
     Put(" är ");
