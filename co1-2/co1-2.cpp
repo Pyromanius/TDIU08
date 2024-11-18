@@ -105,7 +105,7 @@ int main()
 
   if (str2.length() == 0)
   {
-    cout << "\nInga ord matades in";
+    cout << "\nInga ord matades in.";
   } 
   else
   {
