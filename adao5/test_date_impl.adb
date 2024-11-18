@@ -53,15 +53,11 @@ package body test_date_impl is
 
    function LeapYear_Check(Item : in     Date_Type) return Boolean is
    begin
-      if Item.Day = 29 and Item.Month = 2 then
-         if ((Item.Year rem 4 = 0) and (Item.Year rem 100 /= 0)) or (Item.Year rem 400 = 0) then
+         if (((Item.Year rem 4 = 0) and (Item.Year rem 100 /= 0)) or (Item.Year rem 400 = 0)) then
             return true;
          else
             return false;
-         end if;
-      else
-         return true;
-      end if;         
+         end if;      
    end LeapYear_Check;
    
    procedure Date_Check(Item : in     Date_Type) is
@@ -99,17 +95,17 @@ package body test_date_impl is
       if (S(5) /= '-') or (S(8) /= '-') then
          raise Format_Error;
       end if;
+
       Format_Check(S, 1, 4);
       Format_Check(S, 6, 7);
       Format_Check(S, 9, 10);
-
       Item.Year := Integer'Value(S(1..4));
       Item.Month := Integer'Value(S(6..7));
       Item.Day := Integer'Value(S(9..10));
       Date_Check(Item);
 
-      if not LeapYear_Check(Item) then
-            raise Day_Error;
+      if ((Item.Month = 2 and Item.Day = 29) and not LeapYear_Check(Item)) then
+         raise Day_Error;
       end if;
 
    exception
