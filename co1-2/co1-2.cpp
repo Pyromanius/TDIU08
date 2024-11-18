@@ -54,7 +54,7 @@ int main()
         << setw(13) << fixed << setprecision(2) << (i*1.8)+32 
         << setw(10) << fixed << setprecision(2) << i*0.8  << '\n';
   }
-  cout << '\n';
+  cout << "---------------------------------------" << '\n';
 
   cin.ignore(1000, '\n');
 
@@ -114,7 +114,7 @@ int main()
     int lettCount = 0, wordCount = 0;
 
   cout << "Del 3: Ordhantering" << '\n';
-  cout << "Mata in text:" << '\n';
+  cout << "Mata in en text:" << '\n';
 
   while (cin >> skipws >> str3)
   {
@@ -146,7 +146,7 @@ int main()
         << "Det längsta ordet var " << '"' << longWord << '"' << " med " << longWord.length() << " tecken." << '\n'
         << "Medelordlängden var "
         << fixed << setprecision(1) << static_cast<double>(lettCount)/static_cast<double>(wordCount)
-        << " bokstäver." << '\n';
+        << " tecken." << '\n';
   }
 
   return 0;

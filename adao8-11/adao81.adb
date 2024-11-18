@@ -28,9 +28,6 @@ procedure adao81 is
     begin
 
         if Argument_Count /= 2 then
-            Put("<Reset_To_Original_Window_Settings>");
-            Put("<Set_Foreground_Colour(Colour=[0,0,0])>");
-            Put("<Set_Background_Colour(Colour=[255,255,255])>");
             Put("Error! Incorrect number of arguments!");
             New_Line;
             Put("Usage: ./executable_program˽IMAGE_FILENAME˽N˽[X˽Y]");
