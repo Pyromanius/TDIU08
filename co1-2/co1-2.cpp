@@ -23,13 +23,13 @@ int main()
     int initValue;
     int finValue;
 
-  cout << "Del 1: Temperaturtabell" << '\n'
+  cout << "Del 1: Temperaturtabell\n"
       << "Ange startvärde: ";
   cin >> initValue;
 
   while (initValue < -60)
   {
-    cout << "Felaktigt startvärde!" << '\n'
+    cout << "Felaktigt startvärde!\n"
         << "Ange startvärde: ";
     cin >> initValue;
   }
@@ -39,13 +39,13 @@ int main()
 
   while (finValue <= initValue)
   {
-    cout << "Felaktigt slutvärde!" << '\n'
+    cout << "Felaktigt slutvärde!\n"
         << "Ange slutvärde: ";
     cin >> finValue;
   }
 
-  cout << "Celsius   Kelvin   Fahrenheit   Reaumur" << '\n'
-      << "---------------------------------------" << '\n';
+  cout << "Celsius   Kelvin   Fahrenheit   Reaumur\n"
+      << "---------------------------------------\n";
 
   for (int i {initValue}; i <= finValue; ++i)
   {
@@ -54,7 +54,7 @@ int main()
         << setw(13) << fixed << setprecision(2) << (i*1.8)+32 
         << setw(10) << fixed << setprecision(2) << i*0.8  << '\n';
   }
-  cout << "---------------------------------------" << '\n';
+  cout << "---------------------------------------\n\n";
 
   cin.ignore(1000, '\n');
 
@@ -72,7 +72,7 @@ int main()
     char tecken;
     int noLett = 0, noSpace = 0, noNumb = 0;
 
-  cout << "Del 2: Teckenhantering" << '\n';
+  cout << "Del 2: Teckenhantering\n";
 
   for (int i{0}; i < 10; ++i)
   {
@@ -93,7 +93,7 @@ int main()
       }
   }
   
-  cout << "Texten innehöll:" << '\n'
+  cout << "Texten innehöll:\n"
        << "Alfabetiska tecken:" << noLett << '\n'
        << "Siffertecken......:" << noNumb << '\n'
        << "Vita tecken.......:" << noSpace << "\n\n";
@@ -113,8 +113,8 @@ int main()
     string str2, str3, shortWord, longWord;
     int lettCount = 0, wordCount = 0;
 
-  cout << "Del 3: Ordhantering" << '\n';
-  cout << "Mata in en text:" << '\n';
+  cout << "Del 3: Ordhantering\n";
+  cout << "Mata in en text:\n";
 
   while (cin >> skipws >> str3)
   {
@@ -141,12 +141,12 @@ int main()
   else
   {
     cout << '\n'
-        << "Texten innehöll " << wordCount << " ord." << '\n'
-        << "Det kortaste ordet var " << '"' << shortWord << '"' << " med " << shortWord.length() << " tecken." << '\n'
-        << "Det längsta ordet var " << '"' << longWord << '"' << " med " << longWord.length() << " tecken." << '\n'
+        << "Texten innehöll " << wordCount << " ord.\n"
+        << "Det kortaste ordet var " << '"' << shortWord << '"' << " med " << shortWord.length() << " tecken.\n"
+        << "Det längsta ordet var " << '"' << longWord << '"' << " med " << longWord.length() << " tecken.\n"
         << "Medelordlängden var "
         << fixed << setprecision(1) << static_cast<double>(lettCount)/static_cast<double>(wordCount)
-        << " tecken." << '\n';
+        << " tecken.\n";
   }
 
   return 0;
