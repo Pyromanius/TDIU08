@@ -9,47 +9,44 @@ using namespace std;
 
 int prog1_calc_Facul(int &n) 
 {
-  int sum {1};
+    int sum {1};
   for (int i = 1; i < (n+1); i++)
   {
     sum = sum*i;   
   }
+
   return sum;
 }	
 
 string prog2_multi_text(string &text, int &multiplier)
 {
-    string multi_text;
-
+        string multi_text;
     for (int i{}; i < multiplier; i++)
     {
         multi_text += text;
     }
-    
+
     return multi_text; 
 }
 
 double conv_int(int &tmp)
 {
-    double conv;
-
+        double conv;
     conv = tmp;
     return conv;
 }
 
 int conv_double(double &tmp)
 {
-    int conv;
-
+        int conv;
     conv = ceil(tmp);
     return conv;
 }
 
 void prog3_switch_int_double(int &a, double &b)
 {
-    int tmp_1; 
-    double tmp_2;
-
+        int tmp_1; 
+        double tmp_2;
     tmp_1 = conv_double(b);
     tmp_2 = conv_int(a);
     a = tmp_1;
@@ -59,12 +56,10 @@ void prog3_switch_int_double(int &a, double &b)
 
 void prog4_calc_lengths(int &total_length, double &mean_length)
 {
-    string text_1;
-    string text_2;
-
+        string text_1;
+        string text_2;
     cout << "Mata in två ord: ";
     cin >> text_1 >> text_2;
-
     total_length = text_1.length() + text_2.length();
     mean_length = static_cast<double>(total_length)/2;
 }
@@ -93,16 +88,13 @@ void menu(int &sel)
 
 int main()
 {
-
         int sel, total_length, n, multiplier, a;
         double mean_length, b;
         string text;
-
     cout << "Huvudmeny" << endl;
     while (true)
     {   
         menu(sel);
-
         if (sel == 1)
         {
             cout << "Skriv in N: ";
