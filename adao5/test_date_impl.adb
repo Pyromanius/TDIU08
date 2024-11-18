@@ -121,18 +121,16 @@ package body test_date_impl is
       Next_Day : Date_Type;
    begin
       Next_Day := Item;
-      if (((Item.Month = 4 or Item.Month = 6 or Item.Month = 9 or Item.Month = 11) and (Item.Day = 30)) or ((Item.Month = 1 or Item.Month = 3 or Item.Month = 5 or Item.Month = 7 or Item.Month = 8 or Item.Month = 10) and (Item.Day = 31))) then
+      if (((Item.Day = 30) and (Item.Month = 4 or Item.Month = 6 or Item.Month = 9 or Item.Month = 11)) or ((Item.Day = 31) and (Item.Month = 1 or Item.Month = 3 or Item.Month = 5 or Item.Month = 7 or Item.Month = 8 or Item.Month = 10))) then
          Next_Day.Month := Item.Month+1;
          Next_Day.Day := 01;
       elsif ((Item.Month = 12) and (Item.Day = 31)) then
          Next_Day.Day := 01;
          Next_Day.Month := 01;
          Next_Day.Year := Item.Year+1;
-      elsif (Item.Month = 2) then
-         if (((Item.Day = 28) and LeapYear_Check(Item) = false) or (Item.Day = 29)) then
+      elsif ((Item.Month = 2 and LeapYear_Check(Item) = false and Item.Day = 28) or (Item.Month = 2 and Item.Day = 29)) then
             Next_Day.Day := 01;
             Next_Day.Month := 03;
-         end if;
       else
          Next_Day.Day := Next_Day.Day+1;
       end if;
