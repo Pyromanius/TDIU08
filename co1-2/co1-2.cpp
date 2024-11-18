@@ -16,7 +16,7 @@ int main()
       << "Ange startvärde: ";
   cin >> initValue;
 
-  while (initValue < -60)
+  while (initValue < -273)
   {
     cout << "Felaktigt startvärde!\n"
         << "Ange startvärde: ";
