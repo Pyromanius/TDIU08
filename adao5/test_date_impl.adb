@@ -146,7 +146,7 @@ package body test_date_impl is
             Previous_Day.Day := 31;
          else
             Previous_Day.Month := Item.Month-1;
-            if (Item.Month = 4 or Item.Month = 6 or Item.Month = 9 or Item.Month = 11) then
+            if (Item.Month = 2 or Item.Month = 4 or Item.Month = 6 or Item.Month = 9 or Item.Month = 11) then
                Previous_Day.Day := 31;
             elsif (Item.Month = 3) then
                if LeapYear_Check(Item) = false then
