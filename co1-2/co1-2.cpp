@@ -53,21 +53,21 @@ int main()
 
   for (int i{0}; i < 10; ++i)
   {
-      tecken = cin.get();
-      str1 += tecken;
+    tecken = cin.get();
+    str1 += tecken;
 
-      if (isalpha(tecken))
-      {
-          ++noLett;
-      }
-      else if (isdigit(tecken))
-      {
-          ++noNumb;
-      }
-      else if (isspace(tecken))
-      {
-          ++noSpace;
-      }
+    if (isalpha(tecken))
+    {
+        ++noLett;
+    }
+    else if (isdigit(tecken))
+    {
+        ++noNumb;
+    }
+    else if (isspace(tecken))
+    {
+        ++noSpace;
+    }
   }
   
   cout << "Texten innehöll:\n"
