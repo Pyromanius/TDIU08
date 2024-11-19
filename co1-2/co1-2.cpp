@@ -9,14 +9,16 @@ using namespace std;
 
 int main()
 {
-    int initValue;
-    int finValue;
+    int initValue{0}, finValue{0}, lettCount{0}, wordCount{0}, noLett{0}, noSpace{0}, noNumb{0};
+    double kConv{-273.15}, rConv{0.8};
+    char tecken{};
+    string str1{}, str2{}, str3{}, shortWord{}, longWord{};
 
   cout << "Del 1: Temperaturtabell\n"
       << "Ange startvärde: ";
   cin >> initValue;
 
-  while (initValue < -273)
+  while (static_cast<double>(initValue) < kConv)
   {
     cout << "Felaktigt startvärde!\n"
         << "Ange startvärde: ";
@@ -34,23 +36,19 @@ int main()
   }
 
   cout << "Celsius   Kelvin   Fahrenheit   Reaumur\n"
-      << "---------------------------------------\n";
-
+      << "---------------------------------------\n"
+      << fixed << setprecision(2);
   for (int i {initValue}; i <= finValue; ++i)
   {
     cout << setw(7)  << i 
-        << setw(9) << fixed << setprecision(2) << i+273.15 
-        << setw(13) << fixed << setprecision(2) << (i*1.8)+32 
-        << setw(10) << fixed << setprecision(2) << i*0.8  << '\n';
+        << setw(9) << static_cast<double>(i)-kConv 
+        << setw(13) << (static_cast<double>(i)*1.8)+32 
+        << setw(10) << static_cast<double>(i)*rConv  << '\n';
   }
   cout << "---------------------------------------\n\n";
 
   cin.ignore(1000, '\n');
   
-    string str1;
-    char tecken;
-    int noLett = 0, noSpace = 0, noNumb = 0;
-
   cout << "Del 2: Teckenhantering\n";
 
   for (int i{0}; i < 10; ++i)
@@ -78,9 +76,6 @@ int main()
        << "Vita tecken.......:" << noSpace << "\n\n";
 
   cin.ignore(1000, '\n');
-
-    string str2, str3, shortWord, longWord;
-    int lettCount = 0, wordCount = 0;
 
   cout << "Del 3: Ordhantering\n";
   cout << "Mata in en text:\n";
