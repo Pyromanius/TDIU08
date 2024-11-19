@@ -53,7 +53,7 @@ int main()
 
   for (int i{0}; i < 10; ++i)
   {
-      cin >> noskipws >> tecken;
+      tecken = cin.get();
       str1 += tecken;
 
       if (isalpha(tecken))
