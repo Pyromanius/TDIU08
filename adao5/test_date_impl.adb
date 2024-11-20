@@ -135,31 +135,30 @@ package body test_date_impl is
       return Next_Day;
    end Next_Date;
 
-   function Previous_Date(Item : in      Date_Type) return Date_Type is
-      Previous_Day : Date_Type;
+   function Previous_Date(Item : in     Date_Type) return Date_Type is
+      Previous_Day : Date_Type := Item;
    begin
-      Previous_Day := Item;
-      if Item.Day = 01 then
-         if Item.Month = 01 then
-            Previous_Day.Year := Item.Year-1;
+      if Item.Day = 1 then
+         if Item.Month = 1 then
             Previous_Day.Month := 12;
-            Previous_Day.Day := 31;
+            Previous_Day.Year := Previous_Day.Year - 1;
          else
-            Previous_Day.Month := Item.Month-1;
-            if (Item.Month = 2 or Item.Month = 4 or Item.Month = 6 or Item.Month = 8 or Item.Month = 9 or Item.Month = 11) then
-               Previous_Day.Day := 31;
-            elsif (Item.Month = 3) then
-               if LeapYear_Check(Item) = false then
-                  Previous_Day.Day := 28;
-               else
-                  Previous_Day.Day := 29;
-               end if;
+            Previous_Day.Month := Item.Month - 1;
+         end if;
+
+         if (Previous_Day.Month = 1 or Previous_Day.Month = 3 or Previous_Day.Month = 5 or Previous_Day.Month = 7 or Previous_Day.Month = 8 or Previous_Day.Month = 10 or Previous_Day.Month = 12) then
+            Previous_Day.Day := 31;
+         elsif (Previous_Day.Month = 4 or Previous_Day.Month = 6 or Previous_Day.Month = 9 or Previous_Day.Month = 11) then 
+            Previous_Day.Day := 30;
+         else
+            if LeapYear_Check(Item) then
+               Previous_Day.Day := 29;
             else
-               Previous_Day.Day := 30;
+               Previous_Day.Day := 28;
             end if;
          end if;
       else
-         Previous_Day.Day := Item.Day-1;
+         Previous_Day.Day := Item.Day - 1;
       end if;
 
       Date_Check(Previous_Day);
