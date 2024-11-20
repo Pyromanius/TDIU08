@@ -78,7 +78,7 @@ int main()
     {
         ++noNumb;
     }
-    else if (tecken == ' ')
+    else if (isspace(tecken))
     {
         ++noSpace;
     }
