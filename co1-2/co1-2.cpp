@@ -93,7 +93,6 @@ int main()
   cout << "Del 3: Ordhantering\n"
       << "Mata in en text:" 
       << endl;
-
   do 
   {
     if (cin >> str3)
