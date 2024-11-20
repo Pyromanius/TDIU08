@@ -44,7 +44,7 @@ Vilka LADOK-moment måste jag klara av för att få kursen godkänd?
 Vad ska man göra som minst för att få godkänt på momentet i LADOK som
 motsvarar C++:s P-uppgifter?
   [X] Man gör alla obligatoriska O-uppgifter i C++
-  [ ] Man gör Cplusplus.P1
+  [X] Man gör Cplusplus.P1
   [ ] Man klarar alla P-uppgifter i C++
 
 Vilka påståenden stämmer om man skickar in Info.O2.2?
@@ -65,7 +65,7 @@ Vad händer om jag skickar in en till uppgift efter det att jag fått
 automatgodkänt på uppgiften under ett P-pass?
   [X] Den gamla registreringen av "automatgodkänt" försvinner och
       jag får det nya resultatet från den senast inskickade uppgiften
-  [x] Om jag skickar in något efter tiden är slut på P-passet tas inte
+  [X] Om jag skickar in något efter tiden är slut på P-passet tas inte
       det inskicket emot av rättningssystemet
   [ ] Det är ok att fortsätta skicka in uppgiften även efter P-passet
       är slut
