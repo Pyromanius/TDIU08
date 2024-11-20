@@ -62,9 +62,10 @@ int main()
         << setw(13) <<  fahr
         << setw(10) << reau << '\n';
   }
-  cout << "---------------------------------------\n\n"
-      << "Del 2: Teckenhantering" << endl;
+  cout << "---------------------------------------\n\n";
+  cin.ignore(1000, '\n');
 
+  cout << "Del 2: Teckenhantering" << endl;
   for (int i{}; i < 10; ++i)
   {
     tecken = cin.get();
