@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-  int initValue{0}, finValue{0}, lettCount{0}, wordCount{0}, noLett{0}, noSpace{0}, noNumb{0};
+  int initValue{}, finValue{}, lettCount{}, wordCount{}, noLett{}, noSpace{}, noNumb{};
   double kelvLow{-273.15};
   char tecken{};
   string str1{}, str2{}, str3{}, shortWord{}, longWord{};
@@ -67,7 +67,7 @@ int main()
   
   cout << "Del 2: Teckenhantering" << endl;
 
-  for (int i{0}; i < 10; ++i)
+  for (int i{}; i < 10; ++i)
   {
     tecken = cin.get();
     str1 += tecken;
