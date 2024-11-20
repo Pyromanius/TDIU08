@@ -63,9 +63,8 @@ int main()
         << setw(10) << reau << '\n';
   }
   cout << "---------------------------------------\n\n"
-      << endl;
-  
-  cout << "Del 2: Teckenhantering" << endl;
+      << endl
+      << "Del 2: Teckenhantering" << endl;
 
   for (int i{}; i < 10; ++i)
   {
@@ -88,12 +87,11 @@ int main()
   cout << "Texten innehöll:\n"
       << "Alfabetiska tecken:" << noLett << '\n'
       << "Siffertecken......:" << noNumb << '\n'
-      << "Vita tecken.......:" << noSpace << "\n\n"
-      << endl;
+      << "Vita tecken.......:" << noSpace << "\n\n";
   cin.ignore(1000, '\n');
 
-  cout << "Del 3: Ordhantering\n";
-  cout << "Mata in en text:" 
+  cout << "Del 3: Ordhantering\n"
+      << "Mata in en text:" 
       << endl;
 
   do 
