@@ -63,7 +63,6 @@ int main()
         << setw(10) << reau << '\n';
   }
   cout << "---------------------------------------\n\n"
-      << endl
       << "Del 2: Teckenhantering" << endl;
 
   for (int i{}; i < 10; ++i)
