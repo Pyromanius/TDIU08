@@ -71,7 +71,6 @@ int main()
   {
     tecken = cin.get();
     str1 += tecken;
-
     if (isalpha(tecken))
     {
         ++noLett;
@@ -80,7 +79,7 @@ int main()
     {
         ++noNumb;
     }
-    else if (isspace(tecken))
+    else if (tecken == ' ')
     {
         ++noSpace;
     }
@@ -91,6 +90,7 @@ int main()
       << "Siffertecken......:" << noNumb << '\n'
       << "Vita tecken.......:" << noSpace << "\n\n"
       << endl;
+  cin.ignore(1000, '\n');
 
   cout << "Del 3: Ordhantering\n";
   cout << "Mata in en text:" 
