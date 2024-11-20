@@ -2,34 +2,34 @@ Placera ett X inuti den/de "[ ]" som motsvarar rätt alternativ
 om inte annat anges.
 
 Vilka av dessa verktyg använder studenten på Ada.P-passen?
-  [ ] Emacs
-  [ ] gnatmake
-  [ ] SC
-  [ ] ThinLinc (om man inte sitter i datorsal)
+  [X] Emacs
+  [X] gnatmake
+  [X] SC
+  [X] ThinLinc (om man inte sitter i datorsal)
   [ ] Zoom
   [ ] Teams
   [ ] Lisam
-  [ ] Terminal
-  [ ] Kurshemsidor
+  [X] Terminal
+  [X] Kurshemsidor
   [ ] Internet i övrigt (Google, ChatGPT, etc.)
 
 Vem skall jag kontakta om jag har problem med ThinLinc under ett
 P-pass?
-  [ ] Examinator (för att göra dem uppmärksamma på detta)
+  [X] Examinator (för att göra dem uppmärksamma på detta)
   [ ] Assistenten som sitter vakt (för alla problem)
-  [ ] Helpdesk (för att få hjälp)
+  [X] Helpdesk (för att få hjälp)
   [ ] Kursadministratören
 
 Vem skall jag kontakta om jag har problem med SC generellt sett
 under ett P-pass?
-  [ ] Examinator eller kursledaren (via journummer)
+  [X] Examinator eller kursledaren (via journummer)
   [ ] Assistenten som sitter vakt (för alla problem)
   [ ] Helpdesk
   [ ] Kursadministratören
 
 Vem skall jag kontakta om jag har problem med programmeringen
 under ett P-pass?
-  [ ] Examinator (via SC)
+  [X] Examinator (via SC)
   [ ] Assistenten som sitter vakt
   [ ] Helpdesk
   [ ] Kursadministratören
@@ -39,59 +39,59 @@ under ett P-pass?
 Vilka LADOK-moment måste jag klara av för att få kursen godkänd?
   [ ] Det räcker med det som fås av P-uppgifterna
   [ ] Det räcker med det som fås av O-uppgifterna
-  [ ] Alla!
+  [X] Alla!
 
 Vad ska man göra som minst för att få godkänt på momentet i LADOK som
 motsvarar C++:s P-uppgifter?
-  [ ] Man gör alla obligatoriska O-uppgifter i C++
+  [X] Man gör alla obligatoriska O-uppgifter i C++
   [ ] Man gör Cplusplus.P1
   [ ] Man klarar alla P-uppgifter i C++
 
 Vilka påståenden stämmer om man skickar in Info.O2.2?
-  [ ] Blockerar så att inga P-uppgifter kommer genereras resten av kursen
+  [X] Blockerar så att inga P-uppgifter kommer genereras resten av kursen
       så att jag inte kan göra fler P-uppgifter i C++
-  [ ] Den möjliggör att ditt godkända betyg rapporteras in på momentet i
+  [X] Den möjliggör att ditt godkända betyg rapporteras in på momentet i
       LADOK innan kursslut
   [ ] Den är slutgiltig och går inte att backa
   
 -------------------------------------------------------------------
 
 Vad gäller för Ada.P-uppgifter och Cplusplus.P-uppgifter?
-  [ ] Betyget i kursen bestämms av Ada.P- och Cplusplus.P-uppgifterna
+  [X] Betyget i kursen bestämms av Ada.P- och Cplusplus.P-uppgifterna
   [ ] Ada.P-uppgifterna slutar att ges när Cplusplus.P-uppgifterna börjar
   [ ] P-passen för Ada och C++ ges på olika veckodagar
 
 Vad händer om jag skickar in en till uppgift efter det att jag fått
 automatgodkänt på uppgiften under ett P-pass?
-  [ ] Den gamla registreringen av "automatgodkänt" försvinner och
+  [X] Den gamla registreringen av "automatgodkänt" försvinner och
       jag får det nya resultatet från den senast inskickade uppgiften
-  [ ] Om jag skickar in något efter tiden är slut på P-passet tas inte
+  [x] Om jag skickar in något efter tiden är slut på P-passet tas inte
       det inskicket emot av rättningssystemet
   [ ] Det är ok att fortsätta skicka in uppgiften även efter P-passet
       är slut
 
 Vad händer om jag skickar in en C++ P-uppgift utan att sitta i salen?
-  [ ] Jag får underkänt på uppgiften
-  [ ] Jag riskerar att hamna i disciplinnämnden
+  [X] Jag får underkänt på uppgiften
+  [X] Jag riskerar att hamna i disciplinnämnden
   [ ] Ingenting
 
 -------------------------------------------------------------------
 
 Vilka av nedanstående alternativ är korrekta?
-  [ ] Frågor som gäller själva P-uppgiften ställs via SC under P-passet
-  [ ] Akuta frågor om ThinLinc tas via telefon till HelpDesk efter att
+  [X] Frågor som gäller själva P-uppgiften ställs via SC under P-passet
+  [X] Akuta frågor om ThinLinc tas via telefon till HelpDesk efter att
       man kontaktat kursledningen
-  [ ] Akuta frågor om SC, automaträttning tas via telefon till
+  [X] Akuta frågor om SC, automaträttning tas via telefon till
       kursledningen (finns journummer för detta)
   [ ] Man kan sitta på valfri plats för alla olika typer av P-uppgifter
   
 Om jag från LiU centralt har rätt till förlängd skrivtid, vad gäller då?
-  [ ] Jag ska kontakta kursledaren med intyg för att aktivera förlängda
+  [X] Jag ska kontakta kursledaren med intyg för att aktivera förlängda
       skrivtid i denna kurs
   [ ] Jag går på passet direkt utan att säga till någon och sitter
       kvar och skickar in uppgifter efter tiden är slut
 
 -------------------------------------------------------------------
 
-[ ] Jag har läst och förstått övrig information på kurshemsidan och
+[X] Jag har läst och förstått övrig information på kurshemsidan och
     vet var jag ska leta efter information om jag undrar något
