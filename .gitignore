@@ -7,7 +7,9 @@
 **/a.exe
 **/a.exe.stackdump
 /.vscode
-**/*.txt
+**/egen.txt
+**/lösn.txt
+**/doThis.txt
 
 **/phi_calc
 **/phi_calc.*
