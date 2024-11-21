@@ -4,10 +4,20 @@ with Ada.Integer_Text_IO;  use Ada.Integer_Text_IO;
 
 package body test_date_impl is
 
+   function String_Length_Check(I : in     Integer; 
+                                S : in     String) return Boolean is
+   begin
+      if I < S'Length then
+         return true;
+      else
+         return false;
+      end if;
+   end String_Length_Check;
+
    procedure Get_Correct_String(S :    out String) is
+      I : Integer := 1;
       C : Character;
       EOL : Boolean;
-      I : Integer := 1;
    begin
       Get(C);
       while C =' ' loop
@@ -25,7 +35,7 @@ package body test_date_impl is
          end if;
       end loop;
 
-      if I < S'Length then
+      if String_Length_Check(I, S) then
          raise Length_Error;
       end if;
 
@@ -34,31 +44,31 @@ package body test_date_impl is
          Put("För få inmatade tecken!"); 
    end Get_Correct_string;
 
-   procedure addZero(I : in    Integer) is
+   procedure add_Zero(I : in    Integer) is
    begin
       if I < 10 then
          Put("0");
       end if;
          Put(I, Width => 1);
-   end addZero;
+   end add_Zero;
 
    procedure Put(Item : in     Date_Type) is
    begin
       Put(Item.Year, Width=>0);
       Put("-");
-      addZero(Item.Month);
+      add_Zero(Item.Month);
       Put("-");
-      addZero(Item.Day);
+      add_Zero(Item.Day);
    end Put;
 
-   function LeapYear_Check(Item : in     Date_Type) return Boolean is
+   function Leap_Year_Check(Item : in     Date_Type) return Boolean is
    begin
-         if (((Item.Year rem 4 = 0) and (Item.Year rem 100 /= 0)) or (Item.Year rem 400 = 0)) then
-            return true;
-         else
-            return false;
-         end if;      
-   end LeapYear_Check;
+      if (((Item.Year rem 4 = 0) and (Item.Year rem 100 /= 0)) or (Item.Year rem 400 = 0)) then
+         return true;
+      else
+         return false;
+      end if;      
+   end Leap_Year_Check;
    
    procedure Date_Check(Item : in     Date_Type) is
    begin
@@ -104,7 +114,7 @@ package body test_date_impl is
       Item.Day := Integer'Value(S(9..10));
       Date_Check(Item);
 
-      if ((Item.Month = 2 and Item.Day = 29) and not LeapYear_Check(Item)) then
+      if ((Item.Month = 2 and Item.Day = 29) and not Leap_Year_Check(Item)) then
          raise Day_Error;
       end if;
 
@@ -124,7 +134,7 @@ package body test_date_impl is
          Next_Day.Day := 01;
          Next_Day.Month := 01;
          Next_Day.Year := Item.Year+1;
-      elsif ((Item.Month = 2 and LeapYear_Check(Item) = false and Item.Day = 28) or (Item.Month = 2 and Item.Day = 29)) then
+      elsif ((Item.Month = 2 and Leap_Year_Check(Item) = false and Item.Day = 28) or (Item.Month = 2 and Item.Day = 29)) then
          Next_Day.Day := 01;
          Next_Day.Month := 03;
       else
@@ -151,7 +161,7 @@ package body test_date_impl is
          elsif (Previous_Day.Month = 4 or Previous_Day.Month = 6 or Previous_Day.Month = 9 or Previous_Day.Month = 11) then 
             Previous_Day.Day := 30;
          else
-            if LeapYear_Check(Item) then
+            if Leap_Year_Check(Item) then
                Previous_Day.Day := 29;
             else
                Previous_Day.Day := 28;
@@ -165,7 +175,7 @@ package body test_date_impl is
       return Previous_Day;
    end Previous_Date;
 
-   function "="(lhs : in     Date_Type; rhs : in     Date_Type) return Boolean is
+   function "="(lhs, rhs : in     Date_Type) return Boolean is
    begin
       if (lhs.Year = rhs.Year) and (lhs.Month = rhs.Month) and (lhs.Day = rhs.Day) then
          return true;
@@ -174,7 +184,7 @@ package body test_date_impl is
       end if;
    end "=";
 
-   function ">"(lhs : in     Date_Type; rhs : in     Date_Type) return Boolean is
+   function ">"(lhs, rhs : in     Date_Type) return Boolean is
    begin
       if lhs.Year > rhs.Year then
          return true;
@@ -195,7 +205,7 @@ package body test_date_impl is
       end if;
    end ">";
 
-   function "<"(lhs : in     Date_Type; rhs : in     Date_Type) return Boolean is
+   function "<"(lhs, rhs : in     Date_Type) return Boolean is
    begin
       if (lhs > rhs) or (lhs = rhs) then
          return false;
