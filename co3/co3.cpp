@@ -140,7 +140,7 @@ void Print_Highscore()
         << "==========================================" << endl;
     for (auto i = 0u; i < runner_List.size(); ++i)
     {
-        cout << right << setw(9) << runner_List[i].runner_F_Name << " " << setw(9) << runner_List[i].runner_S_Name << " " << setw(15) << runner_List[i].club_Name << ": ";
+        cout << right << setw(9) << runner_List[i].runner_S_Name << " " << setw(9) << runner_List[i].runner_F_Name << " " << setw(15) << runner_List[i].club_Name << ": ";
         for (auto z = 0u; z < runner_List[i].runner_Times.size(); ++z)
         {
             cout << runner_List[i].runner_Times[z].run_Time_M << "."; 
