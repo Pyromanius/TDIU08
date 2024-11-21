@@ -89,26 +89,30 @@ package body test_date_impl is
       end if;                       
    end Date_Check;
 
-   procedure Format_Check (S    : in     String; 
-                           X, Y : in     Integer) is
+   function Format_Check (S : in     String) return Boolean is
    begin
-      for I in X..Y loop
-         if S(I) < '0' or S(I) > '9' then
-            raise Format_Error;
+      if (S(S'First +  4) /= '-') or (S(S'First +  7) /= '-') then
+         return false;
+      end if;
+
+      for I in 1..10 loop
+         if tmpS(I) < '0' or tmpS(I) > '9' then
+            return false;
          end if;
       end loop;
+
+      return true;
    end Format_Check;
 
    procedure Get(Item :    out Date_Type) is
+      S : String(1..10);
    begin
       Get_Correct_String(S);
-      if (S(5) /= '-') or (S(8) /= '-') then
+      
+      if not Format_Check(S) then
          raise Format_Error;
       end if;
-
-      Format_Check(S, 1, 4);
-      Format_Check(S, 6, 7);
-      Format_Check(S, 9, 10);
+      
       Item.Year := Integer'Value(S(1..4));
       Item.Month := Integer'Value(S(6..7));
       Item.Day := Integer'Value(S(9..10));
@@ -186,21 +190,15 @@ package body test_date_impl is
 
    function ">"(lhs, rhs : in     Date_Type) return Boolean is
    begin
-      if lhs.Year > rhs.Year then
+      if (lhs.Year > rhs.Year) or (lhs.Year = rhs.Year and lhs.Month > rhs.Month) then
          return true;
       elsif lhs.Year < rhs.Year then
          return false;
       else
-         if lhs.Month > rhs.Month then
+         if (lhs.Month > rhs.Month) or (lhs.Month = rhs.Month and lhs.Day > rhs.Day) then
             return true;
-         elsif lhs.Month < rhs.Month then
-            return false;
          else
-            if lhs.Day > rhs.Day then
-               return true;
-            else 
-               return false;
-            end if;
+            return false;
          end if;
       end if;
    end ">";

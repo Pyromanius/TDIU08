@@ -7,7 +7,7 @@ package test_date_impl is
    procedure Put(Item : in     Date_Type);
    function Leap_Year_Check(Item : in     Date_Type) return Boolean;
    procedure Date_Check(Item : in     Date_Type);
-   procedure Format_Check (S    : in     String; X, Y : in     Integer);
+   function Format_Check (S    : in     String) return Boolean;
    procedure Get(Item :    out Date_Type);
    function Next_Date(Item : in      Date_Type) return Date_Type;
    function Previous_Date(Item : in      Date_Type) return Date_Type;
@@ -22,5 +22,5 @@ private
         record
         Year, Month, Day  : Integer;
         end record;
-    S : String(1..10);
+   -- S : String(1..10);
 end test_date_impl;
