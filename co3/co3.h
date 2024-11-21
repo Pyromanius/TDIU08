@@ -3,7 +3,7 @@
 #define co3_h
 
     struct run_Time{
-        int run_Time_M, run_Time_S;
+        int min{}, sek{};
     };
     struct runner_ID {
         std::string runner_F_Name{}, runner_S_Name{}, club_Name{};
