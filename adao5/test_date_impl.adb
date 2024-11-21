@@ -98,7 +98,6 @@ package body test_date_impl is
       for I in 1..10 loop
          if (I /= 5 and I /= 8) then
             if S(I) < '0' or S(I) > '9' then
-               Put("Got HERE");
                return false;
             end if;
          end if;
