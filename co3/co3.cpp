@@ -145,11 +145,11 @@ void Print_Highscore()
         cout << right << setw(9) << runner_List[i].runner_S_Name << " " << setw(9) << runner_List[i].runner_F_Name << " " << setw(15) << runner_List[i].club_Name << ":";
         for (auto z = 0u; z < runner_List[i].runner_Times.size(); ++z)
         {
-            cout << runner_List[i].runner_Times[z].run_Time_M << "."; 
+            cout << " " << runner_List[i].runner_Times[z].run_Time_M << "."; 
             if (to_string(abs(runner_List[i].runner_Times[z].run_Time_S)).length() == 1) 
-                cout << " " << "0" << runner_List[i].runner_Times[z].run_Time_S;
+                cout << "0" << runner_List[i].runner_Times[z].run_Time_S;
             else
-                cout << " " << runner_List[i].runner_Times[z].run_Time_S << " ";
+                cout << runner_List[i].runner_Times[z].run_Time_S << " ";
         }
         cout << endl;
     }  
