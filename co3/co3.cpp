@@ -138,7 +138,7 @@ void Rank_Runners()
 
 void Print_Highscore()
 {
-    cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider" << endl
+    cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider\n"
         << "==========================================" << endl;
     for (auto i = 0u; i < runner_List.size(); ++i)
     {
@@ -149,7 +149,7 @@ void Print_Highscore()
             if (to_string(abs(runner_List[i].runner_Times[z].run_Time_S)).length() == 1) 
                 cout << "0" << runner_List[i].runner_Times[z].run_Time_S;
             else
-                cout << runner_List[i].runner_Times[z].run_Time_S << " ";
+                cout << runner_List[i].runner_Times[z].run_Time_S;
         }
         cout << endl;
     }  
