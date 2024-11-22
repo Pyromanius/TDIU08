@@ -16,7 +16,4 @@
     void Add_Runner_Time();
     void Rank_Runners();
     void Print_Highscore();
-    void Set_Runner_Time();
-    void Rank_Time(int const runner_No, run_Time const time);
-    void Rank_Runners();
 #endif

@@ -63,7 +63,6 @@ void Add_Runner_Time()
 {
         run_Time time{};
         char C{};
-
     for (auto i = 0u; i < runner_List.size(); ++i)
     {
         cout << "Tider " << runner_List[i].runner_F_Name << ": ";
@@ -122,7 +121,7 @@ void Print_Highscore()
 }
 
 
-//**************** Taken out for testing */
+//**************** TAKEN OUT FOR TESTING */
 // int main()
 // {
 //     cout << "Mata in deltagare:" << endl;
