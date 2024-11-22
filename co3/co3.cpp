@@ -73,7 +73,7 @@ void Add_Runner_Time()
             {
                 break;
             }
-            if (not Is_Time_Exist(i, time))
+            if (!Is_Time_Exist(i, time))
             {
                 runner_List[i].runner_Times.push_back(time);
                 Sort_Times(i, time);
