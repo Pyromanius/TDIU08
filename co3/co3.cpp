@@ -120,15 +120,12 @@ void Print_Highscore()
     }  
 }
 
-
-//**************** TAKEN OUT FOR TESTING */
-// int main()
-// {
-//     cout << "Mata in deltagare:" << endl;
-//     Add_Runner();
-//     Add_Runner_Time();
-//     Rank_Runners();
+int main()
+{
+    cout << "Mata in deltagare:" << endl;
+    Add_Runner();
+    Add_Runner_Time();
+    Rank_Runners();
     
-//     Print_Highscore();  
-// }
-//************************************** */
+    Print_Highscore();  
+}
