@@ -1,3 +1,5 @@
+//Antgu873: Arbetat enskilt
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
