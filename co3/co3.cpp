@@ -8,50 +8,29 @@
 
 using namespace std;
 
-void Add_Runner()
+void Add_Runner(std::vector<Runner_ID_Type> &runner_list)
 {
-        runner_ID runner;
-    while (runner.runner_F_Name != "KLAR")
+    Runner_ID_Type runner{};
+
+    while (runner.runner_f_name != "KLAR")
     {    
-        cin >> runner.runner_F_Name;
-        if(runner.runner_F_Name == "KLAR")
+        cin >> runner.runner_f_name;
+        if(runner.runner_f_name == "KLAR")
         {
             break;
         }
-        cin >> runner.runner_S_Name; 
-        getline(cin, runner.club_Name);
-        runner_List.push_back(runner);
+        cin >> runner.runner_s_name; 
+        getline(cin, runner.club_name);
+        runner_list.push_back(runner);
     }
 }
 
-void Sort_Times(int const runner_No, run_Time const time)
+bool Is_Time_Exist(int const runner_no, Run_Time_Type const time, std::vector<Runner_ID_Type> const &runner_list)
 {
-        run_Time tmpTime = time;
-        int length = runner_List[runner_No].runner_Times.size();
-    for (int z = 0; z < length - 1; ++z)
+    for (unsigned int i{}; i < runner_list[runner_no].runner_times.size(); i++)
     {
-        for (int i = z + 1; i < length; ++i)
-        {
-            if ((runner_List[runner_No].runner_Times[z].min > runner_List[runner_No].runner_Times[i].min) || ((runner_List[runner_No].runner_Times[z].min == runner_List[runner_No].runner_Times[i].min) && (runner_List[runner_No].runner_Times[z].sek > runner_List[runner_No].runner_Times[i].sek)))
-            {
-                tmpTime.min = runner_List[runner_No].runner_Times[z].min;
-                tmpTime.sek = runner_List[runner_No].runner_Times[z].sek;
-
-                runner_List[runner_No].runner_Times[z].min = runner_List[runner_No].runner_Times[i].min;
-                runner_List[runner_No].runner_Times[z].sek = runner_List[runner_No].runner_Times[i].sek;
-
-                runner_List[runner_No].runner_Times[i].min = tmpTime.min;
-                runner_List[runner_No].runner_Times[i].sek = tmpTime.sek;
-            }
-        }
-    }
-}
-
-bool Is_Time_Exist(int const runner_No, run_Time const time)
-{
-    for (unsigned int i{}; i < runner_List[runner_No].runner_Times.size(); i++)
-    {
-        if ((time.min == runner_List[runner_No].runner_Times.at(i).min) && (time.sek == runner_List[runner_No].runner_Times.at(i).sek))
+        if ((time.min == runner_list[runner_no].runner_times.at(i).min) 
+            && (time.sek == runner_list[runner_no].runner_times.at(i).sek))
         {
             return true;
         }
@@ -59,13 +38,14 @@ bool Is_Time_Exist(int const runner_No, run_Time const time)
     return false;
 }
 
-void Add_Runner_Time()
+void Add_Runner_Times(std::vector<Runner_ID_Type> &runner_list)
 {
-        run_Time time{};
-        char C{};
-    for (auto i = 0u; i < runner_List.size(); ++i)
+    Run_Time_Type time{};
+    char C{};
+
+    for (auto i = 0u; i < runner_list.size(); ++i)
     {
-        cout << "Tider " << runner_List[i].runner_F_Name << ": ";
+        cout << "Tider " << runner_list[i].runner_f_name << ": ";
         do 
         {
             cin >> time.min >> C >> time.sek; 
@@ -73,59 +53,70 @@ void Add_Runner_Time()
             {
                 break;
             }
-            if (!Is_Time_Exist(i, time))
+            if (!Is_Time_Exist(i, time, runner_list))
             {
-                runner_List[i].runner_Times.push_back(time);
-                Sort_Times(i, time);
+                runner_list[i].runner_times.push_back(time);
             }
         }
         while (time.min != -1);
+        sort(runner_list[i].runner_times.begin(), runner_list[i].runner_times.end());
     }
 }
 
-void Rank_Runners()
+void Print_Highscore(std::vector<Runner_ID_Type> &runner_list)
 {
-        runner_ID tmpRunner;
-        int listLength = runner_List.size();
-    for (int z = 0; z < listLength - 1; ++z)
-    {
-        for (int i = z + 1; i < listLength; ++i)
-        {
-            if (runner_List[z].runner_Times[0].min > runner_List[i].runner_Times[0].min)
-            {
-                tmpRunner = runner_List[z];
-                runner_List[z] = runner_List[i];
-                runner_List[i] = tmpRunner;
-            }
-        }
-    }
-}
-
-void Print_Highscore()
-{
+    sort(runner_list.begin(), runner_list.end());
     cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider\n"
         << "==========================================" << endl;
-    for (auto i = 0u; i < runner_List.size(); ++i)
+    for (auto i = 0u; i < runner_list.size(); ++i)
     {
-        cout << right << setw(9) << runner_List[i].runner_S_Name << " " << setw(9) << runner_List[i].runner_F_Name << " " << setw(15) << runner_List[i].club_Name << ":";
-        for (auto z = 0u; z < runner_List[i].runner_Times.size(); ++z)
+        cout << right << setw(9) << runner_list[i].runner_s_name << " " 
+            << setw(9) << runner_list[i].runner_f_name << " " 
+            << setw(15) << runner_list[i].club_name << ":";
+        for (auto z = 0u; z < runner_list[i].runner_times.size(); ++z)
         {
-            cout << " " << runner_List[i].runner_Times[z].min << "."; 
-            if (to_string(abs(runner_List[i].runner_Times[z].sek)).length() == 1) 
-                cout << "0" << runner_List[i].runner_Times[z].sek;
+            cout << " " << runner_list[i].runner_times[z].min << "."; 
+            if (to_string(abs(runner_list[i].runner_times[z].sek)).length() == 1) 
+                cout << "0" << runner_list[i].runner_times[z].sek;
             else
-                cout << runner_List[i].runner_Times[z].sek;
+                cout << runner_list[i].runner_times[z].sek;
         }
         cout << endl;
     }  
 }
 
+bool operator < (Run_Time_Type const &lhs, Run_Time_Type const &rhs)
+{
+    if ((lhs.min < rhs.min) || (lhs.min == rhs.min && lhs.sek < rhs.sek))
+    {
+        return true;
+    }
+    else
+    {
+        return false; 
+    }
+}
+
+bool operator < (Runner_ID_Type const &lhs, Runner_ID_Type const &rhs)
+{
+    if (lhs.runner_times[0] < rhs.runner_times[0])
+    {
+        return true;
+    }
+    else
+    {
+        return false; 
+    }
+}
+
 int main()
 {
+    std::vector <Runner_ID_Type> runner_list{};
+
     cout << "Mata in deltagare:" << endl;
-    Add_Runner();
-    Add_Runner_Time();
-    Rank_Runners();
     
-    Print_Highscore();  
+    Add_Runner(runner_list);
+
+    Add_Runner_Times(runner_list);
+    Print_Highscore(runner_list);  
 }
