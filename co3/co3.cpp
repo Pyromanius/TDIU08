@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void Add_Runner(std::vector<Runner_ID_Type> &runner_list)
+void Add_Runners(std::vector<Runner_ID_Type> &runner_list)
 {
     Runner_ID_Type runner{};
 
@@ -23,14 +23,17 @@ void Add_Runner(std::vector<Runner_ID_Type> &runner_list)
         getline(cin, runner.club_name);
         runner_list.push_back(runner);
     }
+    cin.ignore(1000, '\n');
 }
 
 bool Is_Time_Exist(int const runner_no, Run_Time_Type const time, std::vector<Runner_ID_Type> const &runner_list)
 {
+
     for (unsigned int i{}; i < runner_list[runner_no].runner_times.size(); i++)
     {
-        if ((time.min == runner_list[runner_no].runner_times.at(i).min) 
-            && (time.sek == runner_list[runner_no].runner_times.at(i).sek))
+        Run_Time_Type time_to_compare = runner_list[runner_no].runner_times.at(i);
+
+        if ((time.min == time_to_compare.min) && (time.sek == time_to_compare.sek))
         {
             return true;
         }
@@ -38,14 +41,14 @@ bool Is_Time_Exist(int const runner_no, Run_Time_Type const time, std::vector<Ru
     return false;
 }
 
-void Add_Runner_Times(std::vector<Runner_ID_Type> &runner_list)
+void Add_Runners_Times(std::vector<Runner_ID_Type> &runner_list)
 {
     Run_Time_Type time{};
     char C{};
 
     for (auto i = 0u; i < runner_list.size(); ++i)
     {
-        cout << "Tider " << runner_list[i].runner_f_name << ": ";
+        cout << "Tider " << runner_list.at(i).runner_f_name << ": ";
         do 
         {
             cin >> time.min >> C >> time.sek; 
@@ -59,27 +62,32 @@ void Add_Runner_Times(std::vector<Runner_ID_Type> &runner_list)
             }
         }
         while (time.min != -1);
+        cin.ignore(1000, '\n');
         sort(runner_list[i].runner_times.begin(), runner_list[i].runner_times.end());
     }
 }
 
-void Print_Highscore(std::vector<Runner_ID_Type> &runner_list)
+void Rank_Runners(std::vector<Runner_ID_Type> &runner_list)
 {
     sort(runner_list.begin(), runner_list.end());
+}
+
+void Print_Highscore(std::vector<Runner_ID_Type> const &runner_list)
+{
     cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider\n"
         << "==========================================" << endl;
     for (auto i = 0u; i < runner_list.size(); ++i)
     {
-        cout << right << setw(9) << runner_list[i].runner_s_name << " " 
-            << setw(9) << runner_list[i].runner_f_name << " " 
-            << setw(15) << runner_list[i].club_name << ":";
-        for (auto z = 0u; z < runner_list[i].runner_times.size(); ++z)
+        cout << right << setw(9) << runner_list.at(i).runner_s_name << " " 
+            << setw(9) << runner_list.at(i).runner_f_name << " " 
+            << setw(15) << runner_list.at(i).club_name << ":";
+        for (auto z = 0u; z < runner_list.at(i).runner_times.size(); ++z)
         {
-            cout << " " << runner_list[i].runner_times[z].min << "."; 
-            if (to_string(abs(runner_list[i].runner_times[z].sek)).length() == 1) 
-                cout << "0" << runner_list[i].runner_times[z].sek;
+            cout << " " << runner_list.at(i).runner_times.at(z).min << "."; 
+            if (to_string(abs(runner_list.at(i).runner_times.at(z).sek)).length() == 1) 
+                cout << "0" << runner_list.at(i).runner_times.at(z).sek;
             else
-                cout << runner_list[i].runner_times[z].sek;
+                cout << runner_list.at(i).runner_times.at(z).sek;
         }
         cout << endl;
     }  
@@ -99,7 +107,7 @@ bool operator < (Run_Time_Type const &lhs, Run_Time_Type const &rhs)
 
 bool operator < (Runner_ID_Type const &lhs, Runner_ID_Type const &rhs)
 {
-    if (lhs.runner_times[0] < rhs.runner_times[0])
+    if (lhs.runner_times.at(0) < rhs.runner_times.at(0))
     {
         return true;
     }
@@ -113,10 +121,10 @@ int main()
 {
     std::vector <Runner_ID_Type> runner_list{};
 
-    cout << "Mata in deltagare:" << endl;
-    
-    Add_Runner(runner_list);
+    cout << "Mata in deltagare:" << endl;    
+    Add_Runners(runner_list);
+    Add_Runners_Times(runner_list);
 
-    Add_Runner_Times(runner_list);
+    Rank_Runners(runner_list);
     Print_Highscore(runner_list);  
 }

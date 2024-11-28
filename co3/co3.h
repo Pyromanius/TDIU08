@@ -10,11 +10,12 @@
         std::vector <Run_Time_Type> runner_times{};
     };
 
-    void Add_Runner(Runner_ID_Type &runner, std::vector<Runner_ID_Type> &runner_list);
-    void Insert_Time(int const runner_no, Run_Time_Type const time, std::vector<Runner_ID_Type> &runner_list, int const z, int const i);
-    void Sort_Time(int const runner_No, Run_Time_Type const time, std::vector<Runner_ID_Type> &runner_list);
-    bool Is_Time_Exist(int const runner_No, Run_Time_Type const time, std::vector<Runner_ID_Type> const &runner_list);
-    void Add_Runner_Time(std::vector<Runner_ID_Type> &runner_list);
+    void Add_Runners(std::vector<Runner_ID_Type> &runner_list);
+    bool Is_Time_Exist(int const runner_no, Run_Time_Type const time, std::vector<Runner_ID_Type> const &runner_list);
+    void Add_Runners_Times(std::vector<Runner_ID_Type> &runner_list);
     void Rank_Runners(std::vector<Runner_ID_Type> &runner_list);
     void Print_Highscore(std::vector<Runner_ID_Type> const &runner_list);
+    bool operator < (Run_Time_Type const &lhs, Run_Time_Type const &rhs);
+    bool operator < (Runner_ID_Type const &lhs, Runner_ID_Type const &rhs);
+
 #endif
