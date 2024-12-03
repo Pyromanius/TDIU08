@@ -1,18 +1,15 @@
-//Antgu873: Arbetat enskilt
-
 #include <iostream>
 #include <iomanip>
-#include <vector>
 #include <algorithm>
 #include "co3.h"
 
 using namespace std;
 
-void Add_Runners(std::vector<Runner_ID_Type> &runner_list)
+void add_runners(vector<Runner_ID_Type> &runner_list)
 {
     Runner_ID_Type runner{};
 
-    while (runner.runner_f_name != "KLAR")
+    do
     {    
         cin >> runner.runner_f_name;
         if(runner.runner_f_name == "KLAR")
@@ -23,15 +20,19 @@ void Add_Runners(std::vector<Runner_ID_Type> &runner_list)
         getline(cin, runner.club_name);
         runner_list.push_back(runner);
     }
+    while (true);
+
     cin.ignore(1000, '\n');
 }
 
-bool Is_Time_Exist(int const runner_no, Run_Time_Type const time, std::vector<Runner_ID_Type> const &runner_list)
+bool is_time_exist(int const runner_no, 
+                    Run_Time_Type const time, 
+                    vector<Runner_ID_Type> const &runner_list)
 {
 
-    for (unsigned int i{}; i < runner_list[runner_no].runner_times.size(); i++)
+    for (unsigned int i{}; i < runner_list.at(runner_no).runner_times.size(); i++)
     {
-        Run_Time_Type time_to_compare = runner_list[runner_no].runner_times.at(i);
+        Run_Time_Type time_to_compare = runner_list.at(runner_no).runner_times.at(i);
 
         if ((time.min == time_to_compare.min) && (time.sek == time_to_compare.sek))
         {
@@ -41,12 +42,12 @@ bool Is_Time_Exist(int const runner_no, Run_Time_Type const time, std::vector<Ru
     return false;
 }
 
-void Add_Runners_Times(std::vector<Runner_ID_Type> &runner_list)
+void add_runners_times(vector<Runner_ID_Type> &runner_list)
 {
     Run_Time_Type time{};
     char C{};
 
-    for (auto i = 0u; i < runner_list.size(); ++i)
+    for (unsigned int i{}; i < runner_list.size(); ++i)
     {
         cout << "Tider " << runner_list.at(i).runner_f_name << ": ";
         do 
@@ -56,38 +57,39 @@ void Add_Runners_Times(std::vector<Runner_ID_Type> &runner_list)
             {
                 break;
             }
-            if (!Is_Time_Exist(i, time, runner_list))
+            if (!is_time_exist(i, time, runner_list))
             {
-                runner_list[i].runner_times.push_back(time);
+                runner_list.at(i).runner_times.push_back(time);
             }
         }
         while (time.min != -1);
         cin.ignore(1000, '\n');
-        sort(runner_list[i].runner_times.begin(), runner_list[i].runner_times.end());
+
+        sort(begin(runner_list.at(i).runner_times), end(runner_list.at(i).runner_times));
     }
 }
 
-void Rank_Runners(std::vector<Runner_ID_Type> &runner_list)
+void rank_runners(vector<Runner_ID_Type> &runner_list)
 {
-    sort(runner_list.begin(), runner_list.end());
+    sort(begin(runner_list), end(runner_list));
 }
 
-void Print_Highscore(std::vector<Runner_ID_Type> const &runner_list)
+void print_highscore(vector<Runner_ID_Type> const &runner_list)
 {
-    cout << "Efternamn" << "   Förnamn" << "           Klubb" << ":" << " Tider\n"
-        << "==========================================" << endl;
-    for (auto i = 0u; i < runner_list.size(); ++i)
+    cout << setfill(' ') << right << "Efternamn" 
+        << setw(11) << "Förnamn" 
+        << setw(16) << "Klubb" << ":" 
+        << setw(7) << "Tider\n"
+        << setfill('=') << setw(42) << "=" << endl;
+    for (unsigned int i{}; i < runner_list.size(); ++i)
     {
-        cout << right << setw(9) << runner_list.at(i).runner_s_name << " " 
+        cout << setfill(' ') << setw(9) << runner_list.at(i).runner_s_name << " " 
             << setw(9) << runner_list.at(i).runner_f_name << " " 
             << setw(15) << runner_list.at(i).club_name << ":";
-        for (auto z = 0u; z < runner_list.at(i).runner_times.size(); ++z)
+        for (unsigned int z{}; z < runner_list.at(i).runner_times.size(); ++z)
         {
-            cout << " " << runner_list.at(i).runner_times.at(z).min << "."; 
-            if (to_string(abs(runner_list.at(i).runner_times.at(z).sek)).length() == 1) 
-                cout << "0" << runner_list.at(i).runner_times.at(z).sek;
-            else
-                cout << runner_list.at(i).runner_times.at(z).sek;
+            cout << " " << runner_list.at(i).runner_times.at(z).min << "."
+                << setw(2) << setfill('0') << runner_list.at(i).runner_times.at(z).sek;
         }
         cout << endl;
     }  
@@ -115,16 +117,4 @@ bool operator < (Runner_ID_Type const &lhs, Runner_ID_Type const &rhs)
     {
         return false; 
     }
-}
-
-int main()
-{
-    std::vector <Runner_ID_Type> runner_list{};
-
-    cout << "Mata in deltagare:" << endl;    
-    Add_Runners(runner_list);
-    Add_Runners_Times(runner_list);
-
-    Rank_Runners(runner_list);
-    Print_Highscore(runner_list);  
 }
