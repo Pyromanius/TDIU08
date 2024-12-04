@@ -20,7 +20,9 @@
     void add_runners_times(std::vector<Runner_ID_Type> &runner_list);
     void rank_runners(std::vector<Runner_ID_Type> &runner_list);
     void print_highscore(std::vector<Runner_ID_Type> const &runner_list);
-    bool operator < (Run_Time_Type const &lhs, Run_Time_Type const &rhs);
-    bool operator < (Runner_ID_Type const &lhs, Runner_ID_Type const &rhs);
+    bool operator < (Run_Time_Type const &lhs, 
+                    Run_Time_Type const &rhs);
+    bool operator < (Runner_ID_Type const &lhs, 
+                    Runner_ID_Type const &rhs);
 
 #endif

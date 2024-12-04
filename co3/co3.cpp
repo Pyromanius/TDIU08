@@ -95,7 +95,8 @@ void print_highscore(vector<Runner_ID_Type> const &runner_list)
     }  
 }
 
-bool operator < (Run_Time_Type const &lhs, Run_Time_Type const &rhs)
+bool operator < (Run_Time_Type const &lhs, 
+                Run_Time_Type const &rhs)
 {
     if ((lhs.min < rhs.min) || (lhs.min == rhs.min && lhs.sek < rhs.sek))
     {
@@ -107,7 +108,8 @@ bool operator < (Run_Time_Type const &lhs, Run_Time_Type const &rhs)
     }
 }
 
-bool operator < (Runner_ID_Type const &lhs, Runner_ID_Type const &rhs)
+bool operator < (Runner_ID_Type const &lhs, 
+                Runner_ID_Type const &rhs)
 {
     if (lhs.runner_times.at(0) < rhs.runner_times.at(0))
     {
