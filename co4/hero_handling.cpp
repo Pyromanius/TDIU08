@@ -37,7 +37,7 @@ void create_new_hero(Hero_Type &new_hero)
     int interest;
     vector<int> interests;
 
-    cout << "Enter hero information: " << endl;
+    cout << "Enter hero information:" << endl;
     cin >> new_hero.name >> new_hero.year >> new_hero.weight >> new_hero.hair_clr;
     do
     {

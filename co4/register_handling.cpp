@@ -79,6 +79,7 @@ void register_new_hero(string const reg_file_name, Register_Type &reg)
     if (!is_in_register(new_hero, reg))
     {
         reg.push_back(new_hero);
+        sort(begin(reg), end(reg));
         update_register_file(reg_file_name, reg);
     }
 }
@@ -139,24 +140,46 @@ void print_hero_list(Register_Type const& reg)
         << left << "Interests" << endl
         << setfill('=') << setw(52) << "=" << endl << setfill(' ');
 
-    for (int i{}; i < static_cast<int>(reg.size()); ++i)
+    for (int curr_hero{}; curr_hero < static_cast<int>(reg.size()); ++curr_hero)
     {
-        cout << left << setw(11) << reg.at(i).name
-            << setw(12) << reg.at(i).year 
-            << setw(8) << fixed << setprecision(2) <<  reg.at(i).weight 
-            << setw(14) << reg.at(i).hair_clr; 
-        for (int z{}; z < static_cast<int>(reg.at(i).interests.size()); ++z)
+        cout << left << setw(11) << reg.at(curr_hero).name
+            << setw(12) << reg.at(curr_hero).year 
+            << setw(8) << fixed << setprecision(2) <<  reg.at(curr_hero).weight 
+            << setw(14) << reg.at(curr_hero).hair_clr; 
+        for (int curr_interest{}; curr_interest < static_cast<int>(reg.at(curr_hero).interests.size()); ++curr_interest)
         {
-            cout << setw(3) << right << reg.at(i).interests.at(z);
+            cout << setw(3) << right << reg.at(curr_hero).interests.at(curr_interest);
         }
         cout << endl;
     }
 }
 
+bool operator < (Hero_Type const& lhs, Hero_Type const& rhs)
+{
+    for (int i{}; i < static_cast<int>(lhs.name.length()) && i < static_cast<int>(rhs.name.length()); i++)
+    {
+        if (lhs.name.at(i) < rhs.name.at(i))
+        {
+            cout << lhs.name << " < " << rhs.name << endl
+                << "Because: " << lhs.name.at(i) << " < " << rhs.name.at(i) << endl;
+            return true;
+        }
+        else if (lhs.name.at(i) > rhs.name.at(i))
+        {
+            return false;
+        }
+    }
+    return lhs.name.length() < rhs.name.length();
+}
+
 bool operator == (Hero_Type const& lhs, Hero_Type const& rhs)
 {
     if (lhs.name == rhs.name)
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
