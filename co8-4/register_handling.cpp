@@ -84,7 +84,7 @@ void register_new_hero(string const reg_file_name, Register_Type &reg)
     }
 }
 
-Register_Type match_interests_w_heros(Register_Type const& reg, vector<int> const& interests)
+Register_Type match_up_interests(Register_Type const& reg, vector<int> const& interests)
 {
     Register_Type new_matches_list{};
     Hero_Type new_match{};
@@ -125,7 +125,7 @@ void find_hero_matches(string const reg_file_name, Register_Type &reg)
     }
     while (cin.get() != '\n' || interests.empty());
 
-    matches_list = match_interests_w_heros(reg, interests);
+    matches_list = match_up_interests(reg, interests);
     
     cout << "There are " << static_cast<int>(matches_list.size()) << " matching heroes." << endl;
     print_hero_list(matches_list);
@@ -145,7 +145,7 @@ void print_hero_list(Register_Type const& reg)
         cout << left << setw(11) << reg.at(curr_hero).name
             << setw(12) << reg.at(curr_hero).year 
             << setw(8) << fixed << setprecision(2) <<  reg.at(curr_hero).weight 
-            << setw(14) << reg.at(curr_hero).hair_clr; 
+            << setw(12) << reg.at(curr_hero).hair_clr; 
         for (int curr_interest{}; curr_interest < static_cast<int>(reg.at(curr_hero).interests.size()); ++curr_interest)
         {
             cout << setw(3) << right << reg.at(curr_hero).interests.at(curr_interest);
