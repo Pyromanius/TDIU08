@@ -160,8 +160,6 @@ bool operator < (Hero_Type const& lhs, Hero_Type const& rhs)
     {
         if (lhs.name.at(i) < rhs.name.at(i))
         {
-            cout << lhs.name << " < " << rhs.name << endl
-                << "Because: " << lhs.name.at(i) << " < " << rhs.name.at(i) << endl;
             return true;
         }
         else if (lhs.name.at(i) > rhs.name.at(i))
