@@ -65,6 +65,7 @@ void update_register_file(string const reg_file_name, Register_Type const& reg)
             }
         reg_file << endl;
     }
+    cout << "The hero was added to the register on file " << reg_file_name << endl;
     reg_file.close(); 
 }
 
@@ -142,7 +143,7 @@ void print_hero_list(Register_Type const& reg)
     {
         cout << setw(11) << reg.at(i).name
             << setw(12) << reg.at(i).year 
-            << setw(8) <<  reg.at(i).weight 
+            << setw(8) << fixed << setprecision(2) <<  reg.at(i).weight 
             << setw(12) << reg.at(i).hair_clr; 
         for (int z{}; z < static_cast<int>(reg.at(i).interests.size()); ++z)
         {

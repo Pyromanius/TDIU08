@@ -25,10 +25,9 @@ int hero_matchmaker_menu(int & sel)
 {
     sel = 0;
 
-    cout << "Welcome to Hero Matchmaker 3000!" << endl 
-        << "1) Add new hero to register file" << endl
-        << "2) Find matching heroes" << endl
-        << "3) Quit program" << endl;
+    cout << "1) Add new hero to register file\n"
+         << "2) Find matching heroes\n"
+         << "3) Quit program" << endl;
         while (sel < 1 || sel > 3){
             cout << "Select: ";
             cin >> sel;
@@ -45,6 +44,7 @@ int main(int argc, char* arg[])
     {
         while (hero_matchmaker_menu(sel) < 4)
         {
+            cout << "Welcome to Hero Matchmaker 3000!" << endl;
             if (sel == 1)
             {
                 register_new_hero(arg[1], hero_register);
