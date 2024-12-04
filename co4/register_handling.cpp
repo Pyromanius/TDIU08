@@ -141,7 +141,7 @@ void print_hero_list(Register_Type const& reg)
 
     for (int i{}; i < static_cast<int>(reg.size()); ++i)
     {
-        cout << setw(11) << reg.at(i).name
+        cout << left << setw(11) << reg.at(i).name
             << setw(12) << reg.at(i).year 
             << setw(8) << fixed << setprecision(2) <<  reg.at(i).weight 
             << setw(14) << reg.at(i).hair_clr; 
