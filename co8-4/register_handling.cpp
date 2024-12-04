@@ -168,18 +168,7 @@ void print_hero_list(Register_Type const& reg)
 
 bool operator < (Hero_Type const& lhs, Hero_Type const& rhs)
 {
-    for (int i{}; i < static_cast<int>(lhs.name.length()) && i < static_cast<int>(rhs.name.length()); i++)
-    {
-        if (lhs.name.at(i) < rhs.name.at(i))
-        {
-            return true;
-        }
-        else if (lhs.name.at(i) > rhs.name.at(i))
-        {
-            return false;
-        }
-    }
-    return lhs.name.length() < rhs.name.length();
+    return lhs.name < rhs.name;
 }
 
 bool operator == (Hero_Type const& lhs, Hero_Type const& rhs)
