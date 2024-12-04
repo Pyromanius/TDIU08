@@ -15,9 +15,14 @@ bool is_in_register(Hero_Type const& new_hero, Register_Type const& reg)
     for (int i{}; i < static_cast<int>(reg.size()); ++i)
     {
         if (new_hero == reg.at(i))
+        {
+            cout << "Hero already in register. ";
             return true;
+        }
         else
+        {
             continue;
+        }
     }
 
     return false;
@@ -26,6 +31,8 @@ bool is_in_register(Hero_Type const& new_hero, Register_Type const& reg)
 void read_hero_register(string const reg_file_name, Register_Type &reg)
 {
     ifstream file_to_read;
+
+    reg.clear();
 
     file_to_read.open(reg_file_name);
     while (!file_to_read.eof())
@@ -42,7 +49,9 @@ void read_hero_register(string const reg_file_name, Register_Type &reg)
             new_hero.interests.push_back(interest);
         }
         if (!is_in_register(new_hero, reg) && !new_hero.name.empty())
+        {
             reg.push_back(new_hero);
+        }
     }
     file_to_read.close();
 }
@@ -74,14 +83,17 @@ void register_new_hero(string const reg_file_name, Register_Type &reg)
     Hero_Type new_hero;
 
     read_hero_register(reg_file_name, reg);
-    create_new_hero(new_hero);
 
-    if (!is_in_register(new_hero, reg))
+    do
     {
-        reg.push_back(new_hero);
-        sort(begin(reg), end(reg));
-        update_register_file(reg_file_name, reg);
+        create_new_hero(new_hero);
     }
+    while (is_in_register(new_hero, reg));
+
+    reg.push_back(new_hero);
+    sort(begin(reg), end(reg));
+    update_register_file(reg_file_name, reg);
+    
 }
 
 Register_Type match_up_interests(Register_Type const& reg, vector<int> const& interests)
