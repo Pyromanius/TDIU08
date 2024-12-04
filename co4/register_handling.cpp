@@ -124,6 +124,8 @@ void find_hero_matches(string const reg_file_name, Register_Type &reg)
     while (cin.get() != '\n' || interests.empty());
 
     matches_list = match_interests_w_heros(reg, interests);
+    
+    cout << "There are " << static_cast<int>(matches_list.size()) << " matching heroes." << endl;
     print_hero_list(matches_list);
 }
 

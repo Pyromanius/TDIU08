@@ -1,3 +1,5 @@
+//Antgu873: Arbetat enskilt
+
 #include <string>
 #include <iostream>
 
