@@ -144,10 +144,10 @@ void print_hero_list(Register_Type const& reg)
         cout << setw(11) << reg.at(i).name
             << setw(12) << reg.at(i).year 
             << setw(8) << fixed << setprecision(2) <<  reg.at(i).weight 
-            << setw(12) << reg.at(i).hair_clr; 
+            << setw(14) << reg.at(i).hair_clr; 
         for (int z{}; z < static_cast<int>(reg.at(i).interests.size()); ++z)
         {
-            cout << setw(3) << reg.at(i).interests.at(z);
+            cout << setw(3) << right << reg.at(i).interests.at(z);
         }
         cout << endl;
     }

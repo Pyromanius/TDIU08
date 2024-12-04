@@ -42,9 +42,9 @@ int main(int argc, char* arg[])
 
     if (is_arg_correct(argc, arg[0]))
     {
+        cout << "Welcome to Hero Matchmaker 3000!" << endl;
         while (hero_matchmaker_menu(sel) < 4)
         {
-            cout << "Welcome to Hero Matchmaker 3000!" << endl;
             if (sel == 1)
             {
                 register_new_hero(arg[1], hero_register);
