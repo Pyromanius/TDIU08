@@ -53,8 +53,7 @@ void read_hero_register(string const reg_file_name, Register_Type &reg)
             reg.push_back(new_hero);
         }
     }
-    file_to_read.close();
-    sort(begin(reg), end(reg));   
+    file_to_read.close();   
 }
 
 void update_register_file(string const reg_file_name, Register_Type const& reg)
@@ -139,6 +138,7 @@ void find_hero_matches(string const reg_file_name, Register_Type &reg)
     while (cin.get() != '\n' || interests.empty());
 
     matches_list = match_up_interests(reg, interests);
+    sort(begin(matches_list), end(matches_list));
     
     cout << "There are " << static_cast<int>(matches_list.size()) << " matching heroes." << endl;
     print_hero_list(matches_list);
