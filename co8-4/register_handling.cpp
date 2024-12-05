@@ -54,6 +54,7 @@ void read_hero_register(string const reg_file_name, Register_Type &reg)
         }
     }
     file_to_read.close();
+    sort(begin(reg), end(reg));   
 }
 
 void update_register_file(string const reg_file_name, Register_Type const& reg)
@@ -173,12 +174,5 @@ bool operator < (Hero_Type const& lhs, Hero_Type const& rhs)
 
 bool operator == (Hero_Type const& lhs, Hero_Type const& rhs)
 {
-    if (lhs.name == rhs.name)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return lhs.name == rhs.name;
 }
