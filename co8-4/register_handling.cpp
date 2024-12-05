@@ -30,7 +30,7 @@ bool is_in_register(Hero_Type const& new_hero, Register_Type const& reg)
 
 void read_hero_register(string const reg_file_name, Register_Type &reg)
 {
-    ifstream file_to_read;
+    ifstream file_to_read{};
 
     reg.clear();
 
@@ -58,8 +58,8 @@ void read_hero_register(string const reg_file_name, Register_Type &reg)
 
 void update_register_file(string const reg_file_name, Register_Type const& reg)
 {
-    fstream reg_file;
-    string last_line;
+    fstream reg_file{};
+    string last_line{};
 
     reg_file.open(reg_file_name, ios::out);
     for (int i{}; i < static_cast<int>(reg.size()); ++i)
@@ -117,23 +117,20 @@ bool is_interests_match(vector<int> const& hero_interests, vector<int> const& en
 Register_Type match_up_interests(Register_Type const& reg, vector<int> const& interests)
 {
     Register_Type new_matches_list{};
-    Hero_Type new_match{};
     
-    for (int i{}; i < static_cast<int>(interests.size()); i++)
+    for (int i{}; i < static_cast<int>(reg.size()); i++)
     {
-        for (int z{}; z < static_cast<int>(reg.size()); z++)
+        Hero_Type potential_match = reg.at(i);
+
+        if (is_in_register(potential_match, new_matches_list))
         {
-            new_match = reg.at(z);
-            if (is_in_register(new_match, new_matches_list))
-            {
-                continue;
-            }
-            else if (is_interests_match(new_match.interests, interests))
-            {
-                new_matches_list.push_back(new_match); 
-            }
-            
+            continue;
         }
+        else if (is_interests_match(potential_match.interests, interests))
+        {
+            new_matches_list.push_back(potential_match); 
+        }
+            
     }
     return new_matches_list;
 }
