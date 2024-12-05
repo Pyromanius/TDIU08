@@ -7,6 +7,7 @@
     
 using namespace std;
 
+
 bool is_arg_correct(int const num_arguments, string const& prog_name)
 {
     if (num_arguments != 2)

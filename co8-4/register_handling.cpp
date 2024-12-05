@@ -10,6 +10,7 @@
 
 using namespace std;
 
+
 bool is_in_register(Hero_Type const& new_hero, Register_Type const& reg)
 {
     for (int i{}; i < static_cast<int>(reg.size()); ++i)
