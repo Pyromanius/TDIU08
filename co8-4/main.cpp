@@ -62,6 +62,6 @@ int main(int argc, char* arg[])
     }
     else
     {
-        exit(0);
+        return(1);
     }
 };
