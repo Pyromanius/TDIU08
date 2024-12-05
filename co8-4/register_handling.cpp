@@ -164,10 +164,10 @@ void find_hero_matches(string const reg_file_name, Register_Type &reg)
 void print_hero_list(Register_Type const& reg)
 {
     cout << left << setw(11) << "Hero name" 
-        << left << setw(12) << "Birth year" 
-        << left << setw(8) <<  "Weight" 
-        << left << setw(12) << "Hair color"  
-        << left << "Interests" << endl
+        << setw(12) << "Birth year" 
+        << setw(8) <<  "Weight" 
+        << setw(12) << "Hair color"  
+        << "Interests\n"
         << setfill('=') << setw(52) << "=" << endl << setfill(' ');
 
     for (int curr_hero{}; curr_hero < static_cast<int>(reg.size()); ++curr_hero)
