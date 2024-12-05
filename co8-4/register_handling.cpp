@@ -28,7 +28,7 @@ bool is_in_register(Hero_Type const& new_hero, Register_Type const& reg)
     return false;
 }
 
-void read_hero_register(string const reg_file_name, Register_Type &reg)
+void read_hero_register(string const& reg_file_name, Register_Type &reg)
 {
     ifstream file_to_read{};
 
@@ -56,7 +56,7 @@ void read_hero_register(string const reg_file_name, Register_Type &reg)
     file_to_read.close();   
 }
 
-void update_register_file(string const reg_file_name, Register_Type const& reg)
+void update_register_file(string const& reg_file_name, Register_Type const& reg)
 {
     fstream reg_file{};
     string last_line{};
@@ -78,7 +78,7 @@ void update_register_file(string const reg_file_name, Register_Type const& reg)
     reg_file.close(); 
 }
 
-void register_new_hero(string const reg_file_name, Register_Type &reg)
+void register_new_hero(string const& reg_file_name, Register_Type &reg)
 {
     Hero_Type new_hero{};
 
@@ -135,7 +135,7 @@ Register_Type match_up_interests(Register_Type const& reg, vector<int> const& in
     return new_matches_list;
 }
 
-void find_hero_matches(string const reg_file_name, Register_Type &reg)
+void find_hero_matches(string const& reg_file_name, Register_Type &reg)
 {
     int interest{};
     Register_Type matches_list{};
