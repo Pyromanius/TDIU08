@@ -16,7 +16,6 @@ bool is_in_register(Hero_Type const& new_hero, Register_Type const& reg)
     {
         if (new_hero == reg.at(i))
         {
-            cout << "Hero already in register. ";
             return true;
         }
         else
@@ -80,12 +79,16 @@ void update_register_file(string const reg_file_name, Register_Type const& reg)
 
 void register_new_hero(string const reg_file_name, Register_Type &reg)
 {
-    Hero_Type new_hero;
+    Hero_Type new_hero{};
 
     read_hero_register(reg_file_name, reg);
 
     do
     {
+        if (is_in_register(new_hero, reg))
+        {
+            cout << "Hero already in register. ";
+        }
         create_new_hero(new_hero);
     }
     while (is_in_register(new_hero, reg));
@@ -93,7 +96,21 @@ void register_new_hero(string const reg_file_name, Register_Type &reg)
     reg.push_back(new_hero);
     sort(begin(reg), end(reg));
     update_register_file(reg_file_name, reg);
-    
+}
+
+bool is_interests_match(vector<int> const& hero_interests, vector<int> const& entered_interests)
+{
+    for (int i{}; i < static_cast<int>(entered_interests.size()); i++)
+    {
+        for (int z{}; z < static_cast<int>(hero_interests.size()); z++)
+        {
+            if (hero_interests.at(z) == entered_interests.at(i))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 Register_Type match_up_interests(Register_Type const& reg, vector<int> const& interests)
@@ -105,14 +122,16 @@ Register_Type match_up_interests(Register_Type const& reg, vector<int> const& in
     {
         for (int z{}; z < static_cast<int>(reg.size()); z++)
         {
-            if (find(reg.at(z).interests.begin(), reg.at(z).interests.end(), interests.at(i)) != reg.at(z).interests.end())
+            new_match = reg.at(z);
+            if (is_in_register(new_match, new_matches_list))
             {
-                new_match = reg.at(z);
-                if (find(new_matches_list.begin(), new_matches_list.end(), new_match) != new_matches_list.end())
-                    continue;
-                else
-                    new_matches_list.push_back(new_match); 
+                continue;
             }
+            else if (is_interests_match(new_match.interests, interests))
+            {
+                new_matches_list.push_back(new_match); 
+            }
+            
         }
     }
     return new_matches_list;
