@@ -28,10 +28,13 @@ int hero_matchmaker_menu(int & sel)
     cout << "1) Add new hero to register file\n"
          << "2) Find matching heroes\n"
          << "3) Quit program" << endl;
-        while (sel < 1 || sel > 3){
+        do 
+        {
             cout << "Select: ";
             cin >> sel;
         }
+        while (sel < 1 || sel > 3);
+        
         return sel;
 }
 
