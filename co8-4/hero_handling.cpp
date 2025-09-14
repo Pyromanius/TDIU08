@@ -21,10 +21,6 @@ bool is_valid_interest(int const interest,
             {
                 return false;
             }
-            else
-            {
-                continue;
-            }
         }
         return true;
     }

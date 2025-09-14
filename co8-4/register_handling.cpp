@@ -70,17 +70,24 @@ void register_new_hero(string const& reg_file_name,
     load_register_file(reg_file_name, reg);
     do
     {
-        create_new_hero(new_hero);
         if (is_in_register(new_hero, reg))
         {
             cout << "Hero already in register.";
         }
+        create_new_hero(new_hero);
+
+        if (!new_hero.name.empty())
+        {
+            reg.push_back(new_hero);
+        }
     }
     while (is_in_register(new_hero, reg));
-
-    reg.push_back(new_hero);
+    
     sort(begin(reg), end(reg));
-    update_register_file(reg_file_name, reg);
+
+    print_hero_list(reg);
+
+    // update_register_file(reg_file_name, reg);
 }
 
 Register_Type match_up_interests(Register_Type const& reg, 
